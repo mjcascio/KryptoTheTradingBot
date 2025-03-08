@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vision Pro UI Test</title>
+    <style>
+        :root {
+            --vision-bg: rgba(28, 28, 30, 0.85);
+            --vision-card-bg: rgba(44, 44, 46, 0.75);
+            --vision-text: rgba(255, 255, 255, 0.9);
+            --vision-accent: #0a84ff;
+            --vision-success: #30d158;
+            --vision-border-radius: 16px;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1c1c1e, #2c2c2e);
+            color: var(--vision-text);
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .card {
+            background: var(--vision-card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: var(--vision-border-radius);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 30px;
+            width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            color: var(--vision-text);
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 16px;
+            letter-spacing: -0.01em;
+            font-weight: 400;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, var(--vision-accent), #007aff);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(10, 132, 255, 0.4);
+        }
+
+        /* Remove the indicator */
+        /* .indicator {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--vision-success), #26a844);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: bold;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        } */
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h1>Vision Pro UI Test</h1>
+        <p>This is a simple test page to confirm that the Vision Pro-inspired UI styles are working correctly.</p>
+        <button class="btn">Vision Pro Button</button>
+    </div>
+</body>
+</html> 

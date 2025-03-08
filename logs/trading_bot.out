@@ -1,0 +1,1049 @@
+2025-03-08 09:06:21,923 - __main__ - INFO - Starting Krypto Trading Bot - Alpaca Markets Edition
+2025-03-08 09:06:21,923 - __main__ - INFO - Initializing Enhanced Trading Bot...
+2025-03-08 09:06:21,923 - ml_enhancer - INFO - No existing model found. Creating new RandomForest model.
+2025-03-08 09:06:21,923 - strategy_allocator - INFO - Strategy Allocator initialized with 4 strategies
+2025-03-08 09:06:21,923 - portfolio_optimizer - INFO - Loaded sector cache with 4 symbols
+2025-03-08 09:06:21,923 - portfolio_optimizer - INFO - Portfolio Optimizer initialized: max_positions=10, sector_max=0.3, stock_max=0.15
+2025-03-08 09:06:21,924 - performance_analyzer - INFO - Loaded trade history with 0 trades
+2025-03-08 09:06:21,924 - performance_analyzer - INFO - Performance Analyzer initialized with 0 historical trades
+2025-03-08 09:06:21,924 - parameter_tuner - INFO - Loaded parameter tuning history with 3 entries
+2025-03-08 09:06:21,924 - parameter_tuner - INFO - Adaptive Parameter Tuner initialized with 11 parameters
+2025-03-08 09:06:22,035 - trading_bot - INFO - Connected to Alpaca API. Account status: ACTIVE
+2025-03-08 09:06:22,036 - notifications - WARNING - Email notifications not configured. Set EMAIL_ADDRESS, EMAIL_PASSWORD, and NOTIFICATION_EMAIL in .env file.
+2025-03-08 09:06:22,038 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,039 - dashboard - INFO - Loaded dashboard data with 3 trades and 3 positions
+2025-03-08 09:06:22,172 - dashboard - INFO - Added bot activity: Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:06:22,172 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,174 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,174 - dashboard - INFO - Added bot activity: Market is closed
+2025-03-08 09:06:22,174 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,176 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,176 - dashboard - INFO - Added bot activity: Alpaca market hours check failed: ('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))
+2025-03-08 09:06:22,176 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,177 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,177 - dashboard - INFO - Added bot activity: Error checking market hours: tz_localize() takes at least 2 positional arguments (1 given)
+2025-03-08 09:06:22,177 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,178 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,178 - dashboard - INFO - Added bot activity: Updated market status: is_open=False, next_open=2025-03-10 09:30:00, next_close=2025-03-10 16:00:00
+2025-03-08 09:06:22,178 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,180 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,180 - dashboard - INFO - Added bot activity: Dashboard data validation complete
+2025-03-08 09:06:22,180 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,181 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,181 - dashboard - INFO - Added bot activity: Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,181 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,182 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,183 - dashboard - INFO - Added bot activity: Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:06:22,183 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,184 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,184 - dashboard - INFO - Added bot activity: Dashboard data validation complete
+2025-03-08 09:06:22,184 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,185 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,185 - dashboard - INFO - Added bot activity: Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,185 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,186 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,186 - dashboard - INFO - Added bot activity: Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:06:22,186 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,187 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,187 - dashboard - INFO - Added bot activity: Dashboard data validation complete
+2025-03-08 09:06:22,187 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,188 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,189 - dashboard - INFO - Added bot activity: Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,189 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,190 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,190 - dashboard - INFO - Added bot activity: Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:06:22,190 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,191 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,191 - dashboard - INFO - Added bot activity: Market is closed
+2025-03-08 09:06:22,191 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,192 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,192 - dashboard - INFO - Added bot activity: Alpaca market hours check failed: ('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))
+2025-03-08 09:06:22,192 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,193 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,193 - dashboard - INFO - Added bot activity: Error checking market hours: tz_localize() takes at least 2 positional arguments (1 given)
+2025-03-08 09:06:22,193 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,194 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,194 - dashboard - INFO - Added bot activity: Updated market status: is_open=False, next_open=2025-03-10 09:30:00, next_close=2025-03-10 16:00:00
+2025-03-08 09:06:22,194 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,195 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,196 - dashboard - INFO - Added bot activity: Dashboard data validation complete
+2025-03-08 09:06:22,196 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,197 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,197 - dashboard - INFO - Added bot activity: Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,197 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,198 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,198 - dashboard - INFO - Added bot activity: Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:06:22,198 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,199 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,199 - dashboard - INFO - Added bot activity: Dashboard data validation complete
+2025-03-08 09:06:22,199 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,200 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,200 - dashboard - INFO - Added bot activity: Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,200 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,201 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,201 - dashboard - INFO - Added bot activity: Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:06:22,202 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,202 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,203 - dashboard - INFO - Added bot activity: Dashboard data validation complete
+2025-03-08 09:06:22,203 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,204 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,204 - dashboard - INFO - Added bot activity: Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,204 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,205 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,205 - dashboard - INFO - Added bot activity: Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:06:22,205 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,206 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,206 - dashboard - INFO - Added bot activity: Market is closed
+2025-03-08 09:06:22,206 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,207 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,207 - dashboard - INFO - Added bot activity: Alpaca market hours check failed: ('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))
+2025-03-08 09:06:22,207 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,208 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,208 - dashboard - INFO - Added bot activity: Error checking market hours: tz_localize() takes at least 2 positional arguments (1 given)
+2025-03-08 09:06:22,208 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,209 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,209 - dashboard - INFO - Added bot activity: Updated market status: is_open=False, next_open=2025-03-10 09:30:00, next_close=2025-03-10 16:00:00
+2025-03-08 09:06:22,209 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,210 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,210 - dashboard - INFO - Added bot activity: Dashboard data validation complete
+2025-03-08 09:06:22,210 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,211 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,211 - dashboard - INFO - Added bot activity: Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,211 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,212 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,212 - dashboard - INFO - Added bot activity: Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:06:22,212 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,213 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,213 - dashboard - INFO - Added bot activity: Dashboard data validation complete
+2025-03-08 09:06:22,213 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,214 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,214 - dashboard - INFO - Added bot activity: Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,215 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,216 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,216 - dashboard - INFO - Added bot activity: Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:06:22,216 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,217 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,217 - dashboard - INFO - Added bot activity: Dashboard data validation complete
+2025-03-08 09:06:22,217 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,218 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,218 - dashboard - INFO - Added bot activity: Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,218 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,219 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,219 - dashboard - INFO - Added bot activity: Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:06:22,219 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,220 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,220 - dashboard - INFO - Added bot activity: Market is closed
+2025-03-08 09:06:22,220 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,221 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,221 - dashboard - INFO - Added bot activity: Alpaca market hours check failed: ('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))
+2025-03-08 09:06:22,221 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,222 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,222 - dashboard - INFO - Added bot activity: Error checking market hours: tz_localize() takes at least 2 positional arguments (1 given)
+2025-03-08 09:06:22,222 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,223 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,223 - dashboard - INFO - Added bot activity: Updated market status: is_open=False, next_open=2025-03-10 09:30:00, next_close=2025-03-10 16:00:00
+2025-03-08 09:06:22,223 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,224 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,224 - dashboard - INFO - Added bot activity: Dashboard data validation complete
+2025-03-08 09:06:22,224 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,225 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,225 - dashboard - INFO - Added bot activity: Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,225 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,226 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,227 - dashboard - INFO - Added bot activity: Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:06:22,227 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,228 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,228 - dashboard - INFO - Added bot activity: Dashboard data validation complete
+2025-03-08 09:06:22,228 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,229 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,229 - dashboard - INFO - Added bot activity: Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,229 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,230 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,230 - dashboard - INFO - Added bot activity: Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:06:22,230 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,231 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,231 - dashboard - INFO - Added bot activity: Dashboard data validation complete
+2025-03-08 09:06:22,231 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,232 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,232 - dashboard - INFO - Added bot activity: Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,232 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,233 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,233 - dashboard - INFO - Added bot activity: Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:06:22,233 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,234 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,234 - dashboard - INFO - Added bot activity: Market is closed
+2025-03-08 09:06:22,234 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,235 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,235 - dashboard - INFO - Added bot activity: Alpaca market hours check failed: ('Connection aborted.', ConnectionResetError(54, 'Connection reset by peer'))
+2025-03-08 09:06:22,235 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,236 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,236 - dashboard - INFO - Added bot activity: Error checking market hours: tz_localize() takes at least 2 positional arguments (1 given)
+2025-03-08 09:06:22,236 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,237 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,237 - dashboard - INFO - Added bot activity: Updated market status: is_open=False, next_open=2025-03-10 09:30:00, next_close=2025-03-10 16:00:00
+2025-03-08 09:06:22,237 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,238 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,238 - dashboard - INFO - Added bot activity: Dashboard data validation complete
+2025-03-08 09:06:22,238 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,239 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,239 - dashboard - INFO - Added bot activity: Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,239 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,240 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,241 - dashboard - INFO - Added bot activity: Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:06:22,241 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,242 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,242 - dashboard - INFO - Added bot activity: Dashboard data validation complete
+2025-03-08 09:06:22,242 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,243 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,243 - dashboard - INFO - Added bot activity: Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,243 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,244 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,244 - dashboard - INFO - Added bot activity: Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:06:22,244 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,245 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,245 - dashboard - INFO - Added bot activity: Dashboard data validation complete
+2025-03-08 09:06:22,245 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,246 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,246 - dashboard - INFO - Added bot activity: Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,246 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,247 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,247 - dashboard - INFO - Added bot activity: Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:06:22,247 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,248 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,248 - dashboard - INFO - Added bot activity: Market is closed
+2025-03-08 09:06:22,248 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,249 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,249 - dashboard - INFO - Added bot activity: Updated market status: is_open=False, next_open=2025-03-10 09:30:00, next_close=2025-03-10 16:00:00
+2025-03-08 09:06:22,249 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,250 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,250 - dashboard - INFO - Added bot activity: Dashboard data validation complete
+2025-03-08 09:06:22,250 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,251 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,251 - dashboard - INFO - Added bot activity: Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,251 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,252 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,252 - dashboard - INFO - Added bot activity: Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:06:22,252 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,253 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,253 - dashboard - INFO - Added bot activity: Dashboard data validation complete
+2025-03-08 09:06:22,253 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,254 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,254 - dashboard - INFO - Added bot activity: Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,254 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,255 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,255 - dashboard - INFO - Added bot activity: Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:06:22,255 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,256 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,257 - dashboard - INFO - Added bot activity: Dashboard data validation complete
+2025-03-08 09:06:22,257 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,258 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,258 - dashboard - INFO - Added bot activity: Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,258 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,259 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,259 - dashboard - INFO - Added bot activity: Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:06:22,259 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,260 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,260 - dashboard - INFO - Added bot activity: Market is closed
+2025-03-08 09:06:22,260 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,261 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,261 - dashboard - INFO - Added bot activity: Updated market status: is_open=False, next_open=2025-03-10 09:30:00, next_close=2025-03-10 16:00:00
+2025-03-08 09:06:22,261 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,262 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,262 - dashboard - INFO - Added bot activity: Dashboard data validation complete
+2025-03-08 09:06:22,262 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,263 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,263 - dashboard - INFO - Added bot activity: Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,263 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,264 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,264 - dashboard - INFO - Added bot activity: Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:06:22,264 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,265 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,265 - dashboard - INFO - Added bot activity: Dashboard data validation complete
+2025-03-08 09:06:22,265 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,266 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,266 - dashboard - INFO - Added bot activity: Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,266 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,267 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,267 - dashboard - INFO - Added bot activity: Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:06:22,267 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,268 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,268 - dashboard - INFO - Added bot activity: Dashboard data validation complete
+2025-03-08 09:06:22,268 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,269 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,269 - dashboard - INFO - Added bot activity: Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,270 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,271 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,271 - dashboard - INFO - Added bot activity: Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:06:22,272 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,272 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,273 - dashboard - INFO - Added bot activity: Market is closed
+2025-03-08 09:06:22,273 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,274 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,274 - dashboard - INFO - Added bot activity: Updated market status: is_open=False, next_open=2025-03-10 09:30:00, next_close=2025-03-10 16:00:00
+2025-03-08 09:06:22,274 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,275 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,275 - dashboard - INFO - Added bot activity: Dashboard data validation complete
+2025-03-08 09:06:22,275 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,276 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,276 - dashboard - INFO - Added bot activity: Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,276 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,277 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,277 - dashboard - INFO - Added bot activity: Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:06:22,277 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,278 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,278 - dashboard - INFO - Added bot activity: Dashboard data validation complete
+2025-03-08 09:06:22,278 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,279 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,279 - dashboard - INFO - Added bot activity: Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,279 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,280 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,280 - dashboard - INFO - Added bot activity: Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:06:22,280 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,281 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,281 - dashboard - INFO - Added bot activity: Dashboard data validation complete
+2025-03-08 09:06:22,281 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,282 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,282 - dashboard - INFO - Added bot activity: Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,282 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,283 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,283 - dashboard - INFO - Added bot activity: Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:06:22,283 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,284 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,284 - dashboard - INFO - Added bot activity: Market is closed
+2025-03-08 09:06:22,284 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,285 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,285 - dashboard - INFO - Loaded 1000 bot activity logs
+2025-03-08 09:06:22,285 - dashboard - INFO - Trading Dashboard initialized
+2025-03-08 09:06:22,285 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:06:22,285 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,286 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,303 - dashboard - INFO - Updated market status: {'is_open': False, 'next_open': '2025-03-10 09:30:00', 'next_close': '2025-03-10 16:00:00'}
+2025-03-08 09:06:22,304 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,305 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,305 - trading_bot - INFO - Set initial market status: is_open=False, next_open=2025-03-10 09:30:00, next_close=2025-03-10 16:00:00
+2025-03-08 09:06:22,359 - dashboard - INFO - Updated position for BAC: {'quantity': 1, 'entry_price': 40.94, 'current_price': 41.4, 'unrealized_pl': 0.46, 'stop_loss': 40.121199999999995, 'take_profit': 42.987}
+2025-03-08 09:06:22,359 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,361 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,361 - dashboard - INFO - Updated position for TFC: {'quantity': 1, 'entry_price': 41.35, 'current_price': 42.19, 'unrealized_pl': 0.84, 'stop_loss': 40.523, 'take_profit': 43.417500000000004}
+2025-03-08 09:06:22,361 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,362 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,362 - dashboard - INFO - Updated position for VZ: {'quantity': 2, 'entry_price': 45.98, 'current_price': 46.06, 'unrealized_pl': 0.16, 'stop_loss': 45.060399999999994, 'take_profit': 48.278999999999996}
+2025-03-08 09:06:22,362 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,363 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,363 - trading_bot - INFO - Synchronized 3 positions
+2025-03-08 09:06:22,364 - trading_bot - INFO - Metrics initialized successfully
+2025-03-08 09:06:22,364 - trading_bot - INFO - Trading bot components initialized successfully
+2025-03-08 09:06:22,364 - trading_bot - INFO - Starting trading bot...
+2025-03-08 09:06:22,364 - notifications - WARNING - Email notifications not configured. Skipping email.
+2025-03-08 09:06:22,364 - notifications - INFO - Alert notification sent: INFO - Trading bot started
+ * Serving Flask app 'dashboard'
+ * Debug mode: off
+Address already in use
+Port 5001 is in use by another program. Either identify and stop that program, or start the server with a different port.
+2025-03-08 09:06:22,400 - dashboard - INFO - Updated market status: {'is_open': False, 'next_open': '2025-03-10 09:30:00', 'next_close': '2025-03-10 16:00:00'}
+2025-03-08 09:06:22,400 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,402 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,422 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:06:22,422 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,424 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,424 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:06:22,424 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,425 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,425 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:06:22,459 - dashboard - INFO - Updated market status: {'is_open': False, 'next_open': '2025-03-10 09:30:00', 'next_close': '2025-03-10 16:00:00'}
+2025-03-08 09:06:22,459 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,462 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,483 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:06:22,484 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,486 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,486 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:06:22,486 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:22,488 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:22,488 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:06:22,488 - trading_bot - INFO - Market is closed
+2025-03-08 09:07:22,550 - dashboard - INFO - Updated market status: {'is_open': False, 'next_open': '2025-03-10 09:30:00', 'next_close': '2025-03-10 16:00:00'}
+2025-03-08 09:07:22,553 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:07:22,562 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:07:22,609 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:07:22,610 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:07:22,612 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:07:22,612 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:07:22,612 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:07:22,616 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:07:22,616 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:07:22,617 - trading_bot - INFO - Market is closed
+2025-03-08 09:08:22,668 - dashboard - INFO - Updated market status: {'is_open': False, 'next_open': '2025-03-10 09:30:00', 'next_close': '2025-03-10 16:00:00'}
+2025-03-08 09:08:22,669 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:08:22,672 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:08:22,695 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:08:22,696 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:08:22,700 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:08:22,700 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:08:22,700 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:08:22,703 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:08:22,704 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:08:22,704 - trading_bot - INFO - Market is closed
+2025-03-08 09:09:22,760 - dashboard - INFO - Updated market status: {'is_open': False, 'next_open': '2025-03-10 09:30:00', 'next_close': '2025-03-10 16:00:00'}
+2025-03-08 09:09:22,760 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:09:22,765 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:09:22,791 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:09:22,791 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:09:22,794 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:09:22,795 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:09:22,795 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:09:22,798 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:09:22,799 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:09:22,799 - trading_bot - INFO - Market is closed
+2025-03-08 09:10:22,857 - dashboard - INFO - Updated market status: {'is_open': False, 'next_open': '2025-03-10 09:30:00', 'next_close': '2025-03-10 16:00:00'}
+2025-03-08 09:10:22,857 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:10:22,861 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:10:22,882 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:10:22,883 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:10:22,886 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:10:22,886 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:10:22,886 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:10:22,889 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:10:22,889 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:10:22,890 - trading_bot - INFO - Market is closed
+2025-03-08 09:11:22,952 - dashboard - INFO - Updated market status: {'is_open': False, 'next_open': '2025-03-10 09:30:00', 'next_close': '2025-03-10 16:00:00'}
+2025-03-08 09:11:22,954 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:11:22,960 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:11:22,996 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:11:22,996 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:11:22,999 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:11:23,000 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:11:23,000 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:11:23,004 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:11:23,005 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:11:23,005 - trading_bot - INFO - Market is closed
+2025-03-08 09:12:23,065 - dashboard - INFO - Updated market status: {'is_open': False, 'next_open': '2025-03-10 09:30:00', 'next_close': '2025-03-10 16:00:00'}
+2025-03-08 09:12:23,066 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:12:23,072 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:12:23,096 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:12:23,096 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:12:23,101 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:12:23,102 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:12:23,102 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:12:23,106 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:12:23,106 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:12:23,107 - trading_bot - INFO - Market is closed
+2025-03-08 09:13:23,161 - dashboard - INFO - Updated market status: {'is_open': False, 'next_open': '2025-03-10 09:30:00', 'next_close': '2025-03-10 16:00:00'}
+2025-03-08 09:13:23,163 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:13:23,170 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:13:23,195 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:13:23,195 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:13:23,199 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:13:23,199 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:13:23,200 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:13:23,204 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:13:23,205 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:13:23,205 - trading_bot - INFO - Market is closed
+2025-03-08 09:14:23,270 - dashboard - INFO - Updated market status: {'is_open': False, 'next_open': '2025-03-10 09:30:00', 'next_close': '2025-03-10 16:00:00'}
+2025-03-08 09:14:23,271 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:14:23,276 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:14:23,301 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:14:23,302 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:14:23,305 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:14:23,306 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:14:23,306 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:14:23,309 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:14:23,310 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:14:23,310 - trading_bot - INFO - Market is closed
+2025-03-08 09:15:23,363 - dashboard - INFO - Updated market status: {'is_open': False, 'next_open': '2025-03-10 09:30:00', 'next_close': '2025-03-10 16:00:00'}
+2025-03-08 09:15:23,364 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:15:23,369 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:15:23,395 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:15:23,396 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:15:23,400 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:15:23,401 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:15:23,401 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:15:23,404 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:15:23,405 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:15:23,405 - trading_bot - INFO - Market is closed
+2025-03-08 09:16:23,465 - dashboard - INFO - Updated market status: {'is_open': False, 'next_open': '2025-03-10 09:30:00', 'next_close': '2025-03-10 16:00:00'}
+2025-03-08 09:16:23,465 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:16:23,470 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:16:23,495 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:16:23,495 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:16:23,499 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:16:23,499 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:16:23,499 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:16:23,503 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:16:23,504 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:16:23,504 - trading_bot - INFO - Market is closed
+2025-03-08 09:17:23,560 - dashboard - INFO - Updated market status: {'is_open': False, 'next_open': '2025-03-10 09:30:00', 'next_close': '2025-03-10 16:00:00'}
+2025-03-08 09:17:23,561 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:17:23,568 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:17:23,593 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:17:23,593 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:17:23,599 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:17:23,600 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:17:23,600 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:17:23,606 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:17:23,607 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:17:23,607 - trading_bot - INFO - Market is closed
+2025-03-08 09:18:23,668 - dashboard - INFO - Updated market status: {'is_open': False, 'next_open': '2025-03-10 09:30:00', 'next_close': '2025-03-10 16:00:00'}
+2025-03-08 09:18:23,671 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:18:23,677 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:18:23,706 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:18:23,706 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:18:23,710 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:18:23,711 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:18:23,711 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:18:23,715 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:18:23,716 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:18:23,716 - trading_bot - INFO - Market is closed
+2025-03-08 09:19:23,775 - dashboard - INFO - Updated market status: {'is_open': False, 'next_open': '2025-03-10 09:30:00', 'next_close': '2025-03-10 16:00:00'}
+2025-03-08 09:19:23,776 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:19:23,784 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:19:23,809 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:19:23,809 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:19:23,813 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:19:23,813 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:19:23,813 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:19:23,816 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:19:23,817 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:19:23,817 - trading_bot - INFO - Market is closed
+2025-03-08 09:20:23,988 - dashboard - INFO - Updated market status: {'is_open': False, 'next_open': '2025-03-10 09:30:00', 'next_close': '2025-03-10 16:00:00'}
+2025-03-08 09:20:24,005 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:20:24,032 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:20:24,208 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:20:24,208 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:20:24,211 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:20:24,212 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:20:24,212 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:20:24,217 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:20:24,218 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:20:24,218 - trading_bot - INFO - Market is closed
+2025-03-08 09:21:24,285 - dashboard - INFO - Updated market status: {'is_open': False, 'next_open': '2025-03-10 09:30:00', 'next_close': '2025-03-10 16:00:00'}
+2025-03-08 09:21:24,286 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:21:24,293 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:21:24,316 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:21:24,316 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:21:24,320 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:21:24,321 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:21:24,321 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:21:24,327 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:21:24,327 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:21:24,327 - trading_bot - INFO - Market is closed
+2025-03-08 09:22:24,384 - dashboard - INFO - Updated market status: {'is_open': False, 'next_open': '2025-03-10 09:30:00', 'next_close': '2025-03-10 16:00:00'}
+2025-03-08 09:22:24,385 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:22:24,392 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:22:24,417 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:22:24,417 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:22:24,422 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:22:24,422 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:22:24,422 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:22:24,426 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:22:24,426 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:22:24,426 - trading_bot - INFO - Market is closed
+2025-03-08 09:23:24,473 - dashboard - INFO - Updated market status: {'is_open': False, 'next_open': '2025-03-10 09:30:00', 'next_close': '2025-03-10 16:00:00'}
+2025-03-08 09:23:24,473 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:23:24,477 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:23:24,499 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:23:24,499 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:23:24,503 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:23:24,504 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:23:24,504 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:23:24,507 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:23:24,508 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:23:24,508 - trading_bot - INFO - Market is closed
+2025-03-08 09:24:24,580 - dashboard - INFO - Updated market status: {'is_open': False, 'next_open': '2025-03-10 09:30:00', 'next_close': '2025-03-10 16:00:00'}
+2025-03-08 09:24:24,581 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:24:24,586 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:24:24,612 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:24:24,612 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:24:24,619 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:24:24,620 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:24:24,621 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:24:24,627 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:24:24,628 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:24:24,628 - trading_bot - INFO - Market is closed
+2025-03-08 09:25:24,690 - dashboard - INFO - Updated market status: {'is_open': False, 'next_open': '2025-03-10 09:30:00', 'next_close': '2025-03-10 16:00:00'}
+2025-03-08 09:25:24,691 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:25:24,699 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:25:24,723 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:25:24,723 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:25:24,728 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:25:24,729 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:25:24,729 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:25:24,735 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:25:24,736 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:25:24,736 - trading_bot - INFO - Market is closed
+2025-03-08 09:26:24,797 - dashboard - INFO - Updated market status: {'is_open': False, 'next_open': '2025-03-10 09:30:00', 'next_close': '2025-03-10 16:00:00'}
+2025-03-08 09:26:24,798 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:26:24,806 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:26:24,834 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:26:24,834 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:26:24,839 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:26:24,840 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:26:24,841 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:26:24,845 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:26:24,846 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:26:24,846 - trading_bot - INFO - Market is closed
+2025-03-08 09:27:24,895 - dashboard - INFO - Updated market status: {'is_open': False, 'next_open': '2025-03-10 09:30:00', 'next_close': '2025-03-10 16:00:00'}
+2025-03-08 09:27:24,895 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:27:24,903 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:27:24,934 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:27:24,934 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:27:24,940 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:27:24,941 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:27:24,941 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:27:24,945 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:27:24,945 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:27:24,946 - trading_bot - INFO - Market is closed
+2025-03-08 09:28:25,010 - dashboard - INFO - Updated market status: {'is_open': False, 'next_open': '2025-03-10 09:30:00', 'next_close': '2025-03-10 16:00:00'}
+2025-03-08 09:28:25,012 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:28:25,018 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:28:25,044 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:28:25,045 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:28:25,049 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:28:25,049 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:28:25,049 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:28:25,053 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:28:25,053 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:28:25,053 - trading_bot - INFO - Market is closed
+2025-03-08 09:29:25,100 - dashboard - INFO - Updated market status: {'is_open': False, 'next_open': '2025-03-10 09:30:00', 'next_close': '2025-03-10 16:00:00'}
+2025-03-08 09:29:25,101 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:29:25,106 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:29:25,130 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:29:25,130 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:29:25,134 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:29:25,134 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:29:25,134 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:29:25,137 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:29:25,137 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:29:25,137 - trading_bot - INFO - Market is closed
+2025-03-08 09:30:25,142 - notifications - WARNING - Email notifications not configured. Skipping email.
+2025-03-08 09:30:25,143 - notifications - INFO - Daily summary notification sent
+2025-03-08 09:30:25,193 - dashboard - INFO - Updated market status: {'is_open': False, 'next_open': '2025-03-10 09:30:00', 'next_close': '2025-03-10 16:00:00'}
+2025-03-08 09:30:25,193 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:30:25,197 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:30:25,221 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:30:25,221 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:30:25,225 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:30:25,225 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:30:25,226 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:30:25,231 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:30:25,231 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:30:25,232 - trading_bot - INFO - Market is closed
+2025-03-08 09:31:25,310 - dashboard - INFO - Updated market status: {'is_open': False, 'next_open': '2025-03-10 09:30:00', 'next_close': '2025-03-10 16:00:00'}
+2025-03-08 09:31:25,311 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:31:25,317 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:31:25,351 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:31:25,351 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:31:25,357 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:31:25,358 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:31:25,358 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:31:25,363 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:31:25,364 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:31:25,364 - trading_bot - INFO - Market is closed
+2025-03-08 09:32:25,447 - dashboard - INFO - Updated market status: {'is_open': False, 'next_open': '2025-03-10 09:30:00', 'next_close': '2025-03-10 16:00:00'}
+2025-03-08 09:32:25,448 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:32:25,457 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:32:25,487 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:32:25,488 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:32:25,495 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:32:25,495 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:32:25,496 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:32:25,501 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:32:25,502 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:32:25,502 - trading_bot - INFO - Market is closed
+2025-03-08 09:33:25,578 - dashboard - INFO - Updated market status: {'is_open': False, 'next_open': '2025-03-10 09:30:00', 'next_close': '2025-03-10 16:00:00'}
+2025-03-08 09:33:25,580 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:33:25,588 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:33:25,620 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:33:25,621 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:33:25,627 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:33:25,628 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:33:25,629 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:33:25,635 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:33:25,635 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:33:25,635 - trading_bot - INFO - Market is closed
+2025-03-08 09:34:25,697 - dashboard - INFO - Updated market status: {'is_open': False, 'next_open': '2025-03-10 09:30:00', 'next_close': '2025-03-10 16:00:00'}
+2025-03-08 09:34:25,698 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:34:25,704 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:34:25,728 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:34:25,728 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:34:25,734 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:34:25,735 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:34:25,735 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:34:25,740 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:34:25,741 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:34:25,741 - trading_bot - INFO - Market is closed
+2025-03-08 09:35:25,798 - dashboard - INFO - Updated market status: {'is_open': False, 'next_open': '2025-03-10 09:30:00', 'next_close': '2025-03-10 16:00:00'}
+2025-03-08 09:35:25,798 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:35:25,806 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:35:25,835 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:35:25,836 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:35:25,841 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:35:25,841 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:35:25,841 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:35:25,845 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:35:25,846 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:35:25,846 - trading_bot - INFO - Market is closed
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               2025-03-08 09:06:39,395 - dashboard - INFO - Updated market status: is_open=False, next_open=2025-03-10 09:30:00, next_close=2025-03-10 16:00:00
+2025-03-08 09:06:39,396 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:39,402 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:39,425 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:06:39,425 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:39,429 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:39,429 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:06:39,429 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:06:39,433 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:06:39,434 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:06:39,434 - trading_bot - INFO - Market is closed
+2025-03-08 09:07:39,491 - dashboard - INFO - Updated market status: is_open=False, next_open=2025-03-10 09:30:00, next_close=2025-03-10 16:00:00
+2025-03-08 09:07:39,492 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:07:39,500 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:07:39,524 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:07:39,525 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:07:39,532 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:07:39,532 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:07:39,533 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:07:39,536 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:07:39,537 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:07:39,537 - trading_bot - INFO - Market is closed
+2025-03-08 09:08:39,657 - dashboard - INFO - Updated market status: is_open=False, next_open=2025-03-10 09:30:00, next_close=2025-03-10 16:00:00
+2025-03-08 09:08:39,658 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:08:39,664 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:08:39,689 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:08:39,689 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:08:39,694 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:08:39,695 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:08:39,695 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:08:39,700 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:08:39,700 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:08:39,700 - trading_bot - INFO - Market is closed
+2025-03-08 09:09:39,760 - dashboard - INFO - Updated market status: is_open=False, next_open=2025-03-10 09:30:00, next_close=2025-03-10 16:00:00
+2025-03-08 09:09:39,760 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:09:39,771 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:09:39,812 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:09:39,812 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:09:39,817 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:09:39,817 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:09:39,817 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:09:39,822 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:09:39,822 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:09:39,822 - trading_bot - INFO - Market is closed
+2025-03-08 09:10:39,872 - dashboard - INFO - Updated market status: is_open=False, next_open=2025-03-10 09:30:00, next_close=2025-03-10 16:00:00
+2025-03-08 09:10:39,873 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:10:39,881 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:10:39,904 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:10:39,904 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:10:39,908 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:10:39,909 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:10:39,909 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:10:39,912 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:10:39,913 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:10:39,913 - trading_bot - INFO - Market is closed
+2025-03-08 09:11:39,965 - dashboard - INFO - Updated market status: is_open=False, next_open=2025-03-10 09:30:00, next_close=2025-03-10 16:00:00
+2025-03-08 09:11:39,965 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:11:39,969 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:11:39,992 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:11:39,992 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:11:39,997 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:11:39,997 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:11:39,998 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:11:40,001 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:11:40,001 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:11:40,002 - trading_bot - INFO - Market is closed
+2025-03-08 09:12:40,058 - dashboard - INFO - Updated market status: is_open=False, next_open=2025-03-10 09:30:00, next_close=2025-03-10 16:00:00
+2025-03-08 09:12:40,059 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:12:40,066 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:12:40,091 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:12:40,092 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:12:40,096 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:12:40,097 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:12:40,097 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:12:40,102 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:12:40,103 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:12:40,103 - trading_bot - INFO - Market is closed
+2025-03-08 09:13:40,165 - dashboard - INFO - Updated market status: is_open=False, next_open=2025-03-10 09:30:00, next_close=2025-03-10 16:00:00
+2025-03-08 09:13:40,165 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:13:40,170 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:13:40,195 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:13:40,195 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:13:40,199 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:13:40,200 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:13:40,200 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:13:40,203 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:13:40,204 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:13:40,204 - trading_bot - INFO - Market is closed
+2025-03-08 09:14:40,258 - dashboard - INFO - Updated market status: is_open=False, next_open=2025-03-10 09:30:00, next_close=2025-03-10 16:00:00
+2025-03-08 09:14:40,259 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:14:40,263 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:14:40,289 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:14:40,289 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:14:40,293 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:14:40,294 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:14:40,294 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:14:40,298 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:14:40,298 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:14:40,298 - trading_bot - INFO - Market is closed
+2025-03-08 09:15:40,342 - dashboard - INFO - Updated market status: is_open=False, next_open=2025-03-10 09:30:00, next_close=2025-03-10 16:00:00
+2025-03-08 09:15:40,342 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:15:40,345 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:15:40,366 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:15:40,366 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:15:40,372 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:15:40,373 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:15:40,373 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:15:40,376 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:15:40,376 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:15:40,376 - trading_bot - INFO - Market is closed
+2025-03-08 09:16:40,431 - dashboard - INFO - Updated market status: is_open=False, next_open=2025-03-10 09:30:00, next_close=2025-03-10 16:00:00
+2025-03-08 09:16:40,432 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:16:40,437 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:16:40,461 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:16:40,462 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:16:40,465 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:16:40,466 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:16:40,466 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:16:40,470 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:16:40,470 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:16:40,471 - trading_bot - INFO - Market is closed
+2025-03-08 09:17:40,530 - dashboard - INFO - Updated market status: is_open=False, next_open=2025-03-10 09:30:00, next_close=2025-03-10 16:00:00
+2025-03-08 09:17:40,530 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:17:40,534 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:17:40,556 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:17:40,556 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:17:40,560 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:17:40,561 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:17:40,561 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:17:40,565 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:17:40,565 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:17:40,565 - trading_bot - INFO - Market is closed
+2025-03-08 09:18:40,636 - dashboard - INFO - Updated market status: is_open=False, next_open=2025-03-10 09:30:00, next_close=2025-03-10 16:00:00
+2025-03-08 09:18:40,637 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:18:40,641 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:18:40,663 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:18:40,663 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:18:40,669 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:18:40,670 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:18:40,670 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:18:40,673 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:18:40,674 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:18:40,674 - trading_bot - INFO - Market is closed
+2025-03-08 09:19:40,726 - dashboard - INFO - Updated market status: is_open=False, next_open=2025-03-10 09:30:00, next_close=2025-03-10 16:00:00
+2025-03-08 09:19:40,726 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:19:40,732 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:19:40,754 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:19:40,754 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:19:40,759 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:19:40,760 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:19:40,760 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:19:40,764 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:19:40,764 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:19:40,764 - trading_bot - INFO - Market is closed
+2025-03-08 09:20:40,922 - dashboard - INFO - Updated market status: is_open=False, next_open=2025-03-10 09:30:00, next_close=2025-03-10 16:00:00
+2025-03-08 09:20:40,922 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:20:40,928 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:20:40,951 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:20:40,951 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:20:40,956 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:20:40,956 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:20:40,956 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:20:40,961 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:20:40,961 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:20:40,961 - trading_bot - INFO - Market is closed
+2025-03-08 09:21:41,028 - dashboard - INFO - Updated market status: is_open=False, next_open=2025-03-10 09:30:00, next_close=2025-03-10 16:00:00
+2025-03-08 09:21:41,031 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:21:41,040 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:21:41,070 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:21:41,071 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:21:41,078 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:21:41,079 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:21:41,079 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:21:41,084 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:21:41,085 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:21:41,085 - trading_bot - INFO - Market is closed
+2025-03-08 09:22:41,145 - dashboard - INFO - Updated market status: is_open=False, next_open=2025-03-10 09:30:00, next_close=2025-03-10 16:00:00
+2025-03-08 09:22:41,146 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:22:41,150 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:22:41,176 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:22:41,176 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:22:41,180 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:22:41,181 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:22:41,181 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:22:41,185 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:22:41,185 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:22:41,185 - trading_bot - INFO - Market is closed
+2025-03-08 09:23:41,239 - dashboard - INFO - Updated market status: is_open=False, next_open=2025-03-10 09:30:00, next_close=2025-03-10 16:00:00
+2025-03-08 09:23:41,240 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:23:41,248 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:23:41,275 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:23:41,275 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:23:41,279 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:23:41,280 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:23:41,280 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:23:41,285 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:23:41,286 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:23:41,286 - trading_bot - INFO - Market is closed
+2025-03-08 09:24:41,349 - dashboard - INFO - Updated market status: is_open=False, next_open=2025-03-10 09:30:00, next_close=2025-03-10 16:00:00
+2025-03-08 09:24:41,350 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:24:41,356 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:24:41,381 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:24:41,381 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:24:41,387 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:24:41,388 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:24:41,388 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:24:41,393 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:24:41,394 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:24:41,394 - trading_bot - INFO - Market is closed
+2025-03-08 09:25:41,507 - dashboard - INFO - Updated market status: is_open=False, next_open=2025-03-10 09:30:00, next_close=2025-03-10 16:00:00
+2025-03-08 09:25:41,507 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:25:41,513 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:25:41,537 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:25:41,538 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:25:41,544 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:25:41,545 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:25:41,545 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:25:41,550 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:25:41,551 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:25:41,551 - trading_bot - INFO - Market is closed
+2025-03-08 09:26:41,619 - dashboard - INFO - Updated market status: is_open=False, next_open=2025-03-10 09:30:00, next_close=2025-03-10 16:00:00
+2025-03-08 09:26:41,619 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:26:41,623 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:26:41,646 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:26:41,646 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:26:41,649 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:26:41,650 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:26:41,650 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:26:41,654 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:26:41,655 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:26:41,655 - trading_bot - INFO - Market is closed
+2025-03-08 09:27:41,701 - dashboard - INFO - Updated market status: is_open=False, next_open=2025-03-10 09:30:00, next_close=2025-03-10 16:00:00
+2025-03-08 09:27:41,701 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:27:41,706 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:27:41,726 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:27:41,727 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:27:41,731 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:27:41,732 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:27:41,732 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:27:41,735 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:27:41,735 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:27:41,735 - trading_bot - INFO - Market is closed
+2025-03-08 09:28:41,787 - dashboard - INFO - Updated market status: is_open=False, next_open=2025-03-10 09:30:00, next_close=2025-03-10 16:00:00
+2025-03-08 09:28:41,788 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:28:41,792 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:28:41,814 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:28:41,814 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:28:41,820 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:28:41,821 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:28:41,821 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:28:41,827 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:28:41,827 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:28:41,828 - trading_bot - INFO - Market is closed
+2025-03-08 09:29:41,872 - dashboard - INFO - Updated market status: is_open=False, next_open=2025-03-10 09:30:00, next_close=2025-03-10 16:00:00
+2025-03-08 09:29:41,873 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:29:41,878 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:29:41,903 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:29:41,904 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:29:41,909 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:29:41,909 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:29:41,909 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:29:41,913 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:29:41,913 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:29:41,914 - trading_bot - INFO - Market is closed
+2025-03-08 09:30:41,921 - notifications - WARNING - Email notifications not configured. Skipping email.
+2025-03-08 09:30:41,923 - notifications - INFO - Daily summary notification sent
+2025-03-08 09:30:41,967 - dashboard - INFO - Updated market status: is_open=False, next_open=2025-03-10 09:30:00, next_close=2025-03-10 16:00:00
+2025-03-08 09:30:41,968 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:30:41,972 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:30:41,995 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:30:41,996 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:30:41,999 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:30:42,000 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:30:42,000 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:30:42,004 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:30:42,005 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:30:42,005 - trading_bot - INFO - Market is closed
+2025-03-08 09:31:42,072 - dashboard - INFO - Updated market status: is_open=False, next_open=2025-03-10 09:30:00, next_close=2025-03-10 16:00:00
+2025-03-08 09:31:42,073 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:31:42,077 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:31:42,098 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:31:42,099 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:31:42,103 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:31:42,104 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:31:42,104 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:31:42,108 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:31:42,108 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:31:42,108 - trading_bot - INFO - Market is closed
+2025-03-08 09:32:42,204 - dashboard - INFO - Updated market status: is_open=False, next_open=2025-03-10 09:30:00, next_close=2025-03-10 16:00:00
+2025-03-08 09:32:42,207 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:32:42,221 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:32:42,251 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:32:42,252 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:32:42,260 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:32:42,261 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:32:42,261 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:32:42,266 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:32:42,266 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:32:42,267 - trading_bot - INFO - Market is closed
+2025-03-08 09:33:42,322 - dashboard - INFO - Updated market status: is_open=False, next_open=2025-03-10 09:30:00, next_close=2025-03-10 16:00:00
+2025-03-08 09:33:42,323 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:33:42,330 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:33:42,358 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:33:42,358 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:33:42,363 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:33:42,364 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:33:42,364 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:33:42,369 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:33:42,369 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:33:42,369 - trading_bot - INFO - Market is closed
+2025-03-08 09:34:42,436 - dashboard - INFO - Updated market status: is_open=False, next_open=2025-03-10 09:30:00, next_close=2025-03-10 16:00:00
+2025-03-08 09:34:42,437 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:34:42,445 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:34:42,474 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:34:42,475 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:34:42,482 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:34:42,483 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:34:42,483 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:34:42,488 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:34:42,489 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:34:42,489 - trading_bot - INFO - Market is closed
+2025-03-08 09:35:42,542 - dashboard - INFO - Updated market status: is_open=False, next_open=2025-03-10 09:30:00, next_close=2025-03-10 16:00:00
+2025-03-08 09:35:42,543 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:35:42,547 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:35:42,571 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:35:42,571 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:35:42,574 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:35:42,574 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:35:42,575 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:35:42,578 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:35:42,579 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:35:42,579 - trading_bot - INFO - Market is closed
+2025-03-08 09:34:00,641 - dashboard - INFO - Updated market status: is_open=False, next_open=2025-03-10 09:30:00, next_close=2025-03-10 16:00:00
+2025-03-08 09:34:00,642 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:34:00,650 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:34:00,673 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:34:00,674 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:34:00,679 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:34:00,679 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:34:00,679 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:34:00,684 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:34:00,684 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:34:00,684 - trading_bot - INFO - Market is closed
+2025-03-08 09:35:00,752 - dashboard - INFO - Updated market status: is_open=False, next_open=2025-03-10 09:30:00, next_close=2025-03-10 16:00:00
+2025-03-08 09:35:00,754 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:35:00,762 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:35:00,791 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:35:00,791 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:35:00,798 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:35:00,799 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:35:00,799 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:35:00,804 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:35:00,804 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:35:00,804 - trading_bot - INFO - Market is closed
+2025-03-08 09:36:00,857 - dashboard - INFO - Updated market status: is_open=False, next_open=2025-03-10 09:30:00, next_close=2025-03-10 16:00:00
+2025-03-08 09:36:00,858 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:36:00,866 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:36:00,889 - dashboard - INFO - Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}
+2025-03-08 09:36:00,889 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:36:00,893 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:36:00,894 - dashboard - INFO - Updated equity history: 2025-03-08 = $100001.46
+2025-03-08 09:36:00,894 - dashboard - INFO - Dashboard data validation complete
+2025-03-08 09:36:00,898 - dashboard - INFO - Saved dashboard data to data/dashboard_data.json
+2025-03-08 09:36:00,898 - trading_bot - INFO - Updated account info: Equity=$100001.46, Buying Power=$199827.21
+2025-03-08 09:36:00,899 - trading_bot - INFO - Market is closed
