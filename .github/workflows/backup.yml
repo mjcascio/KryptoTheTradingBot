@@ -1,0 +1,56 @@
+name: Automated Backup
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'  # Runs every 6 hours
+  workflow_dispatch:  # Allows manual trigger
+
+jobs:
+  backup:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0  # Fetch all history
+
+    - name: Set up Git
+      run: |
+        git config --global user.name "GitHub Backup Action"
+        git config --global user.email "actions@github.com"
+
+    - name: Create backup branch
+      run: |
+        timestamp=$(date +%Y%m%d_%H%M%S)
+        branch_name="backup/${timestamp}"
+        git checkout -b $branch_name
+
+    - name: Check for changes
+      id: check_changes
+      run: |
+        git add -A
+        if git diff --staged --quiet; then
+          echo "No changes detected"
+          echo "has_changes=false" >> $GITHUB_OUTPUT
+        else
+          echo "Changes detected"
+          echo "has_changes=true" >> $GITHUB_OUTPUT
+        fi
+
+    - name: Commit and push if there are changes
+      if: steps.check_changes.outputs.has_changes == 'true'
+      run: |
+        timestamp=$(date +%Y-%m-%d_%H:%M:%S)
+        git commit -m "Automated backup - ${timestamp}"
+        git push origin HEAD:backup/latest --force
+        git push origin HEAD:$(git branch --show-current)
+
+    - name: Cleanup old backups
+      run: |
+        # Keep only the last 30 backup branches
+        git fetch origin
+        backup_branches=$(git branch -r | grep "origin/backup/2" | sort -r | tail -n +31)
+        for branch in $backup_branches; do
+          branch_name=$(echo $branch | sed 's|origin/||')
+          git push origin --delete $branch_name || true
+        done 
