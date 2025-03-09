@@ -1,60 +1,188 @@
-# Krypto Trading Bot - Alpaca Markets Edition
+# Krypto Trading Bot
 
-An automated trading bot that uses technical analysis to identify high-probability trading opportunities in the stock market using Alpaca Markets API.
+An advanced automated trading system that leverages machine learning, technical analysis, and multiple broker integrations to execute sophisticated trading strategies in various financial markets.
 
 ## Features
 
-- Implements breakout and trend following strategies
-- High-probability trade identification (80%+ success rate target)
-- Risk management with position sizing and stop losses
-- Maximum 10 trades per day
-- Real-time market data monitoring
-- Automated trade execution
+- **Multi-Broker Support**:
+  - Alpaca Markets integration for stocks and crypto
+  - MetaTrader integration for forex markets
+  - Extensible broker architecture for adding new platforms
+
+- **Advanced Trading Strategies**:
+  - Machine learning enhanced signal generation
+  - Multiple concurrent strategy execution
+  - Dynamic strategy allocation based on market conditions
+  - Breakout and trend following implementations
+  - Custom strategy development framework
+
+- **Risk Management**:
+  - Position sizing based on account equity
+  - Dynamic stop loss and take profit levels
+  - Maximum drawdown protection
+  - Trade frequency limits
+  - Portfolio optimization and diversification
+
+- **Analytics & Monitoring**:
+  - Real-time performance dashboard
+  - Trade history and analytics
+  - Market condition monitoring
+  - Email notifications for important events
+  - Automated parameter tuning
+
+## Project Structure
+
+```
+├── brokers/                 # Broker integration implementations
+├── static/                  # Dashboard static assets
+├── templates/              # Dashboard HTML templates
+├── tests/                  # Test suite
+├── main.py                 # Main bot entry point
+├── trading_bot.py          # Core trading logic
+├── market_data.py          # Market data handling
+├── ml_enhancer.py          # ML signal enhancement
+├── portfolio_optimizer.py   # Portfolio optimization
+├── parameter_tuner.py      # Strategy parameter tuning
+├── performance_analyzer.py  # Performance analytics
+├── strategy_allocator.py   # Strategy management
+├── strategies.py           # Trading strategies
+├── notifications.py        # Notification system
+└── config.py              # Configuration settings
+```
 
 ## Setup
 
-1. Clone this repository
-2. Install dependencies:
+### Prerequisites
+- Python 3.9+
+- pip package manager
+- Git
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/KryptoTheTradingBot.git
+   cd KryptoTheTradingBot
+   ```
+
+2. Create and activate a virtual environment:
+   ```bash
+   python -m venv .venv
+   source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+   ```
+
+3. Install dependencies:
    ```bash
    pip install -r requirements.txt
    ```
-3. Create a `.env` file in the root directory with your Alpaca credentials:
+
+4. Configure environment variables:
+   Create a `.env` file with your credentials:
    ```
+   # Alpaca Configuration
    ALPACA_API_KEY=your_api_key
    ALPACA_SECRET_KEY=your_secret_key
-   ALPACA_BASE_URL=https://paper-api.alpaca.markets  # Use this for paper trading
+   ALPACA_BASE_URL=https://paper-api.alpaca.markets
+
+   # MetaTrader Configuration (if using)
+   MT_SERVER=your_server
+   MT_PORT=your_port
+   MT_USERNAME=your_username
+   MT_PASSWORD=your_password
+
+   # Email Notifications (optional)
+   EMAIL_SERVER=smtp.gmail.com
+   EMAIL_PORT=587
+   EMAIL_USERNAME=your_email
+   EMAIL_PASSWORD=your_app_password
    ```
-
-## Configuration
-
-The bot can be configured through the `config.py` file:
-- Trading parameters
-- Risk management settings
-- Strategy parameters
-- Trading schedule
 
 ## Usage
 
-Run the bot:
+### Starting the Bot
+
+1. Start the trading bot:
+   ```bash
+   ./start_bot.sh
+   ```
+
+2. Start the dashboard:
+   ```bash
+   ./start_dashboard.sh
+   ```
+
+3. Monitor the bot:
+   ```bash
+   ./monitor_bot.sh
+   ```
+
+### Dashboard Access
+- Access the dashboard at: `http://localhost:5000`
+- View real-time performance metrics
+- Monitor active trades and positions
+- Analyze historical performance
+
+## Development
+
+### Workflow
+
+1. Create a new branch for features:
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+
+2. Run tests before committing:
+   ```bash
+   python -m pytest tests/
+   ```
+
+3. Follow commit message convention:
+   - feat: New feature
+   - fix: Bug fix
+   - docs: Documentation
+   - test: Testing
+   - refactor: Code refactoring
+
+### Adding New Features
+
+1. **New Strategies**:
+   - Create strategy class in `strategies.py`
+   - Implement required methods
+   - Add strategy to configuration
+   - Write tests in `tests/`
+
+2. **New Broker Integration**:
+   - Add broker class in `brokers/`
+   - Implement base broker interface
+   - Update broker factory
+   - Add configuration options
+
+## Testing
+
+Run all tests:
 ```bash
-python main.py
+python test_all.py
 ```
 
-## Strategies
+Run specific test categories:
+```bash
+python test_market_data.py
+python test_connection.py
+python test_enhanced_features.py
+```
 
-1. Breakout Strategy:
-   - Identifies potential breakout points using volume and price action
-   - Confirms trends using multiple timeframes
-   - Uses volatility for position sizing
+## Contributing
 
-2. Trend Following Strategy:
-   - Multiple moving average crossovers
-   - RSI for trend confirmation
-   - Volume analysis for trend strength
+1. Fork the repository
+2. Create a feature branch
+3. Commit changes
+4. Push to the branch
+5. Create a Pull Request
 
-## Risk Management
+## License
 
-- Position sizing based on account equity
-- Stop loss and take profit levels
-- Maximum daily loss limits
-- Trade frequency limits 
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Support
+
+For support, email support@kryptobot.com or open an issue on GitHub. 
