@@ -16,6 +16,7 @@ build/
 
 # Logs and databases
 *.log
+trading_bot.log
 *.sqlite
 *.db
 
