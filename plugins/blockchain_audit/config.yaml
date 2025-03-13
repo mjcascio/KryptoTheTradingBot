@@ -1,0 +1,42 @@
+# Blockchain Audit Trail Plugin Configuration
+
+# General plugin settings
+enabled: true
+name: blockchain_audit
+description: "Blockchain-based audit trail for KryptoBot"
+version: "1.0.0"
+category: audit
+
+# Blockchain settings
+mining_interval: 300  # Time in seconds between mining operations (5 minutes)
+difficulty: 2  # Number of leading zeros required for proof of work
+db_path: "data/blockchain/audit_chain.db"  # Path to SQLite database for blockchain storage
+auto_mine: true  # Automatically mine blocks in background
+
+# Record types to include in the blockchain
+record_types:
+  - trade  # Trading activity
+  - order  # Order placement/cancellation
+  - system_change  # System configuration changes
+  - login  # User login events
+  - config_change  # Configuration changes
+
+# Retention settings
+max_chain_size: 10000  # Maximum number of blocks to keep (0 for unlimited)
+prune_older_than: 0  # Prune blocks older than X days (0 for no pruning)
+
+# Security settings
+encrypt_sensitive_data: false  # Whether to encrypt sensitive data in the blockchain
+hash_algorithm: "sha256"  # Hash algorithm to use
+
+# API settings
+expose_api: true  # Whether to expose blockchain data via API
+api_endpoints:
+  - get_audit_trail
+  - verify_integrity
+  - get_stats
+
+# Logging settings
+log_level: info  # Logging level (debug, info, warning, error)
+log_to_file: true  # Whether to log to a separate file
+log_file: "logs/blockchain_audit.log"  # Path to log file 

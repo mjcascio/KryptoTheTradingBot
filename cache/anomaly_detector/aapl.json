@@ -1,0 +1,32 @@
+{
+  "symbol": "AAPL",
+  "timestamp": "2025-03-10T09:06:50.144256",
+  "anomalies_detected": true,
+  "methods": {
+    "statistical": {
+      "anomalies_detected": true,
+      "anomaly_score": 0.6417960436877879,
+      "z_score": 3.850776262126727,
+      "threshold": 3.0,
+      "details": {
+        "latest_price": 131.06347499890956,
+        "rolling_mean": 118.52102984219009,
+        "rolling_std": 3.257121240742369
+      }
+    },
+    "autoencoder": {
+      "anomalies_detected": true,
+      "anomaly_score": 0.5295233840310102,
+      "reconstruction_error": 0.10590467680620204,
+      "threshold": 0.1
+    },
+    "isolation_forest": {
+      "anomalies_detected": false,
+      "anomaly_score": 0.4427722581828877,
+      "anomaly_score_raw": 0.11445548363422464,
+      "threshold": -0.2
+    }
+  },
+  "anomaly_score": 0.5856597138593991,
+  "anomaly_type": "significant"
+}

@@ -1,0 +1,931 @@
+{
+    "account": {
+        "buying_power": 100000.0,
+        "cash": 100000.0,
+        "equity": 100000.0,
+        "platform": "Alpaca",
+        "platform_type": "stocks"
+    },
+    "bot_activity": [
+        {
+            "level": "info",
+            "message": "Dashboard started with ML analytics enabled",
+            "timestamp": "2025-03-09T21:36:20.275165"
+        },
+        {
+            "level": "info",
+            "message": "Dashboard started",
+            "timestamp": "2025-03-09T21:25:31.397031"
+        },
+        {
+            "level": "info",
+            "message": "Dashboard started",
+            "timestamp": "2025-03-09T21:21:51.721379"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:51:10] \"\u001b[33mGET /favicon.ico HTTP/1.1\u001b[0m\" 404 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:51:10,980"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:51:11] \"GET / HTTP/1.1\" 200 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:51:11,155"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:51:11] \"GET /api/data HTTP/1.1\" 200 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:51:11,207"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:51:11] \"\u001b[33mGET /apple-touch-icon-precomposed.png HTTP/1.1\u001b[0m\" 404 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:51:11,208"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:51:11] \"\u001b[33mGET /apple-touch-icon.png HTTP/1.1\u001b[0m\" 404 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:51:11,211"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:51:11] \"\u001b[33mGET /favicon.ico HTTP/1.1\u001b[0m\" 404 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:51:11,213"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:51:11] \"GET / HTTP/1.1\" 200 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:51:11,290"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:51:11] \"GET /api/data HTTP/1.1\" 200 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:51:11,338"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:51:11] \"\u001b[33mGET /apple-touch-icon-precomposed.png HTTP/1.1\u001b[0m\" 404 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:51:11,339"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:51:11] \"\u001b[33mGET /apple-touch-icon.png HTTP/1.1\u001b[0m\" 404 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:51:11,340"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:51:11] \"\u001b[33mGET /favicon.ico HTTP/1.1\u001b[0m\" 404 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:51:11,342"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:51:11] \"GET / HTTP/1.1\" 200 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:51:11,482"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:51:11] \"GET /api/data HTTP/1.1\" 200 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:51:11,533"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:51:11] \"\u001b[33mGET /apple-touch-icon-precomposed.png HTTP/1.1\u001b[0m\" 404 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:51:11,534"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:51:11] \"\u001b[33mGET /apple-touch-icon.png HTTP/1.1\u001b[0m\" 404 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:51:11,535"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:51:11] \"\u001b[33mGET /favicon.ico HTTP/1.1\u001b[0m\" 404 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:51:11,537"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:51:11] \"GET / HTTP/1.1\" 200 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:51:11,655"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:51:11] \"GET /api/data HTTP/1.1\" 200 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:51:11,706"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:51:11] \"\u001b[33mGET /apple-touch-icon-precomposed.png HTTP/1.1\u001b[0m\" 404 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:51:11,707"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:51:11] \"\u001b[33mGET /apple-touch-icon.png HTTP/1.1\u001b[0m\" 404 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:51:11,709"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:51:11] \"\u001b[33mGET /favicon.ico HTTP/1.1\u001b[0m\" 404 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:51:11,710"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:51:11] \"GET / HTTP/1.1\" 200 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:51:11,806"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:51:11] \"GET /api/data HTTP/1.1\" 200 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:51:11,855"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:51:11] \"\u001b[33mGET /apple-touch-icon-precomposed.png HTTP/1.1\u001b[0m\" 404 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:51:11,856"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:51:11] \"\u001b[33mGET /apple-touch-icon.png HTTP/1.1\u001b[0m\" 404 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:51:11,857"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:51:11] \"\u001b[33mGET /favicon.ico HTTP/1.1\u001b[0m\" 404 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:51:11,858"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:51:16] \"GET /api/data HTTP/1.1\" 200 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:51:16,889"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:51:21] \"GET /api/data HTTP/1.1\" 200 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:51:21,840"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:51:26] \"GET /api/data HTTP/1.1\" 200 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:51:26,838"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:51:31] \"GET /api/data HTTP/1.1\" 200 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:51:31,858"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:51:36] \"GET /api/data HTTP/1.1\" 200 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:51:36,839"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:51:41] \"GET /api/data HTTP/1.1\" 200 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:51:41,846"
+        },
+        {
+            "level": "INFO",
+            "message": "Updated market status: is_open=False, next_open=2025-03-10 09:30:00, next_close=2025-03-10 16:00:00",
+            "source": "dashboard",
+            "timestamp": "2025-03-08 00:51:44,789"
+        },
+        {
+            "level": "INFO",
+            "message": "Dashboard data validation complete",
+            "source": "dashboard",
+            "timestamp": "2025-03-08 00:51:44,789"
+        },
+        {
+            "level": "INFO",
+            "message": "Saved dashboard data to data/dashboard_data.json",
+            "source": "dashboard",
+            "timestamp": "2025-03-08 00:51:44,794"
+        },
+        {
+            "level": "INFO",
+            "message": "Updated account info: {'equity': 100001.46, 'buying_power': 199827.21, 'cash': 99825.75}",
+            "source": "dashboard",
+            "timestamp": "2025-03-08 00:51:44,817"
+        },
+        {
+            "level": "INFO",
+            "message": "Dashboard data validation complete",
+            "source": "dashboard",
+            "timestamp": "2025-03-08 00:51:44,818"
+        },
+        {
+            "level": "INFO",
+            "message": "Saved dashboard data to data/dashboard_data.json",
+            "source": "dashboard",
+            "timestamp": "2025-03-08 00:51:44,824"
+        },
+        {
+            "level": "INFO",
+            "message": "Updated equity history: 2025-03-08 = $100001.46",
+            "source": "dashboard",
+            "timestamp": "2025-03-08 00:51:44,824"
+        },
+        {
+            "level": "INFO",
+            "message": "Dashboard data validation complete",
+            "source": "dashboard",
+            "timestamp": "2025-03-08 00:51:44,825"
+        },
+        {
+            "level": "INFO",
+            "message": "Saved dashboard data to data/dashboard_data.json",
+            "source": "dashboard",
+            "timestamp": "2025-03-08 00:51:44,829"
+        },
+        {
+            "level": "INFO",
+            "message": "Updated account info: Equity=$100001.46, Buying Power=$199827.21",
+            "source": "trading_bot",
+            "timestamp": "2025-03-08 00:51:44,830"
+        },
+        {
+            "level": "INFO",
+            "message": "Market is closed",
+            "source": "trading_bot",
+            "timestamp": "2025-03-08 00:51:44,830"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:51:46] \"\u001b[33mGET /apple-touch-icon-precomposed.png HTTP/1.1\u001b[0m\" 404 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:51:46,064"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:51:46] \"\u001b[33mGET /apple-touch-icon.png HTTP/1.1\u001b[0m\" 404 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:51:46,065"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:51:46] \"\u001b[33mGET /favicon.ico HTTP/1.1\u001b[0m\" 404 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:51:46,066"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:51:46] \"GET /api/data HTTP/1.1\" 200 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:51:46,843"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:51:48] \"GET / HTTP/1.1\" 200 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:51:48,266"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:51:48] \"GET /api/data HTTP/1.1\" 200 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:51:48,292"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:51:48] \"\u001b[33mGET /favicon.ico HTTP/1.1\u001b[0m\" 404 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:51:48,372"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:51:51] \"GET /api/data HTTP/1.1\" 200 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:51:51,856"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:51:53] \"GET /api/data HTTP/1.1\" 200 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:51:53,296"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:51:54] \"GET / HTTP/1.1\" 200 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:51:54,010"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:51:54] \"GET /api/data HTTP/1.1\" 200 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:51:54,052"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:51:54] \"\u001b[33mGET /apple-touch-icon-precomposed.png HTTP/1.1\u001b[0m\" 404 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:51:54,080"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:51:54] \"\u001b[33mGET /apple-touch-icon.png HTTP/1.1\u001b[0m\" 404 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:51:54,082"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:51:54] \"\u001b[33mGET /favicon.ico HTTP/1.1\u001b[0m\" 404 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:51:54,083"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:51:58] \"GET /api/data HTTP/1.1\" 200 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:51:58,300"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:51:59] \"GET /api/data HTTP/1.1\" 200 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:51:59,071"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:52:03] \"GET /api/data HTTP/1.1\" 200 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:52:03,302"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:52:04] \"GET /api/data HTTP/1.1\" 200 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:52:04,076"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:52:08] \"GET /api/data HTTP/1.1\" 200 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:52:08,297"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:52:08] \"GET / HTTP/1.1\" 200 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:52:08,986"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:52:09] \"GET /api/data HTTP/1.1\" 200 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:52:09,006"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:52:09] \"GET /api/data HTTP/1.1\" 200 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:52:09,068"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:52:10] \"GET / HTTP/1.1\" 200 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:52:10,043"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:52:10] \"GET /api/data HTTP/1.1\" 200 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:52:10,059"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:52:12] \"GET / HTTP/1.1\" 200 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:52:12,523"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:52:12] \"GET /api/data HTTP/1.1\" 200 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:52:12,610"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:52:12] \"\u001b[33mGET /apple-touch-icon-precomposed.png HTTP/1.1\u001b[0m\" 404 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:52:12,611"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:52:12] \"\u001b[33mGET /apple-touch-icon.png HTTP/1.1\u001b[0m\" 404 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:52:12,612"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:52:12] \"\u001b[33mGET /favicon.ico HTTP/1.1\u001b[0m\" 404 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:52:12,614"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:52:13] \"GET / HTTP/1.1\" 200 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:52:13,188"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:52:13] \"GET /api/data HTTP/1.1\" 200 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:52:13,240"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:52:13] \"\u001b[33mGET /apple-touch-icon-precomposed.png HTTP/1.1\u001b[0m\" 404 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:52:13,241"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:52:13] \"\u001b[33mGET /apple-touch-icon.png HTTP/1.1\u001b[0m\" 404 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:52:13,242"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:52:13] \"\u001b[33mGET /favicon.ico HTTP/1.1\u001b[0m\" 404 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:52:13,243"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:52:13] \"GET / HTTP/1.1\" 200 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:52:13,457"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:52:13] \"GET /api/data HTTP/1.1\" 200 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:52:13,508"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:52:13] \"\u001b[33mGET /apple-touch-icon-precomposed.png HTTP/1.1\u001b[0m\" 404 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:52:13,509"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:52:13] \"\u001b[33mGET /apple-touch-icon.png HTTP/1.1\u001b[0m\" 404 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:52:13,510"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:52:13] \"\u001b[33mGET /favicon.ico HTTP/1.1\u001b[0m\" 404 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:52:13,511"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:52:13] \"GET / HTTP/1.1\" 200 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:52:13,636"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:52:13] \"GET /api/data HTTP/1.1\" 200 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:52:13,663"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:52:13] \"\u001b[33mGET /apple-touch-icon-precomposed.png HTTP/1.1\u001b[0m\" 404 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:52:13,687"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:52:13] \"\u001b[33mGET /apple-touch-icon.png HTTP/1.1\u001b[0m\" 404 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:52:13,688"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:52:13] \"\u001b[33mGET /favicon.ico HTTP/1.1\u001b[0m\" 404 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:52:13,690"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:52:15] \"GET /api/data HTTP/1.1\" 200 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:52:15,068"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:52:18] \"GET /api/data HTTP/1.1\" 200 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:52:18,686"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:52:20] \"GET /api/data HTTP/1.1\" 200 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:52:20,064"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:52:23] \"GET /api/data HTTP/1.1\" 200 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:52:23,678"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:52:25] \"GET /api/data HTTP/1.1\" 200 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:52:25,065"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:52:28] \"GET /api/data HTTP/1.1\" 200 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:52:28,681"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:52:30] \"GET /api/data HTTP/1.1\" 200 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:52:30,066"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:52:33] \"GET /api/data HTTP/1.1\" 200 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:52:33,684"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:52:35] \"GET /api/data HTTP/1.1\" 200 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:52:35,065"
+        },
+        {
+            "level": "INFO",
+            "message": "127.0.0.1 - - [08/Mar/2025 00:52:38] \"GET /api/data HTTP/1.1\" 200 -",
+            "source": "werkzeug",
+            "timestamp": "2025-03-08 00:52:38,684"
+        }
+    ],
+    "daily_stats": {
+        "total_pl": 1.46,
+        "trades": 3,
+        "win_rate": 100.0
+    },
+    "equity_history": [
+        [
+            "2025-02-06",
+            100357.77583565467
+        ],
+        [
+            "2025-02-07",
+            100704.66004732918
+        ],
+        [
+            "2025-02-08",
+            100783.29879513472
+        ],
+        [
+            "2025-02-09",
+            101133.7817091816
+        ],
+        [
+            "2025-02-10",
+            100824.68639366968
+        ],
+        [
+            "2025-02-11",
+            101452.9807239991
+        ],
+        [
+            "2025-02-12",
+            101511.94779414106
+        ],
+        [
+            "2025-02-13",
+            101296.21006558824
+        ],
+        [
+            "2025-02-14",
+            100895.59716915307
+        ],
+        [
+            "2025-02-15",
+            100488.70031601976
+        ],
+        [
+            "2025-02-16",
+            99997.72965145523
+        ],
+        [
+            "2025-02-17",
+            99974.91899882563
+        ],
+        [
+            "2025-02-18",
+            100663.48658780802
+        ],
+        [
+            "2025-02-19",
+            100788.40297254178
+        ],
+        [
+            "2025-02-20",
+            100792.53144066353
+        ],
+        [
+            "2025-02-21",
+            100498.6933648283
+        ],
+        [
+            "2025-02-22",
+            100747.28528465056
+        ],
+        [
+            "2025-02-23",
+            100485.53951358568
+        ],
+        [
+            "2025-02-24",
+            100689.64754425429
+        ],
+        [
+            "2025-02-25",
+            101206.88806917403
+        ],
+        [
+            "2025-02-26",
+            100764.50038657917
+        ],
+        [
+            "2025-02-27",
+            100553.17272932627
+        ],
+        [
+            "2025-02-28",
+            100405.0587518298
+        ],
+        [
+            "2025-03-01",
+            99954.36022887398
+        ],
+        [
+            "2025-03-02",
+            100376.91899889648
+        ],
+        [
+            "2025-03-03",
+            101033.05914807647
+        ],
+        [
+            "2025-03-04",
+            101299.46383242946
+        ],
+        [
+            "2025-03-05",
+            101995.09283131284
+        ],
+        [
+            "2025-03-06",
+            102236.96209033683
+        ],
+        [
+            "2025-03-07",
+            102880.2022960608
+        ],
+        [
+            "2025-03-08",
+            100001.46
+        ],
+        [
+            "2025-03-09",
+            100001.46
+        ]
+    ],
+    "market_predictions": {
+        "market_sentiment": "bullish",
+        "model_confidence": 0.78,
+        "next_day": [
+            {
+                "confidence": 0.93,
+                "direction": "up",
+                "key_factors": [
+                    "Strong earnings",
+                    "Oversold conditions"
+                ],
+                "price_change": 1.07,
+                "symbol": "GOOGL",
+                "target_price": null
+            },
+            {
+                "confidence": 0.86,
+                "direction": "down",
+                "key_factors": [
+                    "Technical breakout",
+                    "Technical breakout"
+                ],
+                "price_change": -0.83,
+                "symbol": "NVDA",
+                "target_price": null
+            },
+            {
+                "confidence": 0.85,
+                "direction": "down",
+                "key_factors": [
+                    "Strong earnings",
+                    "Oversold conditions"
+                ],
+                "price_change": -0.57,
+                "symbol": "META",
+                "target_price": null
+            },
+            {
+                "confidence": 0.85,
+                "direction": "up",
+                "key_factors": [
+                    "Oversold conditions",
+                    "Technical breakout"
+                ],
+                "price_change": 0.68,
+                "symbol": "TSLA",
+                "target_price": null
+            },
+            {
+                "confidence": 0.78,
+                "direction": "down",
+                "key_factors": [
+                    "News catalyst",
+                    "Oversold conditions"
+                ],
+                "price_change": -1.72,
+                "symbol": "AMD",
+                "target_price": null
+            },
+            {
+                "confidence": 0.76,
+                "direction": "down",
+                "key_factors": [
+                    "Technical breakout",
+                    "Sector momentum"
+                ],
+                "price_change": -2.54,
+                "symbol": "IBM",
+                "target_price": null
+            },
+            {
+                "confidence": 0.75,
+                "direction": "up",
+                "key_factors": [
+                    "Analyst upgrade",
+                    "Sector momentum"
+                ],
+                "price_change": 2.67,
+                "symbol": "AAPL",
+                "target_price": null
+            },
+            {
+                "confidence": 0.7,
+                "direction": "up",
+                "key_factors": [
+                    "News catalyst",
+                    "Analyst upgrade"
+                ],
+                "price_change": 2.07,
+                "symbol": "MSFT",
+                "target_price": null
+            },
+            {
+                "confidence": 0.67,
+                "direction": "down",
+                "key_factors": [
+                    "Strong earnings",
+                    "Technical breakout"
+                ],
+                "price_change": -0.5,
+                "symbol": "AMZN",
+                "target_price": null
+            },
+            {
+                "confidence": 0.66,
+                "direction": "down",
+                "key_factors": [
+                    "News catalyst",
+                    "News catalyst"
+                ],
+                "price_change": -0.56,
+                "symbol": "INTC",
+                "target_price": null
+            }
+        ],
+        "prediction_date": "2025-03-10",
+        "top_picks": [
+            "GOOGL",
+            "NVDA",
+            "META"
+        ]
+    },
+    "market_status": {
+        "is_open": false,
+        "next_close": "2025-03-10T16:00:00-04:56",
+        "next_open": "2025-03-10T09:30:00-04:56"
+    },
+    "ml_insights": {
+        "feature_importance": {
+            "macd": 0.1,
+            "moving_averages": 0.08,
+            "price_momentum": 0.25,
+            "rsi": 0.12,
+            "sector_performance": 0.05,
+            "sentiment": 0.07,
+            "volatility": 0.15,
+            "volume": 0.18
+        },
+        "model_performance": {
+            "accuracy": 0.75,
+            "auc": 0.82,
+            "f1_score": 0.75,
+            "precision": 0.78,
+            "recall": 0.72
+        },
+        "recent_predictions": []
+    },
+    "positions": {
+        "BAC": {
+            "current_price": 41.4,
+            "entry_price": 40.94,
+            "market_value": 41.4,
+            "platform": "Alpaca",
+            "quantity": 1.0,
+            "stop_loss": 40.121199999999995,
+            "take_profit": 43.3964,
+            "unrealized_pl": 0.46,
+            "unrealized_plpc": 0.0112359550561798
+        },
+        "TFC": {
+            "current_price": 42.19,
+            "entry_price": 41.35,
+            "market_value": 42.19,
+            "platform": "Alpaca",
+            "quantity": 1.0,
+            "stop_loss": 40.523,
+            "take_profit": 43.831,
+            "unrealized_pl": 0.84,
+            "unrealized_plpc": 0.0203143893591294
+        },
+        "VZ": {
+            "current_price": 46.06,
+            "entry_price": 45.98,
+            "market_value": 92.12,
+            "platform": "Alpaca",
+            "quantity": 2.0,
+            "stop_loss": 45.060399999999994,
+            "take_profit": 48.7388,
+            "unrealized_pl": 0.16,
+            "unrealized_plpc": 0.001739886907351
+        }
+    },
+    "sleep_status": {
+        "is_sleeping": false,
+        "next_wake_time": null,
+        "reason": null
+    },
+    "trades": []
+}

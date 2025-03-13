@@ -1,0 +1,222 @@
+/* KryptoBot Dashboard Styles */
+
+/* Notification system */
+.notification {
+    margin-bottom: 10px;
+    padding: 12px 15px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    animation: slideIn 0.3s forwards;
+}
+
+.notification.error {
+    background-color: rgba(255, 69, 58, 0.9);
+    color: white;
+}
+
+.notification.success {
+    background-color: rgba(48, 209, 88, 0.9);
+    color: white;
+}
+
+.notification.info {
+    background-color: rgba(10, 132, 255, 0.9);
+    color: white;
+}
+
+.notification-content {
+    display: flex;
+    align-items: center;
+}
+
+.notification-content i {
+    margin-right: 10px;
+}
+
+.notification-close {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 10px;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideOut {
+    from {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    to {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+/* Performance metrics */
+.performance-metrics {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: rgba(44, 44, 46, 0.75);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.performance-metrics h3 {
+    margin-top: 0;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.performance-metrics .metric {
+    margin-bottom: 10px;
+}
+
+.performance-metrics .metric-label {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
+}
+
+.performance-metrics .metric-value {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+/* Data validation status */
+.validation-status {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 8px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-left: 10px;
+}
+
+.validation-status.valid {
+    background-color: rgba(48, 209, 88, 0.2);
+    color: #30d158;
+}
+
+.validation-status.invalid {
+    background-color: rgba(255, 69, 58, 0.2);
+    color: #ff453a;
+}
+
+/* Monitoring status */
+.monitoring-status {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: rgba(44, 44, 46, 0.75);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.monitoring-status h3 {
+    margin-top: 0;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.monitoring-status .status-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.monitoring-status .status-label {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.monitoring-status .status-value {
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 600;
+}
+
+.monitoring-status .status-value.healthy {
+    color: #30d158;
+}
+
+.monitoring-status .status-value.warning {
+    color: #ffd60a;
+}
+
+.monitoring-status .status-value.critical {
+    color: #ff453a;
+}
+
+/* API performance */
+.api-performance {
+    margin-top: 20px;
+}
+
+.api-performance table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 8px;
+}
+
+.api-performance th {
+    text-align: left;
+    padding: 8px;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 500;
+}
+
+.api-performance td {
+    padding: 8px;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.api-performance tr td:first-child {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.api-performance tr td:last-child {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.api-performance .response-time {
+    text-align: right;
+}
+
+.api-performance .status {
+    text-align: center;
+}
+
+.api-performance .status.success {
+    color: #30d158;
+}
+
+.api-performance .status.error {
+    color: #ff453a;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .notification {
+        width: 90%;
+        max-width: none;
+    }
+    
+    .performance-metrics,
+    .monitoring-status {
+        padding: 10px;
+    }
+} 

@@ -1,0 +1,23 @@
+{
+  "symbol": "META",
+  "timestamp": "2025-03-10T09:01:27.886236",
+  "overall_score": -0.14937234394771873,
+  "sources": {
+    "news": {
+      "score": -0.14705785268677452,
+      "articles_analyzed": 16,
+      "most_recent": "2025-03-10T09:01:27.989930"
+    },
+    "twitter": {
+      "score": -0.36710060013851076,
+      "tweets_analyzed": 152,
+      "most_recent": "2025-03-10T09:01:28.095050"
+    },
+    "reddit": {
+      "score": 0.06604142098212906,
+      "posts_analyzed": 15,
+      "most_recent": "2025-03-10T09:01:28.200181"
+    }
+  },
+  "sentiment": "neutral"
+}

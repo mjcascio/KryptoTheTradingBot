@@ -1,0 +1,66 @@
+# Dashboard settings
+dashboard:
+  host: '0.0.0.0'
+  port: 5001
+  directories:
+    templates: 'templates'
+    static: 'static'
+    data: 'data'
+    logs: 'logs'
+  files:
+    data: 'dashboard_data.json'
+    pid: 'dashboard.pid'
+    log: 'trading_bot.log'
+
+# Trading settings
+trading:
+  max_trades_per_day: 10
+  min_success_probability: 0.65
+  position_sizing:
+    max_position_pct: 0.02
+    min_position_size: 1000
+  risk_management:
+    stop_loss_pct: 0.02
+    take_profit_pct: 0.04
+    max_daily_loss_pct: 0.05
+
+# Market settings
+market:
+  timezone: 'America/New_York'
+  hours:
+    open: '09:30:00'
+    close: '16:00:00'
+  update_intervals:
+    dashboard: 5  # seconds
+    market_check: 60  # seconds
+
+# Platform configurations
+platforms:
+  alpaca:
+    enabled: true
+    name: 'Alpaca Markets'
+    type: 'stocks'
+    default: true
+    paper_trading: true
+    base_url: 'https://paper-api.alpaca.markets'  # Non-sensitive URL
+  metatrader:
+    enabled: false
+    name: 'MetaTrader'
+    type: 'forex'
+    default: false
+
+# Logging configuration
+logging:
+  default_level: 'INFO'
+  max_file_size: 10485760  # 10MB
+  backup_count: 5
+  time_rotation: true
+  daily_backup_count: 30
+
+# Email notification settings
+notifications:
+  email:
+    enabled: true
+    server: 'smtp.gmail.com'
+    port: 587
+    use_tls: true 

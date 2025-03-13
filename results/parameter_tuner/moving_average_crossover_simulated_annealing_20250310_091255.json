@@ -1,0 +1,362 @@
+{
+  "method": "simulated_annealing",
+  "best_params": {
+    "short_window": 37,
+    "long_window": 135
+  },
+  "best_score": 8.668610113951214,
+  "iterations": 50,
+  "history": [
+    {
+      "iteration": 0,
+      "temperature": 87.09635899560806,
+      "current_score": 4.480409394939358,
+      "best_score": 4.480409394939358,
+      "acceptance_prob": 1.0
+    },
+    {
+      "iteration": 1,
+      "temperature": 75.85775750291836,
+      "current_score": -2.8112662063795253,
+      "best_score": 4.480409394939358,
+      "acceptance_prob": 0.9196890662935223
+    },
+    {
+      "iteration": 2,
+      "temperature": 66.06934480075958,
+      "current_score": -3.573225980953239,
+      "best_score": 4.480409394939358,
+      "acceptance_prob": 0.990005692298658
+    },
+    {
+      "iteration": 3,
+      "temperature": 57.54399373371567,
+      "current_score": 4.393077546588589,
+      "best_score": 4.480409394939358,
+      "acceptance_prob": 1.0
+    },
+    {
+      "iteration": 4,
+      "temperature": 50.11872336272721,
+      "current_score": 0.049590742212455706,
+      "best_score": 4.480409394939358,
+      "acceptance_prob": 0.927297210215552
+    },
+    {
+      "iteration": 5,
+      "temperature": 43.651583224016576,
+      "current_score": 6.354499736330672,
+      "best_score": 6.354499736330672,
+      "acceptance_prob": 1.0
+    },
+    {
+      "iteration": 6,
+      "temperature": 38.0189396320561,
+      "current_score": 6.286272545366728,
+      "best_score": 6.354499736330672,
+      "acceptance_prob": 0.9984382261918118
+    },
+    {
+      "iteration": 7,
+      "temperature": 33.11311214825909,
+      "current_score": 6.286272545366728,
+      "best_score": 6.354499736330672,
+      "acceptance_prob": 0.8207028649062637
+    },
+    {
+      "iteration": 8,
+      "temperature": 28.84031503126604,
+      "current_score": -2.2550855200537328,
+      "best_score": 6.354499736330672,
+      "acceptance_prob": 0.7726378111252175
+    },
+    {
+      "iteration": 9,
+      "temperature": 25.118864315095784,
+      "current_score": 5.496701997714153,
+      "best_score": 6.354499736330672,
+      "acceptance_prob": 1.0
+    },
+    {
+      "iteration": 10,
+      "temperature": 21.87761623949551,
+      "current_score": -2.8075351854485606,
+      "best_score": 6.354499736330672,
+      "acceptance_prob": 0.7184942064730818
+    },
+    {
+      "iteration": 11,
+      "temperature": 19.054607179632455,
+      "current_score": -2.41016641988504,
+      "best_score": 6.354499736330672,
+      "acceptance_prob": 1.0
+    },
+    {
+      "iteration": 12,
+      "temperature": 16.595869074375592,
+      "current_score": 2.725752922880671,
+      "best_score": 6.354499736330672,
+      "acceptance_prob": 1.0
+    },
+    {
+      "iteration": 13,
+      "temperature": 14.454397707459263,
+      "current_score": -2.196297321469436,
+      "best_score": 6.354499736330672,
+      "acceptance_prob": 0.7433540335287655
+    },
+    {
+      "iteration": 14,
+      "temperature": 12.58925411794166,
+      "current_score": 2.725752922880671,
+      "best_score": 6.354499736330672,
+      "acceptance_prob": 1.0
+    },
+    {
+      "iteration": 15,
+      "temperature": 10.96478196143184,
+      "current_score": -2.8075351854485606,
+      "best_score": 6.354499736330672,
+      "acceptance_prob": 0.6443426059436526
+    },
+    {
+      "iteration": 16,
+      "temperature": 9.54992586021435,
+      "current_score": 5.278749396144671,
+      "best_score": 6.354499736330672,
+      "acceptance_prob": 1.0
+    },
+    {
+      "iteration": 17,
+      "temperature": 8.3176377110267,
+      "current_score": 5.278749396144671,
+      "best_score": 6.354499736330672,
+      "acceptance_prob": 0.8667426892935608
+    },
+    {
+      "iteration": 18,
+      "temperature": 7.244359600749892,
+      "current_score": 5.278749396144671,
+      "best_score": 6.354499736330672,
+      "acceptance_prob": 0.37825555662757454
+    },
+    {
+      "iteration": 19,
+      "temperature": 6.3095734448019245,
+      "current_score": -2.2550855200537328,
+      "best_score": 6.354499736330672,
+      "acceptance_prob": 0.3534692739141994
+    },
+    {
+      "iteration": 20,
+      "temperature": 5.495408738576238,
+      "current_score": 6.565243271445821,
+      "best_score": 6.565243271445821,
+      "acceptance_prob": 1.0
+    },
+    {
+      "iteration": 21,
+      "temperature": 4.786300923226376,
+      "current_score": 6.565243271445821,
+      "best_score": 6.565243271445821,
+      "acceptance_prob": 0.19714129666280955
+    },
+    {
+      "iteration": 22,
+      "temperature": 4.1686938347033475,
+      "current_score": 6.866797817200174,
+      "best_score": 6.866797817200174,
+      "acceptance_prob": 1.0
+    },
+    {
+      "iteration": 23,
+      "temperature": 3.6307805477010078,
+      "current_score": 6.866797817200174,
+      "best_score": 6.866797817200174,
+      "acceptance_prob": 0.1577628506015049
+    },
+    {
+      "iteration": 24,
+      "temperature": 3.162277660168374,
+      "current_score": 6.866797817200174,
+      "best_score": 6.866797817200174,
+      "acceptance_prob": 0.04794935544496524
+    },
+    {
+      "iteration": 25,
+      "temperature": 2.754228703338162,
+      "current_score": 6.866797817200174,
+      "best_score": 6.866797817200174,
+      "acceptance_prob": 0.07249464424007822
+    },
+    {
+      "iteration": 26,
+      "temperature": 2.3988329190194864,
+      "current_score": 6.866797817200174,
+      "best_score": 6.866797817200174,
+      "acceptance_prob": 0.008101309849393576
+    },
+    {
+      "iteration": 27,
+      "temperature": 2.0892961308540356,
+      "current_score": 6.866797817200174,
+      "best_score": 6.866797817200174,
+      "acceptance_prob": 1.0
+    },
+    {
+      "iteration": 28,
+      "temperature": 1.81970085860998,
+      "current_score": 8.46484429256744,
+      "best_score": 8.46484429256744,
+      "acceptance_prob": 1.0
+    },
+    {
+      "iteration": 29,
+      "temperature": 1.5848931924611105,
+      "current_score": 8.46484429256744,
+      "best_score": 8.46484429256744,
+      "acceptance_prob": 1.0
+    },
+    {
+      "iteration": 30,
+      "temperature": 1.380384264602882,
+      "current_score": 8.46484429256744,
+      "best_score": 8.46484429256744,
+      "acceptance_prob": 0.0028355596606457144
+    },
+    {
+      "iteration": 31,
+      "temperature": 1.2022644346174105,
+      "current_score": 8.46484429256744,
+      "best_score": 8.46484429256744,
+      "acceptance_prob": 2.1098133858577946e-05
+    },
+    {
+      "iteration": 32,
+      "temperature": 1.0471285480508974,
+      "current_score": 8.46484429256744,
+      "best_score": 8.46484429256744,
+      "acceptance_prob": 2.746405589810102e-05
+    },
+    {
+      "iteration": 33,
+      "temperature": 0.9120108393559079,
+      "current_score": 8.46484429256744,
+      "best_score": 8.46484429256744,
+      "acceptance_prob": 0.00013944815923034492
+    },
+    {
+      "iteration": 34,
+      "temperature": 0.7943282347242798,
+      "current_score": 8.668610113951214,
+      "best_score": 8.668610113951214,
+      "acceptance_prob": 1.0
+    },
+    {
+      "iteration": 35,
+      "temperature": 0.691830970918935,
+      "current_score": 8.668610113951214,
+      "best_score": 8.668610113951214,
+      "acceptance_prob": 2.4511975852148837e-10
+    },
+    {
+      "iteration": 36,
+      "temperature": 0.6025595860743564,
+      "current_score": 8.46484429256744,
+      "best_score": 8.668610113951214,
+      "acceptance_prob": 0.7448806892042961
+    },
+    {
+      "iteration": 37,
+      "temperature": 0.5248074602497714,
+      "current_score": 8.46484429256744,
+      "best_score": 8.668610113951214,
+      "acceptance_prob": 1.5818270034878474e-08
+    },
+    {
+      "iteration": 38,
+      "temperature": 0.45708818961487396,
+      "current_score": 8.46484429256744,
+      "best_score": 8.668610113951214,
+      "acceptance_prob": 5.029314211722716e-13
+    },
+    {
+      "iteration": 39,
+      "temperature": 0.3981071705534963,
+      "current_score": 8.46484429256744,
+      "best_score": 8.668610113951214,
+      "acceptance_prob": 5.205815423272575e-11
+    },
+    {
+      "iteration": 40,
+      "temperature": 0.3467368504525308,
+      "current_score": 8.46484429256744,
+      "best_score": 8.668610113951214,
+      "acceptance_prob": 1.679923599671675e-14
+    },
+    {
+      "iteration": 41,
+      "temperature": 0.3019951720402009,
+      "current_score": 8.46484429256744,
+      "best_score": 8.668610113951214,
+      "acceptance_prob": 2.4292950164718646e-19
+    },
+    {
+      "iteration": 42,
+      "temperature": 0.26302679918953753,
+      "current_score": 8.46484429256744,
+      "best_score": 8.668610113951214,
+      "acceptance_prob": 3.200364984046052e-21
+    },
+    {
+      "iteration": 43,
+      "temperature": 0.2290867652767767,
+      "current_score": 8.46484429256744,
+      "best_score": 8.668610113951214,
+      "acceptance_prob": 1.4162242479079602e-21
+    },
+    {
+      "iteration": 44,
+      "temperature": 0.19952623149688742,
+      "current_score": 8.46484429256744,
+      "best_score": 8.668610113951214,
+      "acceptance_prob": 1.0
+    },
+    {
+      "iteration": 45,
+      "temperature": 0.17378008287493707,
+      "current_score": 8.46484429256744,
+      "best_score": 8.668610113951214,
+      "acceptance_prob": 0.00033238888905477005
+    },
+    {
+      "iteration": 46,
+      "temperature": 0.1513561248436204,
+      "current_score": 8.46484429256744,
+      "best_score": 8.668610113951214,
+      "acceptance_prob": 2.779465966466295e-32
+    },
+    {
+      "iteration": 47,
+      "temperature": 0.13182567385564034,
+      "current_score": 8.46484429256744,
+      "best_score": 8.668610113951214,
+      "acceptance_prob": 8.796148574812451e-32
+    },
+    {
+      "iteration": 48,
+      "temperature": 0.11481536214968795,
+      "current_score": 8.46484429256744,
+      "best_score": 8.668610113951214,
+      "acceptance_prob": 1.119758860468587e-47
+    },
+    {
+      "iteration": 49,
+      "temperature": 0.09999999999999971,
+      "current_score": 8.46484429256744,
+      "best_score": 8.668610113951214,
+      "acceptance_prob": 6.970994835045736e-10
+    }
+  ],
+  "timestamp": "2025-03-10T09:12:55.201591"
+}

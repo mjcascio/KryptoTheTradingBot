@@ -4,10 +4,39 @@ from datetime import datetime, timedelta
 import logging
 import time
 from typing import Optional
+import pytz
+import os
+import certifi
+from dotenv import load_dotenv
 
 from brokers import BaseBroker
+from config import TIMEZONE
 
 logger = logging.getLogger(__name__)
+
+# Load environment variables
+load_dotenv()
+
+# Set SSL certificate path
+ssl_cert_file = os.getenv('SSL_CERT_FILE', certifi.where())
+requests_ca_bundle = os.getenv('REQUESTS_CA_BUNDLE', certifi.where())
+os.environ['SSL_CERT_FILE'] = ssl_cert_file
+os.environ['REQUESTS_CA_BUNDLE'] = requests_ca_bundle
+logger.info(f"SSL_CERT_FILE set to: {os.environ.get('SSL_CERT_FILE', 'Not set')}")
+logger.info(f"REQUESTS_CA_BUNDLE set to: {os.environ.get('REQUESTS_CA_BUNDLE', 'Not set')}")
+
+# Patch pandas Timestamp.tz_localize to handle None timezone correctly
+if hasattr(pd.Timestamp, 'tz_localize'):
+    original_tz_localize = pd.Timestamp.tz_localize
+    
+    def patched_tz_localize(self, tz=None, ambiguous='raise', nonexistent='raise'):
+        """Patched version of tz_localize that handles None timezone correctly."""
+        if tz is None:
+            return self
+        return original_tz_localize(self, tz, ambiguous, nonexistent)
+    
+    pd.Timestamp.tz_localize = patched_tz_localize
+    logger.info("Successfully patched pandas Timestamp.tz_localize method")
 
 class MarketDataService:
     def __init__(self, broker: BaseBroker):
@@ -15,6 +44,7 @@ class MarketDataService:
         self.data_source = 'broker'  # Default to broker
         self.fallback_attempts = 0
         self.max_fallback_attempts = 3
+        self.timezone = pytz.timezone(TIMEZONE)
         
     def _get_timeframe_params(self, timeframe: str) -> tuple:
         """Convert broker timeframe to Yahoo Finance parameters"""
@@ -130,7 +160,24 @@ class MarketDataService:
             return self.broker.check_market_hours()
         except Exception as e:
             logger.error(f"Error checking market hours: {e}")
-            return False
+            
+            # Fallback to manual check
+            try:
+                now = datetime.now(self.timezone)
+                market_open_time = datetime.strptime("09:30", "%H:%M").time()
+                market_close_time = datetime.strptime("16:00", "%H:%M").time()
+                
+                # Check if current time is within market hours
+                current_time = now.time()
+                is_market_day = now.weekday() < 5  # Monday to Friday
+                
+                return (
+                    is_market_day and
+                    market_open_time <= current_time <= market_close_time
+                )
+            except Exception as e:
+                logger.error(f"Error in fallback market hours check: {e}")
+                return False
 
     def get_next_market_times(self) -> tuple:
         """
@@ -140,4 +187,28 @@ class MarketDataService:
             return self.broker.get_next_market_times()
         except Exception as e:
             logger.error(f"Error getting next market times: {e}")
-            return (None, None) 
+            
+            # Fallback to manual calculation
+            try:
+                now = datetime.now(self.timezone)
+                
+                # Calculate the next market day (skip weekends)
+                days_ahead = 1
+                if now.weekday() == 4:  # Friday
+                    days_ahead = 3  # Next Monday
+                elif now.weekday() == 5:  # Saturday
+                    days_ahead = 2  # Next Monday
+                
+                next_day = now + timedelta(days=days_ahead)
+                
+                # Set market open and close times
+                market_open_time = datetime.strptime("09:30", "%H:%M").time()
+                market_close_time = datetime.strptime("16:00", "%H:%M").time()
+                
+                next_open = datetime.combine(next_day.date(), market_open_time).replace(tzinfo=self.timezone)
+                next_close = datetime.combine(next_day.date(), market_close_time).replace(tzinfo=self.timezone)
+                
+                return (next_open, next_close)
+            except Exception as e:
+                logger.error(f"Error in fallback market times calculation: {e}")
+                return (None, None) 

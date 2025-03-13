@@ -1,0 +1,32 @@
+{
+  "symbol": "MSFT",
+  "timestamp": "2025-03-10T09:06:50.145396",
+  "anomalies_detected": true,
+  "methods": {
+    "statistical": {
+      "anomalies_detected": false,
+      "anomaly_score": 0.14037404323921168,
+      "z_score": 0.8422442594352701,
+      "threshold": 3.0,
+      "details": {
+        "latest_price": 119.53025185497354,
+        "rolling_mean": 117.98997115826856,
+        "rolling_std": 1.8287814721797573
+      }
+    },
+    "autoencoder": {
+      "anomalies_detected": true,
+      "anomaly_score": 0.5173491625288316,
+      "reconstruction_error": 0.10346983250576632,
+      "threshold": 0.1
+    },
+    "isolation_forest": {
+      "anomalies_detected": false,
+      "anomaly_score": 0.46948558290289444,
+      "anomaly_score_raw": 0.06102883419421112,
+      "threshold": -0.2
+    }
+  },
+  "anomaly_score": 0.5173491625288316,
+  "anomaly_type": "significant"
+}

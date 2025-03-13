@@ -1,181 +1,138 @@
-# Krypto Trading Bot
+# KryptoTheTradingBot
 
-An advanced automated trading system that leverages machine learning, technical analysis, and multiple broker integrations to execute sophisticated trading strategies in various financial markets.
+A sophisticated trading bot that implements both stock and options trading strategies with advanced risk management.
 
 ## Features
 
-- **Multi-Broker Support**:
-  - Alpaca Markets integration for stocks and crypto
-  - MetaTrader integration for forex markets
-  - Extensible broker architecture for adding new platforms
+- **Multi-Strategy Support**
+  - Stock trading with technical analysis
+  - Options trading with volatility analysis
+  - Customizable strategy parameters
 
-- **Advanced Trading Strategies**:
-  - Machine learning enhanced signal generation
-  - Multiple concurrent strategy execution
-  - Dynamic strategy allocation based on market conditions
-  - Breakout and trend following implementations
-  - Custom strategy development framework
-
-- **Risk Management**:
+- **Risk Management**
   - Position sizing based on account equity
-  - Dynamic stop loss and take profit levels
-  - Maximum drawdown protection
-  - Trade frequency limits
-  - Portfolio optimization and diversification
+  - Maximum drawdown limits
+  - Per-trade risk controls
+  - Volatility-based adjustments
+  - Maximum position limits
 
-- **Analytics & Monitoring**:
-  - Real-time performance dashboard
-  - Trade history and analytics
-  - Market condition monitoring
-  - Email notifications for important events
-  - Automated parameter tuning
+- **Market Data**
+  - Real-time market data processing
+  - Technical indicators calculation
+  - Historical data caching
+  - Options chain data support (via Alpaca API or Yahoo Finance)
+
+- **Integration**
+  - Alpaca trading platform integration
+  - Telegram notifications
+  - Comprehensive logging
+
+## Installation
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/KryptoTheTradingBot.git
+cd KryptoTheTradingBot
+```
+
+2. Create and activate a virtual environment:
+```bash
+python -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+```
+
+3. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+4. Set up environment variables:
+Create a `.env` file in the project root with:
+```
+ALPACA_API_KEY=your_api_key
+ALPACA_SECRET_KEY=your_secret_key
+TELEGRAM_BOT_TOKEN=your_telegram_bot_token
+TELEGRAM_CHAT_ID=your_chat_id
+```
+
+## Usage
+
+1. Run the preflight check:
+```bash
+python test_options.py
+```
+This will verify that all systems are operational and ready for trading.
+
+2. Start the trading bot:
+```bash
+python3 src/main.py
+```
+
+3. Monitor the logs:
+```bash
+tail -f logs/trading_bot.log
+```
+
+4. Check Telegram for notifications about:
+   - Trade executions
+   - Position updates
+   - Risk alerts
+   - Daily summaries
+
+## Market Data Sources
+
+### Stock Data
+- Primary: Alpaca API (real-time market data)
+- Technical indicators calculated in real-time
+
+### Options Data
+- Primary: Alpaca API (requires subscription)
+- Fallback: Yahoo Finance (free, reliable data)
+  - Real-time options chains
+  - Greeks and implied volatility
+  - Volume and open interest
+
+## Configuration
+
+### Risk Management Parameters
+- `max_position_size`: Maximum position size in dollars
+- `max_drawdown`: Maximum allowed drawdown percentage
+- `risk_per_trade`: Maximum risk per trade percentage
+- `max_open_positions`: Maximum number of open positions
+- `max_daily_loss`: Maximum daily loss percentage
+- `volatility_threshold`: Volatility threshold for position sizing
+
+### Trading Parameters
+- `update_interval`: How often to update market data (default: 60 seconds)
+- `watchlist`: List of symbols to monitor
 
 ## Project Structure
 
 ```
-├── brokers/                 # Broker integration implementations
-├── static/                  # Dashboard static assets
-├── templates/              # Dashboard HTML templates
-├── tests/                  # Test suite
-├── main.py                 # Main bot entry point
-├── trading_bot.py          # Core trading logic
-├── market_data.py          # Market data handling
-├── ml_enhancer.py          # ML signal enhancement
-├── portfolio_optimizer.py   # Portfolio optimization
-├── parameter_tuner.py      # Strategy parameter tuning
-├── performance_analyzer.py  # Performance analytics
-├── strategy_allocator.py   # Strategy management
-├── strategies.py           # Trading strategies
-├── notifications.py        # Notification system
-└── config.py              # Configuration settings
-```
-
-## Setup
-
-### Prerequisites
-- Python 3.9+
-- pip package manager
-- Git
-
-### Installation
-
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/yourusername/KryptoTheTradingBot.git
-   cd KryptoTheTradingBot
-   ```
-
-2. Create and activate a virtual environment:
-   ```bash
-   python -m venv .venv
-   source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-   ```
-
-3. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-4. Configure environment variables:
-   Create a `.env` file with your credentials:
-   ```
-   # Alpaca Configuration
-   ALPACA_API_KEY=your_api_key
-   ALPACA_SECRET_KEY=your_secret_key
-   ALPACA_BASE_URL=https://paper-api.alpaca.markets
-
-   # MetaTrader Configuration (if using)
-   MT_SERVER=your_server
-   MT_PORT=your_port
-   MT_USERNAME=your_username
-   MT_PASSWORD=your_password
-
-   # Email Notifications (optional)
-   EMAIL_SERVER=smtp.gmail.com
-   EMAIL_PORT=587
-   EMAIL_USERNAME=your_email
-   EMAIL_PASSWORD=your_app_password
-   ```
-
-## Usage
-
-### Starting the Bot
-
-1. Start the trading bot:
-   ```bash
-   ./start_bot.sh
-   ```
-
-2. Start the dashboard:
-   ```bash
-   ./start_dashboard.sh
-   ```
-
-3. Monitor the bot:
-   ```bash
-   ./monitor_bot.sh
-   ```
-
-### Dashboard Access
-- Access the dashboard at: `http://localhost:5000`
-- View real-time performance metrics
-- Monitor active trades and positions
-- Analyze historical performance
-
-## Development
-
-### Workflow
-
-1. Create a new branch for features:
-   ```bash
-   git checkout -b feature/your-feature-name
-   ```
-
-2. Run tests before committing:
-   ```bash
-   python -m pytest tests/
-   ```
-
-3. Follow commit message convention:
-   - feat: New feature
-   - fix: Bug fix
-   - docs: Documentation
-   - test: Testing
-   - refactor: Code refactoring
-
-### Adding New Features
-
-1. **New Strategies**:
-   - Create strategy class in `strategies.py`
-   - Implement required methods
-   - Add strategy to configuration
-   - Write tests in `tests/`
-
-2. **New Broker Integration**:
-   - Add broker class in `brokers/`
-   - Implement base broker interface
-   - Update broker factory
-   - Add configuration options
-
-## Testing
-
-Run all tests:
-```bash
-python test_all.py
-```
-
-Run specific test categories:
-```bash
-python test_market_data.py
-python test_connection.py
-python test_enhanced_features.py
+KryptoTheTradingBot/
+├── src/
+│   ├── core/
+│   │   ├── trading_bot.py
+│   │   ├── market_data.py
+│   │   └── risk_management.py
+│   ├── strategies/
+│   │   ├── base.py
+│   │   ├── stock.py
+│   │   └── options.py
+│   ├── integrations/
+│   │   └── alpaca.py
+│   └── main.py
+├── logs/
+├── data/
+├── requirements.txt
+└── README.md
 ```
 
 ## Contributing
 
 1. Fork the repository
 2. Create a feature branch
-3. Commit changes
+3. Commit your changes
 4. Push to the branch
 5. Create a Pull Request
 
@@ -183,6 +140,6 @@ python test_enhanced_features.py
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## Support
+## Disclaimer
 
-For support, email support@kryptobot.com or open an issue on GitHub. 
+This trading bot is for educational purposes only. Always do your own research and never risk more than you can afford to lose.

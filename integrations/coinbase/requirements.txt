@@ -1,0 +1,46 @@
+# Core dependencies
+aiohttp>=3.9.0
+Flask>=3.0.0
+python-dotenv>=1.0.0
+cryptography>=41.0.0
+
+# Testing
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+pytest-cov>=4.1.0
+pytest-mock>=3.12.0
+
+# Code quality
+black>=23.0.0
+isort>=5.12.0
+mypy>=1.5.0
+flake8>=6.1.0
+
+# Data processing and visualization
+pandas>=2.1.0
+numpy>=1.24.0
+plotly>=5.17.0
+python-dateutil>=2.8.2
+pytz>=2023.3
+
+# System monitoring
+psutil>=5.9.0
+
+# Type stubs
+types-aiohttp>=3.9.0
+types-plotly>=5.17.0
+types-psutil>=5.9.0
+types-pytz>=2023.3
+types-python-dateutil>=2.8.2
+
+# Database
+aiosqlite>=0.19.0
+SQLAlchemy>=2.0.0
+
+# Caching
+aioredis>=2.0.0
+msgpack>=1.0.0
+
+# Monitoring
+prometheus-client>=0.17.0
+statsd>=4.0.0 

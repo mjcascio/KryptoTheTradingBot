@@ -1,0 +1,213 @@
+{
+  "method": "quantum_pso",
+  "best_params": {
+    "short_window": 9,
+    "long_window": 144
+  },
+  "best_score": 17.72419096615898,
+  "iterations": 50,
+  "population_size": 10,
+  "history": [
+    {
+      "iteration": 0,
+      "global_best_score": 17.346016447751705
+    },
+    {
+      "iteration": 1,
+      "global_best_score": 17.346016447751705
+    },
+    {
+      "iteration": 2,
+      "global_best_score": 17.346016447751705
+    },
+    {
+      "iteration": 3,
+      "global_best_score": 17.346016447751705
+    },
+    {
+      "iteration": 4,
+      "global_best_score": 17.346016447751705
+    },
+    {
+      "iteration": 5,
+      "global_best_score": 17.346016447751705
+    },
+    {
+      "iteration": 6,
+      "global_best_score": 17.72419096615898
+    },
+    {
+      "iteration": 7,
+      "global_best_score": 17.72419096615898
+    },
+    {
+      "iteration": 8,
+      "global_best_score": 17.72419096615898
+    },
+    {
+      "iteration": 9,
+      "global_best_score": 17.72419096615898
+    },
+    {
+      "iteration": 10,
+      "global_best_score": 17.72419096615898
+    },
+    {
+      "iteration": 11,
+      "global_best_score": 17.72419096615898
+    },
+    {
+      "iteration": 12,
+      "global_best_score": 17.72419096615898
+    },
+    {
+      "iteration": 13,
+      "global_best_score": 17.72419096615898
+    },
+    {
+      "iteration": 14,
+      "global_best_score": 17.72419096615898
+    },
+    {
+      "iteration": 15,
+      "global_best_score": 17.72419096615898
+    },
+    {
+      "iteration": 16,
+      "global_best_score": 17.72419096615898
+    },
+    {
+      "iteration": 17,
+      "global_best_score": 17.72419096615898
+    },
+    {
+      "iteration": 18,
+      "global_best_score": 17.72419096615898
+    },
+    {
+      "iteration": 19,
+      "global_best_score": 17.72419096615898
+    },
+    {
+      "iteration": 20,
+      "global_best_score": 17.72419096615898
+    },
+    {
+      "iteration": 21,
+      "global_best_score": 17.72419096615898
+    },
+    {
+      "iteration": 22,
+      "global_best_score": 17.72419096615898
+    },
+    {
+      "iteration": 23,
+      "global_best_score": 17.72419096615898
+    },
+    {
+      "iteration": 24,
+      "global_best_score": 17.72419096615898
+    },
+    {
+      "iteration": 25,
+      "global_best_score": 17.72419096615898
+    },
+    {
+      "iteration": 26,
+      "global_best_score": 17.72419096615898
+    },
+    {
+      "iteration": 27,
+      "global_best_score": 17.72419096615898
+    },
+    {
+      "iteration": 28,
+      "global_best_score": 17.72419096615898
+    },
+    {
+      "iteration": 29,
+      "global_best_score": 17.72419096615898
+    },
+    {
+      "iteration": 30,
+      "global_best_score": 17.72419096615898
+    },
+    {
+      "iteration": 31,
+      "global_best_score": 17.72419096615898
+    },
+    {
+      "iteration": 32,
+      "global_best_score": 17.72419096615898
+    },
+    {
+      "iteration": 33,
+      "global_best_score": 17.72419096615898
+    },
+    {
+      "iteration": 34,
+      "global_best_score": 17.72419096615898
+    },
+    {
+      "iteration": 35,
+      "global_best_score": 17.72419096615898
+    },
+    {
+      "iteration": 36,
+      "global_best_score": 17.72419096615898
+    },
+    {
+      "iteration": 37,
+      "global_best_score": 17.72419096615898
+    },
+    {
+      "iteration": 38,
+      "global_best_score": 17.72419096615898
+    },
+    {
+      "iteration": 39,
+      "global_best_score": 17.72419096615898
+    },
+    {
+      "iteration": 40,
+      "global_best_score": 17.72419096615898
+    },
+    {
+      "iteration": 41,
+      "global_best_score": 17.72419096615898
+    },
+    {
+      "iteration": 42,
+      "global_best_score": 17.72419096615898
+    },
+    {
+      "iteration": 43,
+      "global_best_score": 17.72419096615898
+    },
+    {
+      "iteration": 44,
+      "global_best_score": 17.72419096615898
+    },
+    {
+      "iteration": 45,
+      "global_best_score": 17.72419096615898
+    },
+    {
+      "iteration": 46,
+      "global_best_score": 17.72419096615898
+    },
+    {
+      "iteration": 47,
+      "global_best_score": 17.72419096615898
+    },
+    {
+      "iteration": 48,
+      "global_best_score": 17.72419096615898
+    },
+    {
+      "iteration": 49,
+      "global_best_score": 17.72419096615898
+    }
+  ],
+  "timestamp": "2025-03-10T09:14:10.301746"
+}

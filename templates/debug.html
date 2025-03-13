@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KryptoBot Debug Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #1c1c1e;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+        .container {
+            padding: 20px;
+        }
+        .card {
+            background-color: #2c2c2e;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            margin-bottom: 20px;
+        }
+        .card-header {
+            background-color: rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 15px;
+        }
+        .card-body {
+            padding: 15px;
+        }
+        pre {
+            background-color: #000;
+            color: #0f0;
+            padding: 10px;
+            border-radius: 8px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        .btn-primary {
+            background-color: #0a84ff;
+            border: none;
+        }
+        #console-output {
+            font-family: monospace;
+            white-space: pre-wrap;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mb-4">KryptoBot Debug Page</h1>
+        
+        <div class="card">
+            <div class="card-header">
+                <h3>Debug Controls</h3>
+            </div>
+            <div class="card-body">
+                <button id="fetch-data" class="btn btn-primary mb-3">Fetch API Data</button>
+                <button id="test-wake-time" class="btn btn-primary mb-3 ms-2">Test Wake Time Calculation</button>
+                <button id="clear-console" class="btn btn-secondary mb-3 ms-2">Clear Console</button>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                <h3>API Data</h3>
+            </div>
+            <div class="card-body">
+                <pre id="api-data">Fetch data to see results...</pre>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                <h3>Sleep Status</h3>
+            </div>
+            <div class="card-body">
+                <div id="sleep-status-section">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="mb-2">Current Status: <span id="sleep-status" class="badge bg-success">Active</span></h5>
+                            <p class="mb-0" id="sleep-reason">Bot is currently active</p>
+                        </div>
+                        <div>
+                            <h5 class="mb-2">Next Wake Time</h5>
+                            <p class="mb-0 fw-bold" id="next-wake-time">--</p>
+                            <small class="text-muted">The bot will wake up before market open to prepare for trading</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                <h3>Console Output</h3>
+            </div>
+            <div class="card-body">
+                <pre id="console-output">Console output will appear here...</pre>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Override console.log to capture output
+        const originalConsoleLog = console.log;
+        const originalConsoleError = console.error;
+        const consoleOutput = document.getElementById('console-output');
+        
+        console.log = function() {
+            const args = Array.from(arguments);
+            const message = args.map(arg => 
+                typeof arg === 'object' ? JSON.stringify(arg, null, 2) : arg
+            ).join(' ');
+            
+            consoleOutput.textContent += message + '\n';
+            consoleOutput.scrollTop = consoleOutput.scrollHeight;
+            originalConsoleLog.apply(console, arguments);
+        };
+        
+        console.error = function() {
+            const args = Array.from(arguments);
+            const message = args.map(arg => 
+                typeof arg === 'object' ? JSON.stringify(arg, null, 2) : arg
+            ).join(' ');
+            
+            consoleOutput.textContent += 'ERROR: ' + message + '\n';
+            consoleOutput.scrollTop = consoleOutput.scrollHeight;
+            originalConsoleError.apply(console, arguments);
+        };
+        
+        // Global variables for data
+        window.latestData = null;
+        
+        // Format date/time functions from dashboard.js
+        function formatDateTime(dateStr) {
+            if (!dateStr) return '--';
+            const date = new Date(dateStr);
+            return date.toLocaleString('en-US', {
+                weekday: 'short',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                timeZoneName: 'short'
+            });
+        }
+        
+        // Function to update sleep status (copied from dashboard.js)
+        function updateSleepStatus(sleepStatus) {
+            if (!sleepStatus) {
+                console.log("DEBUG: No sleep status provided");
+                return;
+            }
+            
+            console.log("DEBUG: Sleep status data:", JSON.stringify(sleepStatus));
+            console.log("DEBUG: Latest data:", JSON.stringify(window.latestData?.market_status));
+            
+            // Get sleep status section
+            const sleepStatusSection = document.getElementById('sleep-status-section');
+            if (!sleepStatusSection) {
+                console.log("DEBUG: Sleep status section not found in DOM");
+                return;
+            }
+            
+            // Update sleep status badge
+            const sleepStatusElement = document.getElementById('sleep-status');
+            const sleepReasonElement = document.getElementById('sleep-reason');
+            const nextWakeElement = document.getElementById('next-wake-time');
+            
+            if (sleepStatusElement && sleepReasonElement && nextWakeElement) {
+                if (sleepStatus.is_sleeping) {
+                    // Show sleep section when bot is sleeping
+                    sleepStatusSection.style.display = 'flex';
+                    
+                    // Update sleep status and reason
+                    sleepStatusElement.textContent = 'Sleeping';
+                    sleepStatusElement.className = 'badge bg-warning';
+                    sleepReasonElement.textContent = sleepStatus.reason || 'Unknown reason';
+                    
+                    // Update next wake time
+                    if (sleepStatus.next_wake_time) {
+                        nextWakeElement.textContent = formatDateTime(sleepStatus.next_wake_time);
+                        console.log("DEBUG: Using provided next_wake_time:", sleepStatus.next_wake_time);
+                    } else {
+                        nextWakeElement.textContent = 'Not specified';
+                        console.log("DEBUG: No next_wake_time provided for sleeping bot");
+                    }
+                } else {
+                    // Show sleep section with active status
+                    sleepStatusSection.style.display = 'flex';
+                    
+                    // Update sleep status to active
+                    sleepStatusElement.textContent = 'Active';
+                    sleepStatusElement.className = 'badge bg-success';
+                    sleepReasonElement.textContent = 'Bot is currently active';
+                    
+                    // Calculate next wake time based on market open
+                    const marketStatus = window.latestData?.market_status;
+                    console.log("DEBUG: Market status for wake calculation:", JSON.stringify(marketStatus));
+                    
+                    if (marketStatus && marketStatus.next_open) {
+                        try {
+                            // Extract the date part from next_open (ignoring timezone issues)
+                            const nextOpenStr = marketStatus.next_open;
+                            console.log("DEBUG: Next open string:", nextOpenStr);
+                            
+                            const dateParts = nextOpenStr.split('T')[0].split('-');
+                            const year = parseInt(dateParts[0]);
+                            const month = parseInt(dateParts[1]) - 1; // JS months are 0-indexed
+                            const day = parseInt(dateParts[2]);
+                            
+                            console.log(`DEBUG: Extracted date parts: year=${year}, month=${month}, day=${day}`);
+                            
+                            // Create a date object for 9:00 AM EST (30 min before market open at 9:30 AM)
+                            const wakeTime = new Date(year, month, day, 9, 0, 0);
+                            console.log("DEBUG: Created wake time:", wakeTime.toString());
+                            
+                            // Format the date for display
+                            const options = { 
+                                weekday: 'short', 
+                                month: 'short', 
+                                day: 'numeric',
+                                hour: '2-digit',
+                                minute: '2-digit',
+                                timeZoneName: 'short'
+                            };
+                            
+                            // Format the wake time with explicit EST timezone
+                            const formattedWakeTime = wakeTime.toLocaleString('en-US', options);
+                            console.log("DEBUG: Formatted wake time:", formattedWakeTime);
+                            
+                            nextWakeElement.textContent = formattedWakeTime + ' (30 min before market open)';
+                        } catch (e) {
+                            console.error('Error calculating wake time:', e);
+                            nextWakeElement.textContent = '9:00 AM EST (30 min before market open)';
+                        }
+                    } else {
+                        console.log("DEBUG: No market status or next_open available");
+                        nextWakeElement.textContent = '9:00 AM EST on next trading day';
+                    }
+                }
+            } else {
+                console.log("DEBUG: One or more sleep status elements not found in DOM");
+            }
+        }
+        
+        // Event listeners
+        document.getElementById('fetch-data').addEventListener('click', async () => {
+            try {
+                console.log("Fetching API data...");
+                const response = await fetch('/api/data');
+                const data = await response.json();
+                window.latestData = data;
+                
+                document.getElementById('api-data').textContent = JSON.stringify(data, null, 2);
+                console.log("API data fetched successfully");
+                
+                // Update sleep status with the fetched data
+                updateSleepStatus(data.sleep_status);
+            } catch (error) {
+                console.error("Error fetching API data:", error);
+            }
+        });
+        
+        document.getElementById('test-wake-time').addEventListener('click', () => {
+            console.log("Testing wake time calculation...");
+            
+            // Create a test market status with next_open at 9:30 AM EST
+            const testMarketStatus = {
+                is_open: false,
+                next_open: "2025-03-10T09:30:00-04:00",
+                next_close: "2025-03-10T16:00:00-04:00"
+            };
+            
+            // Create a test sleep status
+            const testSleepStatus = {
+                is_sleeping: false,
+                next_wake_time: null,
+                reason: null
+            };
+            
+            // Set the test data
+            window.latestData = {
+                market_status: testMarketStatus
+            };
+            
+            // Update sleep status with the test data
+            updateSleepStatus(testSleepStatus);
+        });
+        
+        document.getElementById('clear-console').addEventListener('click', () => {
+            consoleOutput.textContent = '';
+        });
+        
+        // Initialize
+        console.log("Debug page loaded");
+    </script>
+</body>
+</html> 

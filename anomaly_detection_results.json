@@ -1,0 +1,165 @@
+{
+  "timestamp": "2025-03-10T09:06:50.149912",
+  "results": {
+    "AAPL": {
+      "symbol": "AAPL",
+      "timestamp": "2025-03-10T09:06:50.144256",
+      "anomalies_detected": true,
+      "methods": {
+        "statistical": {
+          "anomalies_detected": true,
+          "anomaly_score": 0.6417960436877879,
+          "z_score": 3.850776262126727,
+          "threshold": 3.0,
+          "details": {
+            "latest_price": 131.06347499890956,
+            "rolling_mean": 118.52102984219009,
+            "rolling_std": 3.257121240742369
+          }
+        },
+        "autoencoder": {
+          "anomalies_detected": true,
+          "anomaly_score": 0.5295233840310102,
+          "reconstruction_error": 0.10590467680620204,
+          "threshold": 0.1
+        },
+        "isolation_forest": {
+          "anomalies_detected": false,
+          "anomaly_score": 0.4427722581828877,
+          "anomaly_score_raw": 0.11445548363422464,
+          "threshold": -0.2
+        }
+      },
+      "anomaly_score": 0.5856597138593991,
+      "anomaly_type": "significant"
+    },
+    "MSFT": {
+      "symbol": "MSFT",
+      "timestamp": "2025-03-10T09:06:50.145396",
+      "anomalies_detected": true,
+      "methods": {
+        "statistical": {
+          "anomalies_detected": false,
+          "anomaly_score": 0.14037404323921168,
+          "z_score": 0.8422442594352701,
+          "threshold": 3.0,
+          "details": {
+            "latest_price": 119.53025185497354,
+            "rolling_mean": 117.98997115826856,
+            "rolling_std": 1.8287814721797573
+          }
+        },
+        "autoencoder": {
+          "anomalies_detected": true,
+          "anomaly_score": 0.5173491625288316,
+          "reconstruction_error": 0.10346983250576632,
+          "threshold": 0.1
+        },
+        "isolation_forest": {
+          "anomalies_detected": false,
+          "anomaly_score": 0.46948558290289444,
+          "anomaly_score_raw": 0.06102883419421112,
+          "threshold": -0.2
+        }
+      },
+      "anomaly_score": 0.5173491625288316,
+      "anomaly_type": "significant"
+    },
+    "GOOGL": {
+      "symbol": "GOOGL",
+      "timestamp": "2025-03-10T09:06:50.145851",
+      "anomalies_detected": true,
+      "methods": {
+        "statistical": {
+          "anomalies_detected": true,
+          "anomaly_score": 0.6143050995029683,
+          "z_score": 3.6858305970178096,
+          "threshold": 3.0,
+          "details": {
+            "latest_price": 130.40440141165908,
+            "rolling_mean": 118.84625252383107,
+            "rolling_std": 3.135832910275275
+          }
+        },
+        "autoencoder": {
+          "anomalies_detected": true,
+          "anomaly_score": 0.6515423746876638,
+          "reconstruction_error": 0.13030847493753278,
+          "threshold": 0.1
+        },
+        "isolation_forest": {
+          "anomalies_detected": false,
+          "anomaly_score": 0.2825620762273011,
+          "anomaly_score_raw": 0.43487584754539776,
+          "threshold": -0.2
+        }
+      },
+      "anomaly_score": 0.632923737095316,
+      "anomaly_type": "significant"
+    },
+    "AMZN": {
+      "symbol": "AMZN",
+      "timestamp": "2025-03-10T09:06:50.146317",
+      "anomalies_detected": true,
+      "methods": {
+        "statistical": {
+          "anomalies_detected": false,
+          "anomaly_score": 0.2835526716310864,
+          "z_score": 1.7013160297865184,
+          "threshold": 3.0,
+          "details": {
+            "latest_price": 120.45971962213241,
+            "rolling_mean": 118.49151835095131,
+            "rolling_std": 1.1568698799764272
+          }
+        },
+        "autoencoder": {
+          "anomalies_detected": true,
+          "anomaly_score": 0.9462718833274506,
+          "reconstruction_error": 0.18925437666549014,
+          "threshold": 0.1
+        },
+        "isolation_forest": {
+          "anomalies_detected": false,
+          "anomaly_score": 0.48669783632308605,
+          "anomaly_score_raw": 0.026604327353828006,
+          "threshold": -0.2
+        }
+      },
+      "anomaly_score": 0.9462718833274506,
+      "anomaly_type": "extreme"
+    },
+    "META": {
+      "symbol": "META",
+      "timestamp": "2025-03-10T09:06:50.149055",
+      "anomalies_detected": true,
+      "methods": {
+        "statistical": {
+          "anomalies_detected": true,
+          "anomaly_score": 0.6004363939371992,
+          "z_score": 3.6026183636231948,
+          "threshold": 3.0,
+          "details": {
+            "latest_price": 128.53380173481335,
+            "rolling_mean": 118.73009136756177,
+            "rolling_std": 2.72127363426635
+          }
+        },
+        "autoencoder": {
+          "anomalies_detected": false,
+          "anomaly_score": 0.2748991191264115,
+          "reconstruction_error": 0.054979823825282305,
+          "threshold": 0.1
+        },
+        "isolation_forest": {
+          "anomalies_detected": false,
+          "anomaly_score": 0.4097038084119988,
+          "anomaly_score_raw": 0.18059238317600224,
+          "threshold": -0.2
+        }
+      },
+      "anomaly_score": 0.6004363939371992,
+      "anomaly_type": "significant"
+    }
+  }
+}

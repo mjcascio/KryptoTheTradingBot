@@ -26,9 +26,16 @@ import zmq
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from dotenv import load_dotenv
+import certifi
 
 # Load environment variables
 load_dotenv()
+
+# Set SSL certificate path
+ssl_cert_file = os.getenv('SSL_CERT_FILE', certifi.where())
+requests_ca_bundle = os.getenv('REQUESTS_CA_BUNDLE', certifi.where())
+os.environ['SSL_CERT_FILE'] = ssl_cert_file
+os.environ['REQUESTS_CA_BUNDLE'] = requests_ca_bundle
 
 # Configure logging
 logging.basicConfig(
@@ -281,4 +288,4 @@ if __name__ == '__main__':
         logger.info("MetaTrader is responsive")
     
     # Run the Flask app
-    app.run(host='0.0.0.0', port=5000, debug=False) 
+    app.run(host='0.0.0.0', port=6789, debug=False) 

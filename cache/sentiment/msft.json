@@ -1,0 +1,23 @@
+{
+  "symbol": "MSFT",
+  "timestamp": "2025-03-10T09:01:26.948114",
+  "overall_score": -0.346734176440453,
+  "sources": {
+    "news": {
+      "score": -0.6562082564011054,
+      "articles_analyzed": 15,
+      "most_recent": "2025-03-10T09:01:27.053195"
+    },
+    "twitter": {
+      "score": -0.767197286239362,
+      "tweets_analyzed": 124,
+      "most_recent": "2025-03-10T09:01:27.158329"
+    },
+    "reddit": {
+      "score": 0.38320301331910844,
+      "posts_analyzed": 50,
+      "most_recent": "2025-03-10T09:01:27.261845"
+    }
+  },
+  "sentiment": "bearish"
+}

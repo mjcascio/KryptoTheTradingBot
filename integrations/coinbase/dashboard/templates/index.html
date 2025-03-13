@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KryptoBot - Coinbase Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.0/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luxon@2.0.2/build/global/luxon.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-luxon@1.1.0/dist/chartjs-adapter-luxon.min.js"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="min-h-screen">
+        <!-- Navigation -->
+        <nav class="bg-white shadow-lg">
+            <div class="max-w-7xl mx-auto px-4">
+                <div class="flex justify-between h-16">
+                    <div class="flex">
+                        <div class="flex-shrink-0 flex items-center">
+                            <span class="text-2xl font-bold text-blue-600">KryptoBot</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <span id="connection-status" class="text-sm text-gray-500">
+                            <i class="fas fa-circle text-green-500"></i> Connected
+                        </span>
+                        <span id="ws-status" class="text-sm text-gray-500">
+                            <i class="fas fa-broadcast-tower text-gray-500"></i> WebSocket
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+            <!-- Charts -->
+            <div class="mb-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                    <!-- Price Chart -->
+                    <div class="bg-white rounded-lg shadow p-4">
+                        <h3 class="text-lg font-semibold mb-4">BTC-USD Price</h3>
+                        <canvas id="priceChart" height="300"></canvas>
+                    </div>
+                    <!-- Volume Chart -->
+                    <div class="bg-white rounded-lg shadow p-4">
+                        <h3 class="text-lg font-semibold mb-4">Trading Volume</h3>
+                        <canvas id="volumeChart" height="300"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Market Overview -->
+            <div class="mb-8">
+                <h2 class="text-lg font-semibold mb-4">Market Overview</h2>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div class="bg-white rounded-lg shadow p-4">
+                        <div class="text-sm text-gray-500">BTC Price</div>
+                        <div id="btc-price" class="text-2xl font-bold">$0.00</div>
+                        <div id="btc-price-change" class="text-sm"></div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow p-4">
+                        <div class="text-sm text-gray-500">24h Volume</div>
+                        <div id="btc-volume" class="text-2xl font-bold">0.00</div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow p-4">
+                        <div class="text-sm text-gray-500">Best Bid</div>
+                        <div id="btc-bid" class="text-2xl font-bold">$0.00</div>
+                    </div>
+                    <div class="bg-white rounded-lg shadow p-4">
+                        <div class="text-sm text-gray-500">Best Ask</div>
+                        <div id="btc-ask" class="text-2xl font-bold">$0.00</div>
+                        <div id="btc-spread" class="text-sm text-gray-500"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Account Overview -->
+            <div class="mb-8">
+                <h2 class="text-lg font-semibold mb-4">Account Overview</h2>
+                <div class="bg-white rounded-lg shadow overflow-hidden">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Currency</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Balance</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Available</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Hold</th>
+                            </tr>
+                        </thead>
+                        <tbody id="accounts-table" class="bg-white divide-y divide-gray-200"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Positions -->
+            <div class="mb-8">
+                <h2 class="text-lg font-semibold mb-4">Positions</h2>
+                <div class="bg-white rounded-lg shadow overflow-hidden">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Symbol</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Quantity</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Entry Price</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Current Price</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Unrealized P&L</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Realized P&L</th>
+                            </tr>
+                        </thead>
+                        <tbody id="positions-table" class="bg-white divide-y divide-gray-200"></tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Recent Trades -->
+            <div>
+                <h2 class="text-lg font-semibold mb-4">Recent Trades</h2>
+                <div class="bg-white rounded-lg shadow overflow-hidden">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Time</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Symbol</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Side</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Size</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Value</th>
+                            </tr>
+                        </thead>
+                        <tbody id="trades-table" class="bg-white divide-y divide-gray-200"></tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Utility functions
+        function formatCurrency(value) {
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD'
+            }).format(value);
+        }
+
+        function formatNumber(value) {
+            return new Intl.NumberFormat('en-US').format(value);
+        }
+
+        function formatChange(current, previous) {
+            if (!previous) return '';
+            const change = ((current - previous) / previous) * 100;
+            const sign = change >= 0 ? '+' : '';
+            const color = change >= 0 ? 'text-green-600' : 'text-red-600';
+            return `<span class="${color}">${sign}${change.toFixed(2)}%</span>`;
+        }
+
+        // Chart initialization
+        const priceChartCtx = document.getElementById('priceChart').getContext('2d');
+        const volumeChartCtx = document.getElementById('volumeChart').getContext('2d');
+
+        const priceChart = new Chart(priceChartCtx, {
+            type: 'line',
+            data: {
+                datasets: [{
+                    label: 'BTC-USD Price',
+                    data: [],
+                    borderColor: 'rgb(59, 130, 246)',
+                    borderWidth: 2,
+                    pointRadius: 0,
+                    tension: 0.1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        type: 'time',
+                        time: {
+                            unit: 'minute'
+                        }
+                    },
+                    y: {
+                        beginAtZero: false
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+
+        const volumeChart = new Chart(volumeChartCtx, {
+            type: 'bar',
+            data: {
+                datasets: [{
+                    label: 'Volume',
+                    data: [],
+                    backgroundColor: 'rgba(59, 130, 246, 0.5)',
+                    borderColor: 'rgb(59, 130, 246)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        type: 'time',
+                        time: {
+                            unit: 'minute'
+                        }
+                    },
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
+        });
+
+        // WebSocket connection
+        let ws = null;
+        let lastPrice = null;
+
+        function connectWebSocket() {
+            ws = new WebSocket('ws://localhost:5001/ws');
+
+            ws.onopen = () => {
+                document.getElementById('ws-status').innerHTML = `
+                    <i class="fas fa-broadcast-tower text-green-500"></i> WebSocket Connected
+                `;
+            };
+
+            ws.onclose = () => {
+                document.getElementById('ws-status').innerHTML = `
+                    <i class="fas fa-broadcast-tower text-red-500"></i> WebSocket Disconnected
+                `;
+                setTimeout(connectWebSocket, 5000);
+            };
+
+            ws.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+                
+                if (data.type === 'ticker') {
+                    updatePrice(data);
+                    updateCharts(data);
+                } else if (data.type === 'trade') {
+                    addTrade(data);
+                }
+            };
+        }
+
+        function updatePrice(data) {
+            const price = parseFloat(data.price);
+            document.getElementById('btc-price').textContent = formatCurrency(price);
+            document.getElementById('btc-price-change').innerHTML = formatChange(price, lastPrice);
+            lastPrice = price;
+
+            const bid = parseFloat(data.best_bid);
+            const ask = parseFloat(data.best_ask);
+            document.getElementById('btc-bid').textContent = formatCurrency(bid);
+            document.getElementById('btc-ask').textContent = formatCurrency(ask);
+            document.getElementById('btc-spread').textContent = `Spread: ${formatCurrency(ask - bid)}`;
+        }
+
+        function updateCharts(data) {
+            const timestamp = luxon.DateTime.fromISO(data.time);
+            
+            // Update price chart
+            priceChart.data.datasets[0].data.push({
+                x: timestamp,
+                y: parseFloat(data.price)
+            });
+            
+            if (priceChart.data.datasets[0].data.length > 100) {
+                priceChart.data.datasets[0].data.shift();
+            }
+            priceChart.update('none');
+            
+            // Update volume chart
+            volumeChart.data.datasets[0].data.push({
+                x: timestamp,
+                y: parseFloat(data.volume_24h)
+            });
+            
+            if (volumeChart.data.datasets[0].data.length > 100) {
+                volumeChart.data.datasets[0].data.shift();
+            }
+            volumeChart.update('none');
+        }
+
+        function addTrade(trade) {
+            const tradesTable = document.getElementById('trades-table');
+            const row = document.createElement('tr');
+            
+            row.innerHTML = `
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    ${new Date(trade.timestamp).toLocaleString()}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                    ${trade.symbol}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm ${trade.side === 'buy' ? 'text-green-600' : 'text-red-600'}">
+                    ${trade.side.toUpperCase()}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    ${formatCurrency(trade.price)}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    ${formatNumber(trade.size)}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                    ${formatCurrency(trade.price * trade.size)}
+                </td>
+            `;
+            
+            tradesTable.insertBefore(row, tradesTable.firstChild);
+            if (tradesTable.children.length > 50) {
+                tradesTable.removeChild(tradesTable.lastChild);
+            }
+        }
+
+        // Initialize dashboard
+        async function updateDashboard() {
+            try {
+                const response = await fetch('/api/data');
+                const data = await response.json();
+                
+                // Update market data
+                document.getElementById('btc-price').textContent = formatCurrency(data.market_data.price);
+                document.getElementById('btc-volume').textContent = formatNumber(data.market_data.volume);
+                document.getElementById('btc-bid').textContent = formatCurrency(data.market_data.bid);
+                document.getElementById('btc-ask').textContent = formatCurrency(data.market_data.ask);
+                document.getElementById('btc-spread').textContent = 
+                    `Spread: ${formatCurrency(data.market_data.ask - data.market_data.bid)}`;
+
+                // Update accounts table
+                const accountsTable = document.getElementById('accounts-table');
+                accountsTable.innerHTML = data.accounts.map(acc => `
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${acc.currency}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${formatNumber(acc.balance)}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${formatNumber(acc.available)}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${formatNumber(acc.hold)}</td>
+                    </tr>
+                `).join('');
+
+                // Update positions table
+                const positionsTable = document.getElementById('positions-table');
+                positionsTable.innerHTML = data.positions.map(pos => `
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${pos.symbol}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${formatNumber(pos.quantity)}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${formatCurrency(pos.entry_price)}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${formatCurrency(data.market_data.price)}</td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm ${pos.unrealized_pnl >= 0 ? 'text-green-600' : 'text-red-600'}">
+                            ${pos.unrealized_pnl ? formatCurrency(pos.unrealized_pnl) : '-'}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm ${pos.realized_pnl >= 0 ? 'text-green-600' : 'text-red-600'}">
+                            ${pos.realized_pnl ? formatCurrency(pos.realized_pnl) : '-'}
+                        </td>
+                    </tr>
+                `).join('');
+
+                // Update trades table
+                const tradesTable = document.getElementById('trades-table');
+                tradesTable.innerHTML = data.trades.map(trade => `
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            ${new Date(trade.timestamp).toLocaleString()}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                            ${trade.symbol}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm ${trade.side === 'buy' ? 'text-green-600' : 'text-red-600'}">
+                            ${trade.side.toUpperCase()}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            ${formatCurrency(trade.price)}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            ${formatNumber(trade.size)}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            ${formatCurrency(trade.price * trade.size)}
+                        </td>
+                    </tr>
+                `).join('');
+
+                document.getElementById('connection-status').innerHTML = `
+                    <i class="fas fa-circle text-green-500"></i> Connected
+                `;
+            } catch (error) {
+                console.error('Error fetching dashboard data:', error);
+                document.getElementById('connection-status').innerHTML = `
+                    <i class="fas fa-circle text-red-500"></i> Disconnected
+                `;
+            }
+        }
+
+        // Initialize
+        updateDashboard();
+        setInterval(updateDashboard, 5000);
+        connectWebSocket();
+    </script>
+</body>
+</html> 

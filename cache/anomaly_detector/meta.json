@@ -1,0 +1,32 @@
+{
+  "symbol": "META",
+  "timestamp": "2025-03-10T09:06:50.149055",
+  "anomalies_detected": true,
+  "methods": {
+    "statistical": {
+      "anomalies_detected": true,
+      "anomaly_score": 0.6004363939371992,
+      "z_score": 3.6026183636231948,
+      "threshold": 3.0,
+      "details": {
+        "latest_price": 128.53380173481335,
+        "rolling_mean": 118.73009136756177,
+        "rolling_std": 2.72127363426635
+      }
+    },
+    "autoencoder": {
+      "anomalies_detected": false,
+      "anomaly_score": 0.2748991191264115,
+      "reconstruction_error": 0.054979823825282305,
+      "threshold": 0.1
+    },
+    "isolation_forest": {
+      "anomalies_detected": false,
+      "anomaly_score": 0.4097038084119988,
+      "anomaly_score_raw": 0.18059238317600224,
+      "threshold": -0.2
+    }
+  },
+  "anomaly_score": 0.6004363939371992,
+  "anomaly_type": "significant"
+}

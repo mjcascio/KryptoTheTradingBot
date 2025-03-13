@@ -6,6 +6,11 @@
     <title>KryptoBot Trading Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Font Awesome for icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <!-- Gridstack.js for grid layout -->
+    <link href="https://cdn.jsdelivr.net/npm/gridstack@7.2.3/dist/gridstack.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/gridstack@7.2.3/dist/gridstack-all.js"></script>
     <style>
         :root {
             --vision-bg: rgba(28, 28, 30, 0.85);
@@ -90,10 +95,14 @@
             color: var(--vision-text);
             font-weight: 600;
             letter-spacing: -0.02em;
-            font-size: 1.1rem;
+            font-size: 1.25rem;
             margin-bottom: 1rem;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 0.5rem;
+            padding: 1rem 1.25rem;
+            background: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
         .card-body {
@@ -626,22 +635,24 @@
             box-shadow: var(--vision-shadow);
             margin-bottom: 20px;
             overflow: hidden;
+            height: 100%;
         }
 
         .section-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 15px 20px;
+            padding: 1rem 1.25rem;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             background: rgba(255, 255, 255, 0.05);
         }
 
         .section-title {
-            color: var(--vision-accent);
+            color: var(--vision-text);
             font-weight: 600;
-            font-size: 1.1rem;
+            font-size: 1.25rem;
             margin: 0;
+            letter-spacing: -0.02em;
         }
 
         .section-content {
@@ -928,6 +939,149 @@
         .platform-filter .btn.active {
             box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
         }
+
+        /* Grid system styles */
+        .grid-stack {
+            background: transparent;
+            margin-bottom: 20px;
+        }
+        
+        .grid-stack-item {
+            border-radius: var(--vision-border-radius);
+            overflow: hidden;
+        }
+        
+        .grid-stack-item-content {
+            background: transparent;
+            inset: 5px;
+            overflow: hidden;
+        }
+        
+        .grid-stack-item .section-card {
+            height: 100%;
+            margin-bottom: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .grid-stack-item .section-content {
+            flex: 1;
+            overflow: auto;
+        }
+        
+        /* Grid item handle */
+        .grid-stack-item-handle {
+            cursor: move;
+            margin-right: 10px;
+            color: var(--vision-text-secondary);
+            transition: color 0.2s ease;
+        }
+        
+        .grid-stack-item-handle:hover {
+            color: var(--vision-accent);
+        }
+        
+        /* Platform toggle switch */
+        .platform-toggle-container {
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+        }
+        
+        .platform-toggle-label {
+            margin: 0 10px;
+            font-size: 0.9rem;
+            color: var(--vision-text-secondary);
+        }
+        
+        .platform-toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 30px;
+        }
+        
+        .platform-toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .platform-toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #36b9cc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .platform-toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .platform-toggle-slider {
+            background-color: #4e73df;
+        }
+        
+        input:checked + .platform-toggle-slider:before {
+            transform: translateX(30px);
+        }
+        
+        /* Section toggle button for all sections */
+        .section-toggle {
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            font-weight: 500;
+            color: var(--vision-accent);
+            padding: 4px 8px;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            background: rgba(10, 132, 255, 0.1);
+            border: none;
+            font-size: 0.9rem;
+        }
+        
+        .section-toggle:hover {
+            background: rgba(10, 132, 255, 0.2);
+        }
+        
+        .section-toggle i {
+            margin-right: 5px;
+        }
+
+        /* Ensure consistent heading styles across all panes */
+        .card-header, .panel-header {
+            padding: 1rem 1.25rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .card-header h2, .card-header h3, .card-header h4,
+        .panel-header h2, .panel-header h3, .panel-header h4 {
+            color: var(--vision-text);
+            font-weight: 600;
+            font-size: 1.25rem;
+            margin: 0;
+            letter-spacing: -0.02em;
+        }
+
+        /* Add subtle hover effect for headers */
+        .card-title:hover, .section-header:hover {
+            background: rgba(255, 255, 255, 0.08);
+        }
     </style>
 </head>
 <body>
@@ -957,1134 +1111,443 @@
         </div>
     </nav>
 
-    <div class="container mt-4">
-        <!-- Account Summary -->
+    <div class="container-fluid mt-4">
+        <!-- Main Dashboard Content -->
         <div class="row">
-            <div class="col-xl-3 col-md-6 mb-4">
-                <div class="card border-left-primary shadow h-100 py-2">
-                    <div class="card-body">
-                        <div class="row no-gutters align-items-center">
-                            <div class="col mr-2">
-                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                    Account Value <span id="active-platform-badge" class="platform-indicator stocks">Alpaca</span>
-                                </div>
-                                <div class="h5 mb-0 font-weight-bold text-gray-800" id="account-value">$0.00</div>
-                            </div>
-                            <div class="col-auto">
-                                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
+            <!-- Account Summary -->
+            <div class="col-lg-4 mb-4">
                 <div class="card summary-card h-100">
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            Daily Statistics
-                            <span class="info-tooltip">
-                                <span class="info-icon">i</span>
-                                <span class="tooltip-text">Shows today's trading activity including total number of trades, win rate percentage, and total profit/loss for the day.</span>
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4>Account Summary</h4>
+                        <button class="section-toggle" data-section="account">
+                            <i class="fas fa-chevron-up"></i>
+                        </button>
+                    </div>
+                    <div class="card-body" id="account-content">
+                        <div class="summary-item">
+                            <span class="summary-label">Account Value</span>
+                            <span class="summary-value" id="account-value">$0.00</span>
+                </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Buying Power</span>
+                            <span class="summary-value" id="buying-power">$0.00</span>
+            </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Cash Balance</span>
+                            <span class="summary-value" id="cash-balance">$0.00</span>
+        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Last Updated</span>
+                            <span class="summary-value" id="last-update">--:--:--</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Platform</span>
+                            <span class="summary-value">
+                                <span class="platform-indicator stocks" id="active-platform-badge">Alpaca</span>
                             </span>
-                        </h5>
-                        <div class="summary-item">
-                            <span class="summary-label">Total Trades:</span>
-                            <span class="summary-value"><span id="total-trades">0</span></span>
-                        </div>
-                        <div class="summary-item">
-                            <span class="summary-label">Win Rate:</span>
-                            <span class="summary-value"><span id="win-rate">0.00</span>%</span>
-                        </div>
-                        <div class="summary-item">
-                            <span class="summary-label">Total P/L:</span>
-                            <span class="summary-value">$<span id="total-pl">0.00</span></span>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-4">
+
+            <!-- Market Status -->
+            <div class="col-lg-4 mb-4">
                 <div class="card h-100">
-                    <div class="card-body">
-                        <h5 class="card-title d-flex align-items-center">
-                            Bot Status
-                            <span class="info-tooltip ms-2">
-                                <span class="info-icon">i</span>
-                                <span class="tooltip-text">Shows the current status of the trading bot, market status, and next market open/close times.</span>
-                            </span>
-                        </h5>
-                        <div class="bot-status-grid">
-                            <div class="status-group mb-3">
-                                <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <span class="status-label">Bot Status</span>
-                                    <span id="bot-status" class="badge bg-success">Running</span>
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4>Market Status</h4>
+                        <button class="section-toggle" data-section="market">
+                            <i class="fas fa-chevron-up"></i>
+                        </button>
                                 </div>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <span class="status-label">Market Status</span>
-                                    <span id="market-status" class="badge">-</span>
-                                </div>
+                    <div class="card-body" id="market-content" style="display: block;">
+                        <div class="d-flex justify-content-center align-items-center mb-3">
+                            <div class="market-status-indicator" id="market-status">
+                                <span class="status-dot"></span>
+                                <span class="status-text">Checking...</span>
                             </div>
-                            <div class="market-times mt-3">
-                                <div class="time-item mb-2">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span class="status-label">Next Open</span>
-                                        <span id="next-market-open" class="status-value">-</span>
-                                    </div>
-                                </div>
-                                <div class="time-item mb-2">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span class="status-label">Next Close</span>
-                                        <span id="next-market-close" class="status-value">-</span>
-                                    </div>
-                                </div>
-                                <div class="time-item">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span class="status-label">Last Update</span>
-                                        <span id="last-update" class="status-value">-</span>
-                                    </div>
-                                </div>
                             </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="market-time-card">
+                                    <h5>Next Open</h5>
+                                    <p id="next-market-open">--</p>
+                        </div>
+                    </div>
+                            <div class="col-6">
+                                <div class="market-time-card">
+                                    <h5>Next Close</h5>
+                                    <p id="next-market-close">--</p>
+                </div>
+            </div>
+                        </div>
+                        <div class="text-center mt-3">
+                            <small class="text-muted">Market status is updated in real-time</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Daily Stats -->
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4>Daily Stats</h4>
+                        <button class="section-toggle" data-section="daily-stats">
+                            <i class="fas fa-chevron-up"></i>
+                        </button>
+                    </div>
+                    <div class="card-body" id="daily-stats-content">
+                        <div class="summary-item">
+                            <span class="summary-label">Total P/L</span>
+                            <span class="summary-value" id="daily-pl">$0.00</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Trades Today</span>
+                            <span class="summary-value" id="daily-trades">0</span>
+                        </div>
+                        <div class="summary-item">
+                            <span class="summary-label">Win Rate</span>
+                            <span class="summary-value" id="daily-win-rate">0%</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Active Positions -->
-        <div class="row dashboard-row">
-            <div class="col-12">
-                <div class="card dashboard-card shadow">
-                    <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                        <h6 class="m-0 font-weight-bold text-primary">Active Positions</h6>
-                        <div class="position-toggle" id="position-toggle">
-                            <i class="fas fa-chevron-down"></i> <span id="toggle-text">Hide</span>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div id="positions-container" class="positions-container positions-visible">
-                            <div class="no-positions-message" id="no-positions-message">No active positions at this time.</div>
-                            <!-- Positions will be populated here by JavaScript -->
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Portfolio Diversification Analysis -->
-        <div class="row dashboard-row">
-            <div class="col-12">
-                <div class="section-card">
-                    <div class="section-header">
-                        <h5 class="section-title">Portfolio Diversification Analysis</h5>
-                        <div class="d-flex align-items-center">
-                            <span class="info-tooltip me-3">
-                                <span class="info-icon">i</span>
-                                <span class="tooltip-text">Shows how diversified your portfolio is across different sectors and helps identify opportunities to reduce correlation risk.</span>
-                            </span>
-                            <button class="toggle-button" id="diversification-toggle">
-                                <i class="fas fa-chevron-down"></i> <span id="diversification-toggle-text">Hide</span>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="section-content" id="diversification-container">
-                        <div class="row">
-                            <!-- Diversification Score -->
-                            <div class="col-xl-3 col-md-6 mb-4">
-                                <div class="metric-tile">
-                                    <div class="metric-label">Diversification Score</div>
-                                    <div class="metric-value" id="diversification-score">--</div>
-                                    <div class="d-flex align-items-center mt-2">
-                                        <i class="fas fa-balance-scale text-primary me-2"></i>
-                                        <small class="text-muted">Overall portfolio balance</small>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Sector Count -->
-                            <div class="col-xl-3 col-md-6 mb-4">
-                                <div class="metric-tile">
-                                    <div class="metric-label">Sectors Represented</div>
-                                    <div class="metric-value" id="sector-count">--</div>
-                                    <div class="d-flex align-items-center mt-2">
-                                        <i class="fas fa-layer-group text-success me-2"></i>
-                                        <small class="text-muted">Number of market sectors</small>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Correlation Risk -->
-                            <div class="col-xl-3 col-md-6 mb-4">
-                                <div class="metric-tile">
-                                    <div class="metric-label">Correlation Risk</div>
-                                    <div class="metric-value" id="correlation-risk">--</div>
-                                    <div class="d-flex align-items-center mt-2">
-                                        <i class="fas fa-link text-warning me-2"></i>
-                                        <small class="text-muted">Position correlation level</small>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <!-- Improvement Potential -->
-                            <div class="col-xl-3 col-md-6 mb-4">
-                                <div class="metric-tile">
-                                    <div class="metric-label">Improvement Potential</div>
-                                    <div class="metric-value" id="improvement-potential">--</div>
-                                    <div class="progress mt-2" style="height: 6px;">
-                                        <div class="progress-bar bg-info" role="progressbar" id="improvement-bar"
-                                            style="width: 0%" aria-valuenow="0" aria-valuemin="0"
-                                            aria-valuemax="100"></div>
-                                    </div>
-                                    <small class="text-muted mt-1 d-block">Potential for better diversification</small>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="row">
-                            <!-- Sector Allocation Chart -->
-                            <div class="col-xl-6 col-lg-6">
-                                <div class="section-card mb-4">
-                                    <div class="section-header">
-                                        <h6 class="section-title">Current vs. Recommended Allocation</h6>
-                                    </div>
-                                    <div class="section-content">
-                                        <div class="chart-wrapper">
-                                            <canvas id="sectorAllocationChart"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                                
-                            <!-- Correlation Heatmap -->
-                            <div class="col-xl-6 col-lg-6">
-                                <div class="section-card mb-4">
-                                    <div class="section-header">
-                                        <h6 class="section-title">Position Correlation Heatmap</h6>
-                                    </div>
-                                    <div class="section-content">
-                                        <div class="chart-wrapper">
-                                            <canvas id="correlationHeatmap"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                            
-                        <div class="row">
-                            <!-- Recommendations -->
-                            <div class="col-xl-12 col-lg-12">
-                                <div class="section-card mb-4">
-                                    <div class="section-header">
-                                        <h6 class="section-title">Diversification Recommendations</h6>
-                                    </div>
-                                    <div class="section-content">
-                                        <div class="table-responsive">
-                                            <table class="modern-table" id="diversificationTable" width="100%" cellspacing="0">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Type</th>
-                                                        <th>Description</th>
-                                                        <th>Action</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="diversification-recommendations">
-                                                    <!-- Recommendations will be populated here by JavaScript -->
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Performance Charts -->
+        <!-- Charts Row -->
         <div class="row">
-            <div class="col-md-6">
-                <div class="section-card">
-                    <div class="section-header">
-                        <h5 class="section-title">Equity Curve</h5>
-                        <span class="info-tooltip">
-                            <span class="info-icon">i</span>
-                            <span class="tooltip-text">Shows how your account equity has changed over time. An upward trend indicates profitable trading, while downward trends show losses.</span>
-                        </span>
+            <!-- Equity Chart -->
+            <div class="col-lg-8 mb-4">
+                <div class="card h-100">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4>Equity History</h4>
+                        <button class="section-toggle" data-section="equity-chart">
+                            <i class="fas fa-chevron-up"></i>
+                        </button>
+                                </div>
+                    <div class="card-body" id="equity-chart-content">
+                        <div class="chart-container" style="position: relative; height: 300px;">
+                            <canvas id="equityChart"></canvas>
+                                </div>
+                                </div>
+                            </div>
+                                    </div>
+
+            <!-- Daily P/L Chart -->
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4>Daily P/L</h4>
+                        <button class="section-toggle" data-section="daily-pl-chart">
+                            <i class="fas fa-chevron-up"></i>
+                        </button>
+                                </div>
+                    <div class="card-body" id="daily-pl-chart-content">
+                        <div class="chart-container" style="position: relative; height: 300px;">
+                            <canvas id="dailyPLChart"></canvas>
+                                    </div>
+                                </div>
+                                    </div>
+                                </div>
+        </div>
+
+        <!-- Positions and Trades Row -->
+        <div class="row">
+            <!-- Positions -->
+            <div class="col-lg-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4>Open Positions</h4>
+                        <button class="section-toggle" data-section="positions">
+                            <i class="fas fa-chevron-up"></i>
+                        </button>
                     </div>
-                    <div class="section-content">
-                        <div class="chart-wrapper">
-                            <canvas id="equity-chart"></canvas>
+                    <div class="card-body" id="positions-content" style="display: block;">
+                        <div class="table-responsive">
+                            <table class="table table-dark table-hover" id="positionsTable">
+                                <thead>
+                                    <tr>
+                                        <th>Symbol</th>
+                                        <th>Qty</th>
+                                        <th>Entry</th>
+                                        <th>Current</th>
+                                        <th>Stop Loss</th>
+                                        <th>Take Profit</th>
+                                        <th>P/L</th>
+                                        <th>P/L %</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Positions will be dynamically added here -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="text-center mt-3">
+                            <small class="text-muted">Positions are updated in real-time</small>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="section-card">
-                    <div class="section-header">
-                        <h5 class="section-title">Daily P/L</h5>
-                        <span class="info-tooltip">
-                            <span class="info-icon">i</span>
-                            <span class="tooltip-text">Shows your daily profit and loss. Green bars represent profitable days, while red bars show losing days.</span>
-                        </span>
+
+            <!-- Trade History -->
+            <div class="col-lg-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4>Recent Trades</h4>
+                        <button class="section-toggle" data-section="trades">
+                            <i class="fas fa-chevron-up"></i>
+                        </button>
                     </div>
-                    <div class="section-content">
-                        <div class="chart-wrapper">
-                            <canvas id="daily-pl-chart"></canvas>
+                    <div class="card-body" id="trades-content">
+                        <div class="table-responsive">
+                            <table class="table table-dark table-hover" id="tradesTable">
+                                <thead>
+                                    <tr>
+                                        <th>Symbol</th>
+                                        <th>Side</th>
+                                        <th>Qty</th>
+                                        <th>Entry</th>
+                                        <th>Exit</th>
+                                        <th>P/L</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="6" class="text-center">No recent trades</td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Strategy Performance -->
-        <div class="row dashboard-row">
-            <div class="col-12">
-                <div class="section-card">
-                    <div class="section-header">
-                        <h5 class="section-title">Strategy Performance</h5>
-                        <div class="d-flex align-items-center">
-                            <span class="info-tooltip me-3">
-                                <span class="info-icon">i</span>
-                                <span class="tooltip-text">Shows how each trading strategy is performing. Compares number of trades, win rates, and profit/loss across different strategies to help identify which are most effective.</span>
-                            </span>
-                            <button class="toggle-button" id="strategy-toggle">
-                                <i class="fas fa-chevron-down"></i> Hide
-                            </button>
+        <!-- Sleep Status -->
+        <div class="row" id="sleep-status-section">
+            <div class="col-12 mb-4">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4>Bot Status</h4>
+                        <button class="section-toggle" data-section="sleep">
+                            <i class="fas fa-chevron-up"></i>
+                        </button>
+                    </div>
+                    <div class="card-body" id="sleep-content" style="display: block;">
+                                    <div class="d-flex justify-content-between align-items-center">
+                            <div>
+                                <h5 class="mb-2">Current Status: <span id="sleep-status" class="badge bg-success">Active</span></h5>
+                                <p class="mb-0" id="sleep-reason">Bot is currently active</p>
+                                    </div>
+                            <div>
+                                <h5 class="mb-2">Next Wake Time</h5>
+                                <p class="mb-0 fw-bold" id="next-wake-time">--</p>
+                                <small class="text-muted">The bot will wake up before market open to prepare for trading</small>
+                                </div>
+                            </div>
+                        <div class="text-center mt-3">
+                            <small class="text-muted">Bot status is updated in real-time</small>
                         </div>
                     </div>
-                    <div class="section-content" id="strategy-content">
+                </div>
+            </div>
+        </div>
+        
+        <!-- ML Insights Row -->
+        <div class="row">
+            <!-- Feature Importance -->
+            <div class="col-lg-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4>Feature Importance</h4>
+                        <button class="section-toggle" data-section="feature-importance">
+                            <i class="fas fa-chevron-up"></i>
+                        </button>
+                    </div>
+                    <div class="card-body" id="feature-importance-content">
+                        <div class="chart-container" style="position: relative; height: 300px;">
+                            <canvas id="featureImportanceChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+            <!-- Prediction Accuracy -->
+            <div class="col-lg-6 mb-4">
+                <div class="card h-100">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4>Prediction Accuracy</h4>
+                        <button class="section-toggle" data-section="prediction-accuracy">
+                            <i class="fas fa-chevron-up"></i>
+                        </button>
+                    </div>
+                    <div class="card-body" id="prediction-accuracy-content">
+                        <div class="chart-container" style="position: relative; height: 300px;">
+                            <canvas id="predictionAccuracyChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+
+        <!-- Market Predictions -->
+        <div class="row">
+            <div class="col-12 mb-4">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4>Market Predictions</h4>
+                        <button class="section-toggle" data-section="market-predictions">
+                            <i class="fas fa-chevron-up"></i>
+                        </button>
+                    </div>
+                    <div class="card-body" id="market-predictions-content">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4 mb-3">
+                                <div class="prediction-summary">
+                                    <h5>Market Sentiment</h5>
+                                    <div class="sentiment-indicator" id="market-sentiment">Neutral</div>
+                                    <div class="confidence-meter">
+                                        <span>Confidence:</span>
+                                        <div class="progress">
+                                            <div class="progress-bar bg-info" id="sentiment-confidence" role="progressbar" style="width: 0%"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <h5>Top Predictions for Tomorrow</h5>
                                 <div class="table-responsive">
-                                    <table class="modern-table">
+                                    <table class="table table-dark table-hover" id="predictionsTable">
                                         <thead>
                                             <tr>
-                                                <th>Strategy</th>
-                                                <th>Trades</th>
-                                                <th>Win Rate</th>
-                                                <th>P/L</th>
+                                                <th>Symbol</th>
+                                                <th>Direction</th>
+                                                <th>Change</th>
+                                                <th>Confidence</th>
+                                                <th>Key Factors</th>
                                             </tr>
                                         </thead>
-                                        <tbody id="strategy-performance">
+                                        <tbody>
+                                            <tr>
+                                                <td colspan="5" class="text-center">No predictions available</td>
+                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
-                            <div class="col-md-6">
-                                <div class="chart-wrapper">
-                                    <canvas id="strategy-allocation-chart"></canvas>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mt-4">
-                            <div class="col-md-6">
-                                <div class="chart-wrapper">
-                                    <canvas id="strategy-win-rate-chart"></canvas>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="chart-wrapper">
-                                    <canvas id="strategy-pl-chart"></canvas>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Trade History -->
-        <div class="card shadow mb-4">
-            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Trade History</h6>
-                <div class="platform-filter">
-                    <button class="btn btn-sm btn-outline-primary active" data-platform="all">All Platforms</button>
-                    <button class="btn btn-sm btn-outline-primary" data-platform="alpaca">Alpaca</button>
-                    <button class="btn btn-sm btn-outline-info" data-platform="metatrader">MetaTrader</button>
-                </div>
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="tradesTable" width="100%" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th>Symbol</th>
-                                <th>Type</th>
-                                <th>Side</th>
-                                <th>Quantity</th>
-                                <th>Entry Price</th>
-                                <th>Exit Price</th>
-                                <th>P/L</th>
-                                <th>P/L %</th>
-                                <th>Entry Time</th>
-                                <th>Exit Time</th>
-                                <th>Platform</th>
-                            </tr>
-                        </thead>
-                        <tbody id="trade-history">
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- Bot Activity Logs -->
-        <div class="row dashboard-row">
-            <div class="col-12">
-                <div class="section-card">
-                    <div class="section-header">
-                        <h5 class="section-title">Bot Activity</h5>
-                        <div class="d-flex align-items-center">
-                            <span class="info-tooltip me-3">
-                                <span class="info-icon">i</span>
-                                <span class="tooltip-text">Shows recent bot activities, warnings, and errors with timestamps.</span>
-                            </span>
-                            <button class="btn btn-sm btn-outline-danger me-3" id="clear-logs-btn">
-                                <i class="fas fa-trash-alt"></i> Clear Logs
-                            </button>
-                            <button class="toggle-button" id="activity-toggle">
-                                <i class="fas fa-chevron-down"></i> Hide
-                            </button>
-                        </div>
-                    </div>
-                    <div class="section-content" id="activity-content">
-                        <div id="bot-activity-container">
-                            <!-- Activity logs will be populated here -->
-                        </div>
-                        
-                        <!-- Bot Diagnostics Section -->
-                        <div class="diagnostics-container">
-                            <div class="diagnostics-header">
-                                <div class="diagnostics-title">Bot Diagnostics</div>
-                                <div class="d-flex align-items-center">
-                                    <span class="diagnostics-timestamp" id="last-diagnostic-time">Feature coming soon</span>
-                                    <button class="run-diagnostics-btn ms-3" id="run-diagnostics-btn" disabled title="This feature is coming soon">
-                                        <i class="fas fa-sync-alt"></i> Run Diagnostics
+        <!-- Bot Activity -->
+        <div class="col-lg-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h4>Bot Activity</h4>
+                    <button class="section-toggle" data-section="bot-activity">
+                                        <i class="fas fa-chevron-up"></i>
                                     </button>
                                 </div>
-                            </div>
-                            
-                            <div class="diagnostics-grid" id="diagnostics-grid">
-                                <div class="text-center text-muted py-4">
-                                    <i class="fas fa-tools fa-2x mb-3"></i>
-                                    <p>Bot diagnostics feature is currently in development.</p>
-                                    <p>This feature will allow you to run comprehensive health checks on your trading bot.</p>
+                <div class="card-body" id="bot-activity-content" style="display: block;">
+                    <div class="activity-log-container">
+                        <div id="activity-log">
+                            <!-- Bot activity will be dynamically added here -->
                                 </div>
                             </div>
-                            
-                            <div class="diagnostics-summary" id="diagnostics-summary">
-                                <div class="diagnostics-summary-title">Diagnostic Summary</div>
-                                <div class="diagnostics-summary-content" id="diagnostics-summary-content">
-                                    The diagnostics feature will provide detailed insights into your bot's performance, system resources, and potential issues.
-                                </div>
-                            </div>
+                    <div class="text-center mt-3">
+                        <small class="text-muted">Bot activity is updated in real-time</small>
                         </div>
-                    </div>
+                    <style>
+                        .activity-log-container {
+                            max-height: 400px;
+                            overflow-y: auto;
+                            padding-right: 10px;
+                            margin-bottom: 10px;
+                            border-radius: 8px;
+                            background: rgba(255, 255, 255, 0.02);
+                        }
+                        
+                        .activity-log-container::-webkit-scrollbar {
+                            width: 6px;
+                        }
+                        
+                        .activity-log-container::-webkit-scrollbar-track {
+                            background: rgba(255, 255, 255, 0.05);
+                            border-radius: 3px;
+                        }
+                        
+                        .activity-log-container::-webkit-scrollbar-thumb {
+                            background: rgba(255, 255, 255, 0.2);
+                            border-radius: 3px;
+                        }
+                        
+                        .activity-log-container::-webkit-scrollbar-thumb:hover {
+                            background: rgba(255, 255, 255, 0.3);
+                        }
+                        
+                        .log-entry {
+                            padding: 8px 12px;
+                            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+                            font-family: 'SF Mono', 'Menlo', 'Monaco', 'Courier New', monospace;
+                            font-size: 0.85rem;
+                            line-height: 1.4;
+                        }
+                        
+                        .log-timestamp {
+                            color: rgba(255, 255, 255, 0.5);
+                            margin-right: 8px;
+                        }
+                        
+                        .log-level {
+                            display: inline-block;
+                            padding: 2px 6px;
+                            border-radius: 4px;
+                            margin-right: 8px;
+                            font-size: 0.75rem;
+                            font-weight: bold;
+                        }
+                        
+                        .log-level.info {
+                            background-color: rgba(10, 132, 255, 0.3);
+                            color: #0a84ff;
+                        }
+                        
+                        .log-level.warning {
+                            background-color: rgba(255, 214, 10, 0.3);
+                            color: #ffd60a;
+                        }
+                        
+                        .log-level.error {
+                            background-color: rgba(255, 69, 58, 0.3);
+                            color: #ff453a;
+                        }
+                        
+                        .log-level.trade {
+                            background-color: rgba(48, 209, 88, 0.3);
+                            color: #30d158;
+                        }
+                        
+                        .log-level.analysis {
+                            background-color: rgba(100, 210, 255, 0.3);
+                            color: #64d2ff;
+                        }
+                        
+                        .log-message {
+                            color: rgba(255, 255, 255, 0.9);
+                        }
+                    </style>
                 </div>
-            </div>
-        </div>
-
-        <!-- Risk Management Dashboard -->
-        <div class="row dashboard-row">
-            <div class="col-12">
-                <div class="section-card">
-                    <div class="section-header">
-                        <h5 class="section-title">Risk Management</h5>
-                        <div class="d-flex align-items-center">
-                            <span class="info-tooltip me-3">
-                                <span class="info-icon">i</span>
-                                <span class="tooltip-text">Shows key risk metrics to help monitor and control trading risk. Includes portfolio heat (percentage of capital at risk), drawdown, position diversification, and sector exposure.</span>
-                            </span>
-                            <button class="toggle-button" id="risk-toggle">
-                                <i class="fas fa-chevron-down"></i> Hide
-                            </button>
-                        </div>
                     </div>
-                    <div class="section-content" id="risk-content">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h6 class="card-subtitle mb-2 text-muted">
-                                            Portfolio Heat
-                                            <span class="info-tooltip">
-                                                <span class="info-icon">i</span>
-                                                <span class="tooltip-text">Percentage of your capital currently at risk in open positions. Lower is generally safer.</span>
-                                            </span>
-                                        </h6>
-                                        <div class="progress" style="height: 30px;">
-                                            <div id="portfolio-heat-bar" class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
-                                        </div>
-                                        <small class="text-muted mt-2 d-block">Percentage of capital at risk</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h6 class="card-subtitle mb-2 text-muted">
-                                            Drawdown
-                                            <span class="info-tooltip">
-                                                <span class="info-icon">i</span>
-                                                <span class="tooltip-text">Percentage decline from peak equity. Shows how much your account has dropped from its highest value.</span>
-                                            </span>
-                                        </h6>
-                                        <div class="progress" style="height: 30px;">
-                                            <div id="drawdown-bar" class="progress-bar bg-warning" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
-                                        </div>
-                                        <small class="text-muted mt-2 d-block">Current drawdown from peak equity</small>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h6 class="card-subtitle mb-2 text-muted">
-                                            Position Diversification
-                                            <span class="info-tooltip">
-                                                <span class="info-icon">i</span>
-                                                <span class="tooltip-text">Shows how many positions you have relative to your maximum allowed positions. Higher diversification can reduce risk.</span>
-                                            </span>
-                                        </h6>
-                                        <div class="progress" style="height: 30px;">
-                                            <div id="diversification-bar" class="progress-bar bg-info" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">0%</div>
-                                        </div>
-                                        <small class="text-muted mt-2 d-block">Percentage of max positions utilized</small>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mt-3">
-                            <div class="col-md-6">
-                                <div class="chart-container">
-                                    <canvas id="sector-exposure-chart"></canvas>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h6 class="card-subtitle mb-2 text-muted">
-                                            Risk Metrics
-                                            <span class="info-tooltip">
-                                                <span class="info-icon">i</span>
-                                                <span class="tooltip-text">Key performance metrics that help evaluate trading risk and efficiency. Higher Sharpe ratio, profit factor, and win/loss ratio generally indicate better performance.</span>
-                                            </span>
-                                        </h6>
-                                        <table class="table table-sm">
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        Max Drawdown
-                                                        <span class="info-tooltip">
-                                                            <span class="info-icon">i</span>
-                                                            <span class="tooltip-text">The largest percentage drop from a peak to a trough in your account equity.</span>
-                                                        </span>
-                                                    </td>
-                                                    <td id="max-drawdown">0.00%</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        Sharpe Ratio
-                                                        <span class="info-tooltip">
-                                                            <span class="info-icon">i</span>
-                                                            <span class="tooltip-text">Measures risk-adjusted return. Higher values indicate better risk-adjusted performance.</span>
-                                                        </span>
-                                                    </td>
-                                                    <td id="sharpe-ratio">0.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        Profit Factor
-                                                        <span class="info-tooltip">
-                                                            <span class="info-icon">i</span>
-                                                            <span class="tooltip-text">Gross profit divided by gross loss. Values above 1.0 indicate overall profitability.</span>
-                                                        </span>
-                                                    </td>
-                                                    <td id="profit-factor">0.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        Win/Loss Ratio
-                                                        <span class="info-tooltip">
-                                                            <span class="info-icon">i</span>
-                                                            <span class="tooltip-text">Average win amount divided by average loss amount. Higher values are generally better.</span>
-                                                        </span>
-                                                    </td>
-                                                    <td id="win-loss-ratio">0.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        Avg Win
-                                                        <span class="info-tooltip">
-                                                            <span class="info-icon">i</span>
-                                                            <span class="tooltip-text">The average profit of winning trades.</span>
-                                                        </span>
-                                                    </td>
-                                                    <td id="avg-win">$0.00</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        Avg Loss
-                                                        <span class="info-tooltip">
-                                                            <span class="info-icon">i</span>
-                                                            <span class="tooltip-text">The average loss of losing trades.</span>
-                                                        </span>
-                                                    </td>
-                                                    <td id="avg-loss">$0.00</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- ML Insights -->
-        <div class="row mt-4">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">
-                            Machine Learning Insights
-                            <span class="info-tooltip">
-                                <span class="info-icon">i</span>
-                                <span class="tooltip-text">Shows insights from the machine learning models that power trading decisions. Includes signal confidence, feature importance, model performance metrics, and recent predictions.</span>
-                            </span>
-                        </h5>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h6 class="card-subtitle mb-2 text-muted">
-                                            Signal Confidence
-                                            <span class="info-tooltip">
-                                                <span class="info-icon">i</span>
-                                                <span class="tooltip-text">Shows the confidence level of trading signals for different symbols. Higher values indicate stronger signals.</span>
-                                            </span>
-                                        </h6>
-                                        <div class="chart-container">
-                                            <canvas id="signal-confidence-chart"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h6 class="card-subtitle mb-2 text-muted">
-                                            Feature Importance
-                                            <span class="info-tooltip">
-                                                <span class="info-icon">i</span>
-                                                <span class="tooltip-text">Shows which market indicators and features have the most influence on the trading model's decisions.</span>
-                                            </span>
-                                        </h6>
-                                        <div class="chart-container">
-                                            <canvas id="feature-importance-chart"></canvas>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row mt-3">
-                            <div class="col-md-6">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h6 class="card-subtitle mb-2 text-muted">
-                                            Model Performance
-                                            <span class="info-tooltip">
-                                                <span class="info-icon">i</span>
-                                                <span class="tooltip-text">Shows how well the machine learning model is performing using standard evaluation metrics.</span>
-                                            </span>
-                                        </h6>
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <div class="metric-card text-center p-2">
-                                                    <h3 id="model-accuracy">0%</h3>
-                                                    <small class="text-muted">
-                                                        Accuracy
-                                                        <span class="info-tooltip">
-                                                            <span class="info-icon">i</span>
-                                                            <span class="tooltip-text">Percentage of predictions that were correct.</span>
-                                                        </span>
-                                                    </small>
-                                                </div>
-                                            </div>
-                                            <div class="col-6">
-                                                <div class="metric-card text-center p-2">
-                                                    <h3 id="model-precision">0%</h3>
-                                                    <small class="text-muted">
-                                                        Precision
-                                                        <span class="info-tooltip">
-                                                            <span class="info-icon">i</span>
-                                                            <span class="tooltip-text">Percentage of positive predictions that were actually correct.</span>
-                                                        </span>
-                                                    </small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row mt-2">
-                                            <div class="col-6">
-                                                <div class="metric-card text-center p-2">
-                                                    <h3 id="model-recall">0%</h3>
-                                                    <small class="text-muted">
-                                                        Recall
-                                                        <span class="info-tooltip">
-                                                            <span class="info-icon">i</span>
-                                                            <span class="tooltip-text">Percentage of actual positive cases that were correctly identified.</span>
-                                                        </span>
-                                                    </small>
-                                                </div>
-                                            </div>
-                                            <div class="col-6">
-                                                <div class="metric-card text-center p-2">
-                                                    <h3 id="model-f1">0%</h3>
-                                                    <small class="text-muted">
-                                                        F1 Score
-                                                        <span class="info-tooltip">
-                                                            <span class="info-icon">i</span>
-                                                            <span class="tooltip-text">Harmonic mean of precision and recall. Balances both metrics.</span>
-                                                        </span>
-                                                    </small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row mt-2">
-                                            <div class="col-12">
-                                                <div class="metric-card text-center p-2">
-                                                    <h3 id="model-auc">0.00</h3>
-                                                    <small class="text-muted">
-                                                        AUC
-                                                        <span class="info-tooltip">
-                                                            <span class="info-icon">i</span>
-                                                            <span class="tooltip-text">Area Under the ROC Curve. Measures the model's ability to distinguish between classes. Higher is better.</span>
-                                                        </span>
-                                                    </small>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h6 class="card-subtitle mb-2 text-muted">
-                                            Recent Predictions
-                                            <span class="info-tooltip">
-                                                <span class="info-icon">i</span>
-                                                <span class="tooltip-text">Shows recent trading predictions made by the model and their actual outcomes.</span>
-                                            </span>
-                                        </h6>
-                                        <div class="table-responsive">
-                                            <table class="table table-sm">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Time</th>
-                                                        <th>Symbol</th>
-                                                        <th>Prediction</th>
-                                                        <th>Confidence</th>
-                                                        <th>Actual</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="recent-predictions">
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Positions Section -->
-        <div class="card shadow mb-4">
-            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                <h6 class="m-0 font-weight-bold text-primary">Current Positions</h6>
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="positionsTable" width="100%" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th>Symbol</th>
-                                <th>Quantity</th>
-                                <th>Entry Price</th>
-                                <th>Current Price</th>
-                                <th>Market Value</th>
-                                <th>Unrealized P/L</th>
-                                <th>Unrealized P/L %</th>
-                                <th>Platform</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Positions will be populated here -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
         </div>
     </div>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="static/vendor/jquery/jquery.min.js"></script>
-    <script src="static/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- Notification container -->
+    <div id="notification-container"></div>
 
-    <!-- Core plugin JavaScript-->
-    <script src="static/vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="static/js/sb-admin-2.min.js"></script>
-
-    <!-- Page level plugins -->
-    <script src="static/vendor/chart.js/Chart.min.js"></script>
-    
-    <!-- Matrix chart plugin for correlation heatmap -->
-    <script src="static/js/matrix-chart.js"></script>
-
-    <!-- Custom scripts for dashboard -->
-    <script src="static/js/dashboard.js"></script>
-
-    <script>
-        function formatDateTime(dateStr) {
-            if (!dateStr) return '-';
-            const date = new Date(dateStr);
-            return date.toLocaleString('en-US', {
-                weekday: 'short',
-                month: 'short',
-                day: 'numeric',
-                year: 'numeric',
-                hour: 'numeric',
-                minute: '2-digit',
-                hour12: true
-            });
-        }
-
-        // Toggle positions visibility
-        document.addEventListener('DOMContentLoaded', function() {
-            const positionToggle = document.getElementById('position-toggle');
-            const positionsContainer = document.getElementById('positions-container');
-            const toggleText = document.getElementById('toggle-text');
-            
-            positionToggle.addEventListener('click', function() {
-                if (positionsContainer.classList.contains('positions-visible')) {
-                    positionsContainer.classList.remove('positions-visible');
-                    positionsContainer.classList.add('positions-hidden');
-                    toggleText.textContent = 'Show';
-                    positionToggle.querySelector('i').classList.remove('fa-chevron-down');
-                    positionToggle.querySelector('i').classList.add('fa-chevron-right');
-                } else {
-                    positionsContainer.classList.remove('positions-hidden');
-                    positionsContainer.classList.add('positions-visible');
-                    toggleText.textContent = 'Hide';
-                    positionToggle.querySelector('i').classList.remove('fa-chevron-right');
-                    positionToggle.querySelector('i').classList.add('fa-chevron-down');
-                }
-            });
-            
-            // Setup all toggle buttons
-            setupToggleButton('strategy-toggle', 'strategy-content');
-            setupToggleButton('trade-history-toggle', 'trade-history-content');
-            setupToggleButton('activity-toggle', 'activity-content');
-            setupToggleButton('risk-toggle', 'risk-content');
-            setupToggleButton('diversification-toggle', 'diversification-container');
-            
-            // Load bot activity logs with timestamps
-            loadBotActivityLogs();
-            
-            // Initialize dashboard
-            updateDashboard();
-            // Update dashboard every 30 seconds
-            setInterval(updateDashboard, 30000);
-        });
-        
-        function setupToggleButton(buttonId, contentId) {
-            const button = document.getElementById(buttonId);
-            const content = document.getElementById(contentId);
-            
-            if (button && content) {
-                button.addEventListener('click', function() {
-                    if (content.style.display === 'none') {
-                        content.style.display = 'block';
-                        button.innerHTML = '<i class="fas fa-chevron-down"></i> Hide';
-                    } else {
-                        content.style.display = 'none';
-                        button.innerHTML = '<i class="fas fa-chevron-right"></i> Show';
-                    }
-                });
-            }
-        }
-        
-        function loadBotActivityLogs() {
-            fetch('/api/logs')
-                .then(response => response.json())
-                .then(data => {
-                    const activityContainer = document.getElementById('bot-activity-container');
-                    activityContainer.innerHTML = '';
-                    
-                    if (data.bot_activity && data.bot_activity.length > 0) {
-                        // Store logs in localStorage for the clear functionality
-                        localStorage.setItem('botActivityLogs', JSON.stringify(data.bot_activity));
-                        
-                        displayBotActivityLogs(data.bot_activity);
-                    } else {
-                        activityContainer.innerHTML = '<p class="text-center text-muted">No activity logs available</p>';
-                    }
-                })
-                .catch(error => {
-                    console.error('Error loading bot activity logs:', error);
-                    document.getElementById('bot-activity-container').innerHTML = 
-                        '<p class="text-center text-danger">Error loading activity logs</p>';
-                });
-        }
-        
-        function displayBotActivityLogs(logs) {
-            const activityContainer = document.getElementById('bot-activity-container');
-            activityContainer.innerHTML = '';
-            
-            if (logs && logs.length > 0) {
-                logs.forEach(activity => {
-                    const logElement = document.createElement('div');
-                    let logClass = 'activity-log';
-                    
-                    // Add appropriate class based on log type
-                    if (activity.type === 'warning') {
-                        logClass += ' warning';
-                    } else if (activity.type === 'error') {
-                        logClass += ' error';
-                    } else if (activity.type === 'success') {
-                        logClass += ' success';
-                    }
-                    
-                    logElement.className = logClass;
-                    
-                    // Format timestamp
-                    const timestamp = new Date(activity.timestamp);
-                    const formattedTime = timestamp.toLocaleString('en-US', {
-                        year: 'numeric',
-                        month: 'short',
-                        day: 'numeric',
-                        hour: 'numeric',
-                        minute: '2-digit',
-                        second: '2-digit',
-                        hour12: true
-                    });
-                    
-                    logElement.innerHTML = `
-                        <span class="activity-timestamp">${formattedTime}</span>
-                        <div class="activity-message">${activity.message}</div>
-                    `;
-                    
-                    activityContainer.appendChild(logElement);
-                });
-            } else {
-                activityContainer.innerHTML = '<p class="text-center text-muted">No activity logs available</p>';
-            }
-        }
-        
-        // Bot diagnostics functionality - disabled for now
-        document.addEventListener('DOMContentLoaded', function() {
-            const runDiagnosticsBtn = document.getElementById('run-diagnostics-btn');
-            
-            if (runDiagnosticsBtn) {
-                runDiagnosticsBtn.addEventListener('click', function() {
-                    // Disabled for now
-                    alert('Bot diagnostics feature is coming soon!');
-                });
-            }
-            
-            // Remove any previously saved diagnostics data
-            if (localStorage.getItem('botDiagnostics')) {
-                localStorage.removeItem('botDiagnostics');
-            }
-            
-            // Add clear logs button functionality
-            const clearLogsBtn = document.getElementById('clear-logs-btn');
-            if (clearLogsBtn) {
-                clearLogsBtn.addEventListener('click', function() {
-                    // Clear the logs display
-                    document.getElementById('bot-activity-container').innerHTML = 
-                        '<p class="text-center text-success">Logs cleared. New logs will appear here.</p>';
-                    
-                    // Clear the stored logs
-                    localStorage.removeItem('botActivityLogs');
-                    
-                    // Optionally, you could also make an API call to clear logs on the server
-                    // fetch('/api/logs/clear', { method: 'POST' })
-                    //    .then(response => response.json())
-                    //    .then(data => console.log('Logs cleared on server'));
-                });
-            }
-        });
-
-        // Global variables
-        let activePlatform = 'alpaca';
-        let currentPlatformFilter = 'all';
-        
-        // Update dashboard data
-        function updateDashboard() {
-            fetch('/api/data')
-                .then(response => response.json())
-                .then(data => {
-                    // Update account information
-                    document.getElementById('account-value').textContent = formatCurrency(data.account.equity);
-                    document.getElementById('buying-power').textContent = formatCurrency(data.account.buying_power);
-                    document.getElementById('cash-balance').textContent = formatCurrency(data.account.cash);
-                    
-                    // Update active platform badge
-                    activePlatform = data.account.platform || 'alpaca';
-                    const platformBadge = document.getElementById('active-platform-badge');
-                    platformBadge.textContent = activePlatform.charAt(0).toUpperCase() + activePlatform.slice(1);
-                    platformBadge.className = `platform-indicator ${activePlatform === 'metatrader' ? 'forex' : 'stocks'}`;
-                    
-                    // Update positions
-                    updatePositionsTable(data.positions);
-                    
-                    // Update trades with platform filtering
-                    updateTradesTable(data.trades);
-                    
-                    // ... existing chart updates ...
-                })
-                .catch(error => {
-                    console.error('Error fetching dashboard data:', error);
-                });
-        }
-        
-        // Update trades table with platform filtering
-        function updateTradesTable(trades) {
-            const table = document.getElementById('tradesTable');
-            const tbody = table.querySelector('tbody') || document.createElement('tbody');
-            
-            if (!table.contains(tbody)) {
-                table.appendChild(tbody);
-            }
-            
-            tbody.innerHTML = '';
-            
-            if (!trades || trades.length === 0) {
-                const row = document.createElement('tr');
-                row.innerHTML = '<td colspan="11" class="text-center">No trades found</td>';
-                tbody.appendChild(row);
-                return;
-            }
-            
-            // Filter trades by platform if needed
-            const filteredTrades = currentPlatformFilter === 'all' 
-                ? trades 
-                : trades.filter(trade => trade.platform === currentPlatformFilter);
-            
-            if (filteredTrades.length === 0) {
-                const row = document.createElement('tr');
-                row.innerHTML = `<td colspan="11" class="text-center">No trades found for ${currentPlatformFilter} platform</td>`;
-                tbody.appendChild(row);
-                return;
-            }
-            
-            filteredTrades.forEach(trade => {
-                const row = document.createElement('tr');
-                const profitLoss = trade.exit_price ? (trade.exit_price - trade.entry_price) * trade.quantity * (trade.side === 'buy' ? 1 : -1) : 0;
-                const profitLossPercent = trade.exit_price ? ((trade.exit_price - trade.entry_price) / trade.entry_price * 100) * (trade.side === 'buy' ? 1 : -1) : 0;
-                
-                row.innerHTML = `
-                    <td>${trade.symbol}</td>
-                    <td>${trade.type || 'market'}</td>
-                    <td class="${trade.side === 'buy' ? 'text-success' : 'text-danger'}">${trade.side}</td>
-                    <td>${trade.quantity}</td>
-                    <td>${formatCurrency(trade.entry_price)}</td>
-                    <td>${trade.exit_price ? formatCurrency(trade.exit_price) : '-'}</td>
-                    <td class="${profitLoss >= 0 ? 'text-success' : 'text-danger'}">${formatCurrency(profitLoss)}</td>
-                    <td class="${profitLossPercent >= 0 ? 'text-success' : 'text-danger'}">${profitLossPercent.toFixed(2)}%</td>
-                    <td>${formatDate(trade.entry_time)}</td>
-                    <td>${trade.exit_time ? formatDate(trade.exit_time) : '-'}</td>
-                    <td><span class="platform-indicator ${trade.platform === 'metatrader' ? 'forex' : 'stocks'}">${trade.platform}</span></td>
-                `;
-                
-                tbody.appendChild(row);
-            });
-        }
-        
-        // Initialize platform filter buttons
-        function initPlatformFilters() {
-            const filterButtons = document.querySelectorAll('.platform-filter .btn');
-            
-            filterButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    // Remove active class from all buttons
-                    filterButtons.forEach(btn => btn.classList.remove('active'));
-                    
-                    // Add active class to clicked button
-                    this.classList.add('active');
-                    
-                    // Update current filter
-                    currentPlatformFilter = this.getAttribute('data-platform');
-                    
-                    // Refresh dashboard to apply filter
-                    updateDashboard();
-                });
-            });
-        }
-        
-        // Initialize dashboard
-        document.addEventListener('DOMContentLoaded', function() {
-            // Initial dashboard update
-            updateDashboard();
-            
-            // Set up platform filters
-            initPlatformFilters();
-            
-            // Set up polling for dashboard updates
-            setInterval(updateDashboard, 5000);
-            
-            // ... existing initialization code ...
-        });
-        
-        // ... existing helper functions ...
-
-        // Update positions table
-        function updatePositionsTable(positions) {
-            const table = document.getElementById('positionsTable');
-            const tbody = table.querySelector('tbody') || document.createElement('tbody');
-            
-            if (!table.contains(tbody)) {
-                table.appendChild(tbody);
-            }
-            
-            tbody.innerHTML = '';
-            
-            if (!positions || Object.keys(positions).length === 0) {
-                const row = document.createElement('tr');
-                row.innerHTML = '<td colspan="8" class="text-center">No positions found</td>';
-                tbody.appendChild(row);
-                return;
-            }
-            
-            for (const symbol in positions) {
-                const position = positions[symbol];
-                const row = document.createElement('tr');
-                
-                const unrealizedPL = position.unrealized_pl || (position.market_value - position.cost_basis);
-                const unrealizedPLPercent = position.unrealized_plpc || (unrealizedPL / position.cost_basis * 100);
-                
-                row.innerHTML = `
-                    <td>${symbol}</td>
-                    <td>${position.qty || position.lots}</td>
-                    <td>${formatCurrency(position.avg_entry_price || position.open_price)}</td>
-                    <td>${formatCurrency(position.current_price)}</td>
-                    <td>${formatCurrency(position.market_value)}</td>
-                    <td class="${unrealizedPL >= 0 ? 'text-success' : 'text-danger'}">${formatCurrency(unrealizedPL)}</td>
-                    <td class="${unrealizedPLPercent >= 0 ? 'text-success' : 'text-danger'}">${unrealizedPLPercent.toFixed(2)}%</td>
-                    <td><span class="platform-indicator ${position.platform === 'metatrader' ? 'forex' : 'stocks'}">${position.platform || activePlatform}</span></td>
-                `;
-                
-                tbody.appendChild(row);
-            }
-        }
-    </script>
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/dashboard.js?v=1.0.2"></script>
 </body>
-
-</html> 
+</html>

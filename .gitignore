@@ -1,21 +1,177 @@
-# Python virtual environments
-venv/
-.venv/
-env/
-ENV/
-
-# Python bytecode
+# Python
 __pycache__/
 *.py[cod]
 *$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
 
-# Distribution / packaging
+# Virtual Environment
+.env
+.venv
+env/
+venv/
+ENV/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs
+*.log
+logs/
+log/
+
+# Sensitive Data
+.kryptobot/
+*.key
+*.encrypted
+credentials.json
+secrets.yaml
+.env.*
+.secrets
+
+# Database
+*.db
+*.sqlite3
+*.sqlite
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
+.tox/
+coverage.xml
+*.cover
+
+# Documentation
+docs/_build/
+site/
+
+# Temporary files
+*.bak
+*.tmp
+.DS_Store
+Thumbs.db
+
+# Logs and data
+data/
+*.pid
+trading_history/
+backtest_results/
+
+# Sensitive configuration
+!.env.template
+config/local_settings.yaml
+config/prod_settings.yaml
+config/dev_settings.yaml
+config/secrets.yaml
+*.pem
+*.crt
+*.p12
+*.pfx
+*.jks
+*.keystore
+*_rsa
+*_dsa
+*_ed25519
+*_ecdsa
+.ssh/
+credentials/
+secrets/
+
+# API Keys and Tokens
+*_api_key*
+*_secret*
+*token*
+*password*
+*.credentials
+auth.json
+credentials.json
+
+# Trading Data
+positions.json
+orders.json
+trades.json
+portfolio.json
+*.trades
+*.orders
+*.positions
+
+# Distribution
 dist/
 build/
 *.egg-info/
 
+# Temporary files
+*.bak
+*.tmp
+*~
+.*.swp
+.*.swo
+*.swn
+
+# OS-specific
+.DS_Store
+Thumbs.db
+.directory
+desktop.ini
+
+# Database
+*.db
+*.sqlite
+*.sqlite3
+*.dat
+
+# Encryption
+*.key
+*.pem
+*.crt
+*.cer
+*.der
+*.p7b
+*.p7c
+*.pfx
+*.p12
+
+# Backup files
+*.bak
+*~
+*.swp
+*.swo
+*.swn
+*.bkp
+backup/
+backups/
+
+# Local development
+local_settings.py
+dev_settings.py
+test_settings.py
+*.local
+*.dev
+*.test
+
+# Distribution / packaging
+*.egg-info/
+
 # Logs and databases
-*.log
 trading_bot.log
 *.sqlite
 *.db
@@ -24,13 +180,10 @@ trading_bot.log
 .env
 
 # IDE specific files
-.idea/
-.vscode/
 *.swp
 *.swo
 
 # OS specific files
-.DS_Store
 .DS_Store?
 ._*
 .Spotlight-V100
@@ -39,7 +192,5 @@ ehthumbs.db
 Thumbs.db
 
 # Project specific
-data/
-logs/
 reports/
-*.pid 
+*.pid trading_bot.out

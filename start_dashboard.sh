@@ -1,35 +1,58 @@
 #!/bin/bash
 
-# Navigate to the script's directory
-cd "$(dirname "$0")"
+# start_dashboard.sh - Script to start the KryptoBot dashboard
 
-# Activate virtual environment
-if [ -d "venv" ]; then
-    source venv/bin/activate
-elif [ -d ".venv" ]; then
+echo "===== Starting KryptoBot Dashboard with Alpaca Integration ====="
+
+# Check if dashboard is already running
+if [ -f "dashboard.pid" ]; then
+    if ps -p $(cat dashboard.pid) > /dev/null; then
+        echo "⚠️ Dashboard is already running (PID: $(cat dashboard.pid))"
+        echo "To restart, run: ./restart_dashboard.sh"
+        exit 1
+    else
+        echo "Removing stale PID file..."
+        rm dashboard.pid
+    fi
+fi
+
+# Kill any existing processes on port 5002
+EXISTING_PID=$(lsof -t -i:5002 2>/dev/null)
+if [ ! -z "$EXISTING_PID" ]; then
+    echo "Killing existing process on port 5002 (PID: $EXISTING_PID)..."
+    kill -9 $EXISTING_PID 2>/dev/null
+fi
+
+# Create logs directory if it doesn't exist
+mkdir -p logs data
+
+# Activate virtual environment if it exists
+if [ -d ".venv" ]; then
+    echo "Activating virtual environment..."
     source .venv/bin/activate
-else
-    echo "Error: Virtual environment not found. Please create one first."
-    exit 1
 fi
 
-# Check if port 5001 is already in use
-if lsof -i :5001 > /dev/null 2>&1; then
-    echo "Port 5001 is already in use. Stopping existing process..."
-    lsof -i :5001 | grep -v PID | awk '{print $2}' | xargs kill -9 2>/dev/null
-    sleep 1
-fi
+# Set environment variables
+export PYTHONPATH="$PWD:$PYTHONPATH"
 
-# Create necessary directories
-mkdir -p data templates logs
+echo "Starting dashboard..."
 
 # Start the dashboard in the background
-echo "Starting KryptoBot Dashboard..."
-nohup python dashboard.py > logs/dashboard.log 2>&1 &
+python dashboard.py > logs/dashboard.out 2>&1 &
 
-# Save the process ID
+# Save the PID
 echo $! > dashboard.pid
 
-echo "Dashboard started with PID: $(cat dashboard.pid)"
-echo "Dashboard available at: http://localhost:5001"
-echo "View logs with: tail -f logs/dashboard.log" 
+# Wait a moment to ensure the process starts
+sleep 2
+
+# Check if the dashboard is running
+if [ -f "dashboard.pid" ] && ps -p $(cat dashboard.pid) > /dev/null; then
+    echo "✅ Dashboard started (PID: $(cat dashboard.pid))"
+    echo "Dashboard should be available at: http://localhost:5002"
+    echo "To view logs: tail -f logs/dashboard.out"
+else
+    echo "❌ Failed to start dashboard"
+    echo "Check logs for errors: cat logs/dashboard.out"
+    exit 1
+fi 

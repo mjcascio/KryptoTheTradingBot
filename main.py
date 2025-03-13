@@ -1,6 +1,20 @@
+"""Main entry point for KryptoBot Trading System."""
+
+import asyncio
 import logging
 import os
-from trading_bot import TradingBot
+import sys
+import certifi
+from dotenv import load_dotenv
+from pathlib import Path
+from typing import Optional
+
+from utils.logging import setup_logging
+from utils.database_pool import DatabasePool
+from utils.api_security import APISecurityConfig, APISecurityManager
+from utils.error_handling import ErrorHandler
+from utils.monitoring import MetricsConfig, SystemMonitor
+from trading.bot import TradingBot
 from ml_enhancer import MLSignalEnhancer
 from strategy_allocator import StrategyAllocator
 from portfolio_optimizer import PortfolioOptimizer
@@ -9,86 +23,164 @@ from parameter_tuner import AdaptiveParameterTuner
 from config import BREAKOUT_PARAMS, TREND_PARAMS, PLATFORMS
 from brokers import BrokerFactory
 
-def setup_logging():
-    """Set up logging configuration"""
-    # Create logs directory if it doesn't exist
-    os.makedirs('logs', exist_ok=True)
-    
-    # Configure logging
-    logging.basicConfig(
-        level=logging.INFO,
-        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-        handlers=[
-            logging.FileHandler("logs/trading_bot.log"),
-            logging.StreamHandler()
-        ]
-    )
-    
-    # Set specific log levels for noisy libraries
-    logging.getLogger('alpaca_trade_api').setLevel(logging.WARNING)
-    logging.getLogger('urllib3').setLevel(logging.WARNING)
-    
-    return logging.getLogger(__name__)
+# Load environment variables
+load_dotenv()
 
-def initialize_bot():
-    """Initialize the trading bot with all features"""
-    logger.info("Initializing Enhanced Trading Bot...")
+# Set SSL certificate path
+ssl_cert_file = os.getenv('SSL_CERT_FILE', certifi.where())
+requests_ca_bundle = os.getenv('REQUESTS_CA_BUNDLE', certifi.where())
+os.environ['SSL_CERT_FILE'] = ssl_cert_file
+os.environ['REQUESTS_CA_BUNDLE'] = requests_ca_bundle
+
+# Apply timezone localization patch
+try:
+    import fix_timezone
+    logging.info("Successfully imported fix_timezone module")
+except ImportError:
+    print("Warning: Could not import fix_timezone module")
+    # Apply the patch directly
+    import pandas as pd
+    if hasattr(pd.Timestamp, 'tz_localize'):
+        original_tz_localize = pd.Timestamp.tz_localize
+        
+        def patched_tz_localize(self, tz=None, ambiguous='raise', nonexistent='raise'):
+            """Patched version of tz_localize that handles None timezone correctly."""
+            if tz is None:
+                return self
+            return original_tz_localize(self, tz, ambiguous, nonexistent)
+        
+        pd.Timestamp.tz_localize = patched_tz_localize
+        print("Applied pandas Timestamp.tz_localize patch directly")
+
+
+# Import watchlist patch
+try:
+    import watchlist_patch
+    logging.info("Successfully imported watchlist patch")
+except ImportError:
+    logging.warning("Could not import watchlist patch")
+# Initialize logging
+logger = setup_logging("main")
+
+class Application:
+    """Main application class."""
     
-    # Create strategy configurations for the allocator
-    strategies_config = {
-        'breakout': BREAKOUT_PARAMS,
-        'trend_following': TREND_PARAMS,
-        'mean_reversion': {
-            'bb_window': 20,
-            'bb_std': 2,
-            'rsi_period': 14,
-            'rsi_oversold': 30,
-            'rsi_overbought': 70
-        },
-        'momentum': {
-            'price_momentum_period': 5,
-            'macd_fast': 12,
-            'macd_slow': 26,
-            'macd_signal': 9,
-            'rsi_period': 14
-        }
-    }
+    def __init__(self):
+        """Initialize application components."""
+        self.db_pool: Optional[DatabasePool] = None
+        self.security_manager: Optional[APISecurityManager] = None
+        self.error_handler: Optional[ErrorHandler] = None
+        self.system_monitor: Optional[SystemMonitor] = None
+        self.trading_bot: Optional[TradingBot] = None
+        
+        # Create necessary directories
+        Path("data").mkdir(exist_ok=True)
+        Path("logs").mkdir(exist_ok=True)
+        Path("metrics").mkdir(exist_ok=True)
     
-    # Initialize strategy allocator
-    strategy_allocator = StrategyAllocator(strategies_config)
+    async def initialize(self):
+        """Initialize all application components."""
+        try:
+            # Initialize database pool
+            self.db_pool = DatabasePool(
+                database="data/trading.db",
+                min_size=5,
+                max_size=20
+            )
+            await self.db_pool.initialize()
+            logger.info("Database pool initialized")
+            
+            # Initialize security manager
+            security_config = APISecurityConfig(
+                key_rotation_days=30,
+                rate_limit_per_minute=60,
+                max_request_size=1024 * 1024
+            )
+            self.security_manager = APISecurityManager(security_config)
+            logger.info("Security manager initialized")
+            
+            # Initialize error handler
+            self.error_handler = ErrorHandler(logger)
+            # Register error callbacks
+            self.error_handler.register_callback(
+                ConnectionError,
+                self._handle_connection_error
+            )
+            logger.info("Error handler initialized")
+            
+            # Initialize system monitor
+            metrics_config = MetricsConfig(
+                collection_interval=60,
+                retention_days=7,
+                alert_thresholds={
+                    "cpu_usage": 80.0,
+                    "memory_usage": 80.0,
+                    "disk_usage": 80.0
+                }
+            )
+            self.system_monitor = SystemMonitor(metrics_config)
+            logger.info("System monitor initialized")
+            
+            # Initialize trading bot with enhanced components
+            self.trading_bot = TradingBot(
+                db_pool=self.db_pool,
+                security_manager=self.security_manager,
+                error_handler=self.error_handler,
+                system_monitor=self.system_monitor
+            )
+            logger.info("Trading bot initialized")
+            
+        except Exception as e:
+            logger.error(f"Error initializing application: {e}")
+            raise
     
-    # Initialize ML enhancer
-    ml_enhancer = MLSignalEnhancer()
+    async def _handle_connection_error(self, error: ConnectionError):
+        """Handle connection errors."""
+        logger.error(f"Connection error occurred: {error}")
+        if self.system_monitor:
+            await self.system_monitor.record_error("connection_error")
     
-    # Initialize portfolio optimizer
-    portfolio_optimizer = PortfolioOptimizer()
+    async def start(self):
+        """Start the application."""
+        try:
+            # Initialize components
+            await self.initialize()
+            
+            # Start trading bot
+            await self.trading_bot.start()
+            logger.info("Trading bot started")
+            
+            # Keep application running
+            while True:
+                await asyncio.sleep(1)
+                
+        except KeyboardInterrupt:
+            logger.info("Keyboard interrupt received")
+            await self.stop()
+        except Exception as e:
+            logger.error(f"Error in main loop: {e}")
+            await self.stop()
     
-    # Initialize performance analyzer
-    performance_analyzer = PerformanceAnalyzer()
-    
-    # Initialize parameter tuner
-    parameter_tuner = AdaptiveParameterTuner(strategies_config)
-    
-    # Initialize trading bot with all components
-    bot = TradingBot(
-        strategies=strategy_allocator.get_strategies()
-    )
-    
-    # Connect ML enhancer to bot
-    ml_enhancer.connect_to_bot(bot)
-    
-    # Connect portfolio optimizer to bot
-    portfolio_optimizer.connect_to_bot(bot)
-    
-    # Connect performance analyzer to bot
-    performance_analyzer.connect_to_bot(bot)
-    
-    # Connect parameter tuner to bot
-    parameter_tuner.connect_to_bot(bot)
-    
-    logger.info("Enhanced Trading Bot initialized successfully")
-    
-    return bot
+    async def stop(self):
+        """Stop the application."""
+        try:
+            # Stop trading bot
+            if self.trading_bot:
+                await self.trading_bot.stop()
+            
+            # Stop system monitor
+            if self.system_monitor:
+                await self.system_monitor.stop()
+            
+            # Close database pool
+            if self.db_pool:
+                await self.db_pool.close()
+            
+            logger.info("Application stopped")
+            
+        except Exception as e:
+            logger.error(f"Error stopping application: {e}")
+            raise
 
 def list_available_platforms():
     """List all available trading platforms"""
@@ -102,29 +194,13 @@ def list_available_platforms():
         logger.info(f"  Watchlist: {len(platform_config.get('watchlist', []))} symbols")
 
 if __name__ == "__main__":
-    # Set up logging
-    logger = setup_logging()
-    
     # List available platforms
     list_available_platforms()
     
-    # Initialize the trading bot
-    bot = initialize_bot()
-    
-    # Start the bot
-    logger.info("Starting trading bot...")
-    bot.start()
-    
+    # Create and run application
+    app = Application()
     try:
-        # Keep the main thread alive
-        import time
-        while True:
-            time.sleep(60)
-    except KeyboardInterrupt:
-        logger.info("Keyboard interrupt detected. Stopping bot...")
-        bot.stop()
-        logger.info("Bot stopped. Exiting...")
+        asyncio.run(app.start())
     except Exception as e:
-        logger.error(f"Error in main loop: {e}")
-        bot.stop()
-        logger.info("Bot stopped due to error. Exiting...") 
+        logger.error(f"Fatal error: {e}")
+        raise 

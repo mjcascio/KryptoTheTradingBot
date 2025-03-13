@@ -3,7 +3,8 @@ from typing import Dict, Optional, List
 
 from brokers.base_broker import BaseBroker
 from brokers.alpaca_broker import AlpacaBroker
-from brokers.metatrader_broker import MetaTraderBroker
+# MetaTrader broker is completely disabled
+# from brokers.metatrader_broker import MetaTraderBroker
 
 # Configure logging
 logger = logging.getLogger(__name__)
@@ -30,16 +31,17 @@ class BrokerFactory:
         """
         broker_type = broker_type.lower()
         
-        if broker_type == 'alpaca':
+        if broker_type == 'alpaca' or broker_type == 'metatrader':
+            # Always create Alpaca broker regardless of requested type
+            if broker_type == 'metatrader':
+                logger.warning("MetaTrader broker is disabled. Using Alpaca instead.")
             broker = AlpacaBroker()
-        elif broker_type == 'metatrader':
-            broker = MetaTraderBroker()
         else:
             logger.error(f"Unsupported broker type: {broker_type}")
             return None
         
-        # Store the broker instance
-        self.brokers[broker_type] = broker
+        # Store the broker instance as 'alpaca' regardless of requested type
+        self.brokers['alpaca'] = broker
         
         # If this is the first broker, set it as active
         if self.active_broker is None:
@@ -60,6 +62,11 @@ class BrokerFactory:
         """
         broker_type = broker_type.lower()
         
+        # Always redirect to alpaca
+        if broker_type == 'metatrader':
+            logger.warning("MetaTrader broker is disabled. Using Alpaca instead.")
+            broker_type = 'alpaca'
+        
         # If the broker already exists, return it
         if broker_type in self.brokers:
             return self.brokers[broker_type]
@@ -79,6 +86,11 @@ class BrokerFactory:
         """
         broker_type = broker_type.lower()
         
+        # Always redirect to alpaca
+        if broker_type == 'metatrader':
+            logger.warning("MetaTrader broker is disabled. Using Alpaca instead.")
+            broker_type = 'alpaca'
+        
         # Get the broker (create it if it doesn't exist)
         broker = self.get_broker(broker_type)
         
@@ -88,7 +100,7 @@ class BrokerFactory:
         
         # Set the broker as active
         self.active_broker = broker
-        logger.info(f"Active broker set to: {broker_type}")
+        logger.info(f"Active broker set to: alpaca")
         
         return True
     
@@ -108,7 +120,8 @@ class BrokerFactory:
         Returns:
             A list of available broker types
         """
-        return list(self.brokers.keys())
+        # Only return alpaca
+        return ['alpaca']
     
     def connect_broker(self, broker_type: str) -> bool:
         """
@@ -120,6 +133,11 @@ class BrokerFactory:
         Returns:
             True if the connection was successful, False otherwise
         """
+        # Always redirect to alpaca
+        if broker_type.lower() == 'metatrader':
+            logger.warning("MetaTrader broker is disabled. Using Alpaca instead.")
+            broker_type = 'alpaca'
+            
         broker = self.get_broker(broker_type)
         
         if broker is None:
@@ -138,6 +156,11 @@ class BrokerFactory:
         Returns:
             True if the disconnection was successful, False otherwise
         """
+        # Always redirect to alpaca
+        if broker_type.lower() == 'metatrader':
+            logger.warning("MetaTrader broker is disabled. Using Alpaca instead.")
+            broker_type = 'alpaca'
+            
         if broker_type not in self.brokers:
             logger.warning(f"Cannot disconnect: Broker not found: {broker_type}")
             return False
@@ -154,8 +177,9 @@ class BrokerFactory:
         """
         results = {}
         
-        for broker_type, broker in self.brokers.items():
-            results[broker_type] = broker.connect()
+        # Only connect to alpaca
+        if 'alpaca' in self.brokers:
+            results['alpaca'] = self.brokers['alpaca'].connect()
         
         return results
     
@@ -168,7 +192,8 @@ class BrokerFactory:
         """
         results = {}
         
-        for broker_type, broker in self.brokers.items():
-            results[broker_type] = broker.disconnect()
+        # Only disconnect from alpaca
+        if 'alpaca' in self.brokers:
+            results['alpaca'] = self.brokers['alpaca'].disconnect()
         
         return results 

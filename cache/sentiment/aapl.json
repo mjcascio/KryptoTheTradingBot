@@ -1,0 +1,23 @@
+{
+  "symbol": "AAPL",
+  "timestamp": "2025-03-10T09:01:26.632292",
+  "overall_score": 0.5142027565165269,
+  "sources": {
+    "news": {
+      "score": 0.33393292872025326,
+      "articles_analyzed": 15,
+      "most_recent": "2025-03-10T09:01:26.737358"
+    },
+    "twitter": {
+      "score": 0.5571512619606669,
+      "tweets_analyzed": 141,
+      "most_recent": "2025-03-10T09:01:26.842505"
+    },
+    "reddit": {
+      "score": 0.6515240788686605,
+      "posts_analyzed": 48,
+      "most_recent": "2025-03-10T09:01:26.947658"
+    }
+  },
+  "sentiment": "bullish"
+}

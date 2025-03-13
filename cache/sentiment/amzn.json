@@ -1,0 +1,23 @@
+{
+  "symbol": "AMZN",
+  "timestamp": "2025-03-10T09:01:27.578302",
+  "overall_score": -0.39660622958413333,
+  "sources": {
+    "news": {
+      "score": -0.42648003597642425,
+      "articles_analyzed": 8,
+      "most_recent": "2025-03-10T09:01:27.678936"
+    },
+    "twitter": {
+      "score": -0.2438371362836218,
+      "tweets_analyzed": 198,
+      "most_recent": "2025-03-10T09:01:27.780455"
+    },
+    "reddit": {
+      "score": -0.519501516492354,
+      "posts_analyzed": 31,
+      "most_recent": "2025-03-10T09:01:27.885653"
+    }
+  },
+  "sentiment": "bearish"
+}

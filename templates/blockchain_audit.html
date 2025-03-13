@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KryptoBot - Blockchain Audit Trail</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <style>
+        .event-card {
+            margin-bottom: 15px;
+            border-left: 4px solid #007bff;
+        }
+        .event-card.trade {
+            border-left-color: #28a745;
+        }
+        .event-card.order {
+            border-left-color: #fd7e14;
+        }
+        .event-card.position {
+            border-left-color: #6f42c1;
+        }
+        .event-card.system {
+            border-left-color: #dc3545;
+        }
+        .event-card.config {
+            border-left-color: #17a2b8;
+        }
+        .event-timestamp {
+            font-size: 0.8rem;
+            color: #6c757d;
+        }
+        .event-hash {
+            font-family: monospace;
+            font-size: 0.8rem;
+            color: #6c757d;
+            word-break: break-all;
+        }
+        .blockchain-stats {
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        .verification-badge {
+            font-size: 0.9rem;
+            padding: 5px 10px;
+            border-radius: 15px;
+        }
+        .event-filter {
+            margin-bottom: 20px;
+        }
+        .pagination-container {
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">
+                <i class="bi bi-currency-bitcoin me-2"></i>KryptoBot
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Dashboard</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/blockchain-audit">Blockchain Audit</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/settings">Settings</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-4">
+        <h1 class="mb-4">
+            <i class="bi bi-link-45deg me-2"></i>Blockchain Audit Trail
+        </h1>
+        
+        <div class="row">
+            <div class="col-md-8">
+                <div class="blockchain-stats">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-box me-2 fs-4"></i>
+                                <div>
+                                    <div class="fs-5 fw-bold" id="block-count">0</div>
+                                    <div class="text-muted">Blocks</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-calendar-event me-2 fs-4"></i>
+                                <div>
+                                    <div class="fs-5 fw-bold" id="event-count">0</div>
+                                    <div class="text-muted">Events</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-hdd me-2 fs-4"></i>
+                                <div>
+                                    <div class="fs-5 fw-bold" id="blockchain-size">0 KB</div>
+                                    <div class="text-muted">Size</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="d-flex align-items-center">
+                                <i class="bi bi-shield-check me-2 fs-4"></i>
+                                <div>
+                                    <div id="verification-status">
+                                        <span class="verification-badge bg-success text-white">
+                                            <i class="bi bi-check-circle me-1"></i>Verified
+                                        </span>
+                                    </div>
+                                    <div class="text-muted">Status</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="event-filter">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <span class="input-group-text">Filter by</span>
+                                <select class="form-select" id="event-type-filter">
+                                    <option value="all">All Events</option>
+                                    <option value="trade">Trade Events</option>
+                                    <option value="order">Order Events</option>
+                                    <option value="position">Position Events</option>
+                                    <option value="system">System Events</option>
+                                    <option value="config">Config Events</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search..." id="event-search">
+                                <button class="btn btn-outline-secondary" type="button" id="search-button">
+                                    <i class="bi bi-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="blockchain-events">
+                    <!-- Events will be loaded here -->
+                    <div class="text-center py-5">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="mt-2">Loading blockchain data...</p>
+                    </div>
+                </div>
+                
+                <div class="pagination-container">
+                    <nav aria-label="Blockchain navigation">
+                        <ul class="pagination justify-content-center" id="blockchain-pagination">
+                            <!-- Pagination will be generated here -->
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="bi bi-info-circle me-2"></i>About Blockchain Audit
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <p>The blockchain audit trail provides an immutable record of all trading activities and system changes in the KryptoBot trading system.</p>
+                        <p>Each event is stored in a block, which is linked to the previous block through a cryptographic hash, ensuring the integrity of the audit trail.</p>
+                        <p>The blockchain is secured through a proof-of-work mechanism, making it tamper-resistant and providing a reliable audit trail for compliance and analysis purposes.</p>
+                    </div>
+                </div>
+                
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="bi bi-graph-up me-2"></i>Event Distribution
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <canvas id="event-distribution-chart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">
+                            <i class="bi bi-tools me-2"></i>Blockchain Tools
+                        </h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-outline-primary" id="verify-blockchain-btn">
+                                <i class="bi bi-shield-check me-2"></i>Verify Blockchain
+                            </button>
+                            <button class="btn btn-outline-secondary" id="export-blockchain-btn">
+                                <i class="bi bi-download me-2"></i>Export Blockchain
+                            </button>
+                            <button class="btn btn-outline-info" id="view-genesis-btn">
+                                <i class="bi bi-box me-2"></i>View Genesis Block
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Block Details Modal -->
+    <div class="modal fade" id="blockDetailsModal" tabindex="-1" aria-labelledby="blockDetailsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="blockDetailsModalLabel">Block Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <strong>Block Index:</strong> <span id="modal-block-index"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <strong>Timestamp:</strong> <span id="modal-block-timestamp"></span>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <strong>Block Hash:</strong>
+                        <div class="event-hash" id="modal-block-hash"></div>
+                    </div>
+                    <div class="mb-3">
+                        <strong>Previous Hash:</strong>
+                        <div class="event-hash" id="modal-previous-hash"></div>
+                    </div>
+                    <div class="mb-3">
+                        <strong>Nonce:</strong> <span id="modal-block-nonce"></span>
+                    </div>
+                    <div class="mb-3">
+                        <strong>Event Type:</strong> <span id="modal-event-type"></span>
+                    </div>
+                    <div class="mb-3">
+                        <strong>Event Data:</strong>
+                        <pre id="modal-event-data" class="bg-light p-3 rounded" style="max-height: 300px; overflow-y: auto;"></pre>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Global variables
+        let blockchainData = [];
+        let currentPage = 1;
+        let itemsPerPage = 10;
+        let filteredData = [];
+        let eventDistributionChart = null;
+        
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Load blockchain data
+            fetchBlockchainData();
+            
+            // Set up event listeners
+            document.getElementById('event-type-filter').addEventListener('change', filterEvents);
+            document.getElementById('event-search').addEventListener('input', filterEvents);
+            document.getElementById('search-button').addEventListener('click', filterEvents);
+            document.getElementById('verify-blockchain-btn').addEventListener('click', verifyBlockchain);
+            document.getElementById('export-blockchain-btn').addEventListener('click', exportBlockchain);
+            document.getElementById('view-genesis-btn').addEventListener('click', viewGenesisBlock);
+        });
+        
+        // Fetch blockchain data from the API
+        function fetchBlockchainData() {
+            // Simulate API call (replace with actual API call)
+            setTimeout(() => {
+                // This is sample data - replace with actual API call
+                fetch('/api/blockchain/blocks')
+                    .then(response => response.json())
+                    .then(data => {
+                        blockchainData = data.blocks || [];
+                        filteredData = [...blockchainData];
+                        updateBlockchainStats(data.stats);
+                        renderEventDistributionChart(data.stats.event_counts);
+                        renderEvents();
+                    })
+                    .catch(error => {
+                        console.error('Error fetching blockchain data:', error);
+                        document.getElementById('blockchain-events').innerHTML = `
+                            <div class="alert alert-danger" role="alert">
+                                <i class="bi bi-exclamation-triangle me-2"></i>
+                                Error loading blockchain data. Please try again later.
+                            </div>
+                        `;
+                    });
+            }, 1000);
+        }
+        
+        // Update blockchain statistics
+        function updateBlockchainStats(stats) {
+            document.getElementById('block-count').textContent = stats.block_count;
+            document.getElementById('event-count').textContent = stats.block_count - 1; // Exclude genesis block
+            
+            // Format blockchain size
+            const sizeInKB = stats.blockchain_size / 1024;
+            let sizeText = '';
+            if (sizeInKB < 1024) {
+                sizeText = `${sizeInKB.toFixed(2)} KB`;
+            } else {
+                sizeText = `${(sizeInKB / 1024).toFixed(2)} MB`;
+            }
+            document.getElementById('blockchain-size').textContent = sizeText;
+            
+            // Update verification status
+            const verificationStatus = document.getElementById('verification-status');
+            if (stats.is_valid) {
+                verificationStatus.innerHTML = `
+                    <span class="verification-badge bg-success text-white">
+                        <i class="bi bi-check-circle me-1"></i>Verified
+                    </span>
+                `;
+            } else {
+                verificationStatus.innerHTML = `
+                    <span class="verification-badge bg-danger text-white">
+                        <i class="bi bi-x-circle me-1"></i>Invalid
+                    </span>
+                `;
+            }
+        }
+        
+        // Render event distribution chart
+        function renderEventDistributionChart(eventCounts) {
+            const ctx = document.getElementById('event-distribution-chart').getContext('2d');
+            
+            // Prepare data for chart
+            const labels = Object.keys(eventCounts);
+            const data = Object.values(eventCounts);
+            const backgroundColors = [
+                '#28a745', // trade events
+                '#fd7e14', // order events
+                '#6f42c1', // position events
+                '#dc3545', // system events
+                '#17a2b8', // config events
+                '#6c757d'  // other events
+            ];
+            
+            // Create chart
+            if (eventDistributionChart) {
+                eventDistributionChart.destroy();
+            }
+            
+            eventDistributionChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: data,
+                        backgroundColor: backgroundColors.slice(0, labels.length),
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        }
+                    }
+                }
+            });
+        }
+        
+        // Filter events based on selected criteria
+        function filterEvents() {
+            const filterType = document.getElementById('event-type-filter').value;
+            const searchText = document.getElementById('event-search').value.toLowerCase();
+            
+            filteredData = blockchainData.filter(block => {
+                // Skip genesis block
+                if (block.index === 0) return false;
+                
+                // Filter by event type
+                if (filterType !== 'all') {
+                    const eventType = block.data.event_type.toLowerCase();
+                    if (filterType === 'trade' && !eventType.includes('trade')) return false;
+                    if (filterType === 'order' && !eventType.includes('order')) return false;
+                    if (filterType === 'position' && !eventType.includes('position')) return false;
+                    if (filterType === 'system' && !eventType.includes('system')) return false;
+                    if (filterType === 'config' && !eventType.includes('config')) return false;
+                }
+                
+                // Filter by search text
+                if (searchText) {
+                    const eventType = block.data.event_type.toLowerCase();
+                    const eventDataStr = JSON.stringify(block.data.event_data).toLowerCase();
+                    return eventType.includes(searchText) || eventDataStr.includes(searchText);
+                }
+                
+                return true;
+            });
+            
+            // Reset to first page and render
+            currentPage = 1;
+            renderEvents();
+        }
+        
+        // Render blockchain events
+        function renderEvents() {
+            const eventsContainer = document.getElementById('blockchain-events');
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = startIndex + itemsPerPage;
+            const pageData = filteredData.slice(startIndex, endIndex);
+            
+            if (pageData.length === 0) {
+                eventsContainer.innerHTML = `
+                    <div class="alert alert-info" role="alert">
+                        <i class="bi bi-info-circle me-2"></i>
+                        No events found matching the current filters.
+                    </div>
+                `;
+                document.getElementById('blockchain-pagination').innerHTML = '';
+                return;
+            }
+            
+            let eventsHtml = '';
+            
+            pageData.forEach(block => {
+                const eventType = block.data.event_type;
+                const eventData = block.data.event_data;
+                const timestamp = new Date(eventData.timestamp || block.timestamp * 1000).toLocaleString();
+                
+                // Determine event card class
+                let eventClass = 'event-card';
+                if (eventType.includes('trade')) eventClass += ' trade';
+                else if (eventType.includes('order')) eventClass += ' order';
+                else if (eventType.includes('position')) eventClass += ' position';
+                else if (eventType.includes('system')) eventClass += ' system';
+                else if (eventType.includes('config')) eventClass += ' config';
+                
+                // Generate event summary based on event type
+                let eventSummary = '';
+                if (eventType === 'trade_executed') {
+                    eventSummary = `${eventData.side.toUpperCase()} ${eventData.quantity} ${eventData.symbol} at ${eventData.price}`;
+                } else if (eventType === 'order_placed') {
+                    eventSummary = `${eventData.side.toUpperCase()} ${eventData.quantity} ${eventData.symbol} at ${eventData.price}`;
+                } else if (eventType === 'position_opened') {
+                    eventSummary = `Opened ${eventData.side.toUpperCase()} position for ${eventData.quantity} ${eventData.symbol} at ${eventData.entry_price}`;
+                } else if (eventType === 'position_closed') {
+                    eventSummary = `Closed ${eventData.side.toUpperCase()} position for ${eventData.quantity} ${eventData.symbol} at ${eventData.exit_price}`;
+                } else if (eventType === 'system_startup') {
+                    eventSummary = `System started (version ${eventData.version})`;
+                } else if (eventType === 'config_changed') {
+                    eventSummary = `Changed ${eventData.parameter} from ${eventData.old_value} to ${eventData.new_value}`;
+                } else {
+                    eventSummary = eventType.replace(/_/g, ' ');
+                }
+                
+                eventsHtml += `
+                    <div class="card ${eventClass}">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-start">
+                                <h5 class="card-title">${formatEventType(eventType)}</h5>
+                                <span class="badge bg-secondary">Block #${block.index}</span>
+                            </div>
+                            <p class="card-text">${eventSummary}</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="event-timestamp">
+                                    <i class="bi bi-clock me-1"></i>${timestamp}
+                                </span>
+                                <button class="btn btn-sm btn-outline-primary view-block-btn" data-block-index="${block.index}">
+                                    View Details
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            eventsContainer.innerHTML = eventsHtml;
+            
+            // Add event listeners to view block buttons
+            document.querySelectorAll('.view-block-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const blockIndex = parseInt(this.getAttribute('data-block-index'));
+                    showBlockDetails(blockIndex);
+                });
+            });
+            
+            // Render pagination
+            renderPagination();
+        }
+        
+        // Format event type for display
+        function formatEventType(eventType) {
+            return eventType
+                .replace(/_/g, ' ')
+                .split(' ')
+                .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                .join(' ');
+        }
+        
+        // Render pagination controls
+        function renderPagination() {
+            const totalPages = Math.ceil(filteredData.length / itemsPerPage);
+            const paginationContainer = document.getElementById('blockchain-pagination');
+            
+            if (totalPages <= 1) {
+                paginationContainer.innerHTML = '';
+                return;
+            }
+            
+            let paginationHtml = `
+                <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+                    <a class="page-link" href="#" data-page="${currentPage - 1}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            `;
+            
+            // Generate page numbers
+            for (let i = 1; i <= totalPages; i++) {
+                if (
+                    i === 1 || 
+                    i === totalPages || 
+                    (i >= currentPage - 1 && i <= currentPage + 1)
+                ) {
+                    paginationHtml += `
+                        <li class="page-item ${i === currentPage ? 'active' : ''}">
+                            <a class="page-link" href="#" data-page="${i}">${i}</a>
+                        </li>
+                    `;
+                } else if (
+                    i === currentPage - 2 || 
+                    i === currentPage + 2
+                ) {
+                    paginationHtml += `
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#">...</a>
+                        </li>
+                    `;
+                }
+            }
+            
+            paginationHtml += `
+                <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+                    <a class="page-link" href="#" data-page="${currentPage + 1}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            `;
+            
+            paginationContainer.innerHTML = paginationHtml;
+            
+            // Add event listeners to pagination links
+            document.querySelectorAll('#blockchain-pagination .page-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const page = parseInt(this.getAttribute('data-page'));
+                    if (!isNaN(page) && page !== currentPage) {
+                        currentPage = page;
+                        renderEvents();
+                        // Scroll to top of events container
+                        document.getElementById('blockchain-events').scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+        }
+        
+        // Show block details in modal
+        function showBlockDetails(blockIndex) {
+            const block = blockchainData.find(b => b.index === blockIndex);
+            if (!block) return;
+            
+            document.getElementById('modal-block-index').textContent = block.index;
+            document.getElementById('modal-block-timestamp').textContent = new Date(block.timestamp * 1000).toLocaleString();
+            document.getElementById('modal-block-hash').textContent = block.hash;
+            document.getElementById('modal-previous-hash').textContent = block.previous_hash;
+            document.getElementById('modal-block-nonce').textContent = block.nonce;
+            document.getElementById('modal-event-type').textContent = formatEventType(block.data.event_type);
+            document.getElementById('modal-event-data').textContent = JSON.stringify(block.data.event_data, null, 2);
+            
+            // Show modal
+            const modal = new bootstrap.Modal(document.getElementById('blockDetailsModal'));
+            modal.show();
+        }
+        
+        // Verify blockchain integrity
+        function verifyBlockchain() {
+            // Simulate API call (replace with actual API call)
+            const verifyBtn = document.getElementById('verify-blockchain-btn');
+            verifyBtn.disabled = true;
+            verifyBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Verifying...';
+            
+            setTimeout(() => {
+                fetch('/api/blockchain/verify')
+                    .then(response => response.json())
+                    .then(data => {
+                        const verificationStatus = document.getElementById('verification-status');
+                        if (data.is_valid) {
+                            verificationStatus.innerHTML = `
+                                <span class="verification-badge bg-success text-white">
+                                    <i class="bi bi-check-circle me-1"></i>Verified
+                                </span>
+                            `;
+                            alert('Blockchain verification successful. The blockchain is valid.');
+                        } else {
+                            verificationStatus.innerHTML = `
+                                <span class="verification-badge bg-danger text-white">
+                                    <i class="bi bi-x-circle me-1"></i>Invalid
+                                </span>
+                            `;
+                            alert('Blockchain verification failed. The blockchain may have been tampered with.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error verifying blockchain:', error);
+                        alert('Error verifying blockchain. Please try again later.');
+                    })
+                    .finally(() => {
+                        verifyBtn.disabled = false;
+                        verifyBtn.innerHTML = '<i class="bi bi-shield-check me-2"></i>Verify Blockchain';
+                    });
+            }, 1500);
+        }
+        
+        // Export blockchain data
+        function exportBlockchain() {
+            // Simulate API call (replace with actual API call)
+            const exportBtn = document.getElementById('export-blockchain-btn');
+            exportBtn.disabled = true;
+            exportBtn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Exporting...';
+            
+            setTimeout(() => {
+                // Create a blob with the blockchain data
+                const blob = new Blob([JSON.stringify(blockchainData, null, 2)], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                
+                // Create a temporary link and trigger download
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `blockchain_export_${new Date().toISOString().slice(0, 10)}.json`;
+                document.body.appendChild(a);
+                a.click();
+                
+                // Clean up
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                exportBtn.disabled = false;
+                exportBtn.innerHTML = '<i class="bi bi-download me-2"></i>Export Blockchain';
+            }, 1500);
+        }
+        
+        // View genesis block
+        function viewGenesisBlock() {
+            const genesisBlock = blockchainData.find(b => b.index === 0);
+            if (genesisBlock) {
+                showBlockDetails(0);
+            } else {
+                alert('Genesis block not found.');
+            }
+        }
+    </script>
+</body>
+</html> 

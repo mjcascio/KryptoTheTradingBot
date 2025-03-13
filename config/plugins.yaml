@@ -1,0 +1,79 @@
+# KryptoBot Plugin Configuration
+
+# List of enabled plugins
+enabled_plugins:
+  - plugins.sentiment_analyzer
+  - plugins.anomaly_detector
+  - plugins.parameter_tuner
+  - plugins.blockchain_audit
+
+# Configuration for each plugin
+plugin_configs:
+  plugins.sentiment_analyzer:
+    enabled: true
+    api_keys:
+      news_api: "${NEWS_API_KEY}"
+      twitter_api: "${TWITTER_API_KEY}"
+      reddit_api: "${REDDIT_API_KEY}"
+    cache_expiry: 3600  # 1 hour
+    sources:
+      - news
+      - twitter
+      - reddit
+    symbols:
+      - AAPL
+      - MSFT
+      - GOOGL
+      - AMZN
+      - TSLA
+      - BTC/USD
+      - ETH/USD
+  
+  plugins.anomaly_detector:
+    enabled: true
+    methods:
+      - statistical
+      - autoencoder
+      - isolation_forest
+    thresholds:
+      statistical: 3.0
+      autoencoder: 0.05
+      isolation_forest: 0.1
+    window_size: 20
+    cache_expiry: 1800  # 30 minutes
+    symbols:
+      - AAPL
+      - MSFT
+      - GOOGL
+      - AMZN
+      - TSLA
+      - BTC/USD
+      - ETH/USD
+  
+  plugins.parameter_tuner:
+    enabled: true
+    methods:
+      - simulated_annealing
+      - quantum_pso
+      - quantum_annealing
+    max_iterations: 100
+    population_size: 20
+    cache_expiry: 86400  # 24 hours
+    results_dir: "results"
+    strategies:
+      - moving_average_crossover
+      - rsi_strategy
+      - bollinger_bands
+  
+  plugins.blockchain_audit:
+    enabled: true
+    mining_interval: 300  # 5 minutes
+    difficulty: 2
+    db_path: "data/blockchain/audit_chain.db"
+    auto_mine: true
+    record_types:
+      - trade
+      - order
+      - system_change
+      - login
+      - config_change 

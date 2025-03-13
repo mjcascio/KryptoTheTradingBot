@@ -1,0 +1,15 @@
+{
+    "enabled": true,
+    "model_types": ["lstm", "gru"],
+    "sequence_length": 60,
+    "forecast_horizon": 5,
+    "confidence_threshold": 0.7,
+    "min_trend_strength": 0.02,
+    "use_for_entry": true,
+    "use_for_exit": true,
+    "use_for_position_sizing": true,
+    "position_size_multiplier": 1.5,
+    "symbols": ["SPY", "QQQ", "AAPL", "MSFT", "AMZN", "GOOGL", "META", "TSLA"],
+    "update_frequency": 24,
+    "last_update": null
+} 

@@ -1,0 +1,32 @@
+{
+  "symbol": "AMZN",
+  "timestamp": "2025-03-10T09:06:50.146317",
+  "anomalies_detected": true,
+  "methods": {
+    "statistical": {
+      "anomalies_detected": false,
+      "anomaly_score": 0.2835526716310864,
+      "z_score": 1.7013160297865184,
+      "threshold": 3.0,
+      "details": {
+        "latest_price": 120.45971962213241,
+        "rolling_mean": 118.49151835095131,
+        "rolling_std": 1.1568698799764272
+      }
+    },
+    "autoencoder": {
+      "anomalies_detected": true,
+      "anomaly_score": 0.9462718833274506,
+      "reconstruction_error": 0.18925437666549014,
+      "threshold": 0.1
+    },
+    "isolation_forest": {
+      "anomalies_detected": false,
+      "anomaly_score": 0.48669783632308605,
+      "anomaly_score_raw": 0.026604327353828006,
+      "threshold": -0.2
+    }
+  },
+  "anomaly_score": 0.9462718833274506,
+  "anomaly_type": "extreme"
+}

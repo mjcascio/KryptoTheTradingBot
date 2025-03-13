@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Telegram API</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #333;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            white-space: pre-wrap;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Test Telegram API</h1>
+        
+        <div class="form-group">
+            <label for="botToken">Bot Token:</label>
+            <input type="text" id="botToken" value="8104386769:AAG8VBEgkA7MLW8Madtk0JFEr7VWNmiOoFY">
+        </div>
+        
+        <div class="form-group">
+            <label for="chatId">Chat ID:</label>
+            <input type="text" id="chatId" value="7924393886">
+        </div>
+        
+        <div class="form-group">
+            <label for="message">Message:</label>
+            <input type="text" id="message" value="This is a test message from KryptoBot">
+        </div>
+        
+        <button onclick="testGetMe()">Test getMe</button>
+        <button onclick="testSendMessage()">Test sendMessage</button>
+        
+        <div id="result">Results will appear here...</div>
+    </div>
+    
+    <script>
+        function testGetMe() {
+            const botToken = document.getElementById('botToken').value;
+            const url = `https://api.telegram.org/bot${botToken}/getMe`;
+            
+            document.getElementById('result').textContent = `Testing getMe with URL: ${url}\n\nLoading...`;
+            
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('result').textContent = `URL: ${url}\n\nResponse:\n${JSON.stringify(data, null, 2)}`;
+                })
+                .catch(error => {
+                    document.getElementById('result').textContent = `URL: ${url}\n\nError: ${error}`;
+                });
+        }
+        
+        function testSendMessage() {
+            const botToken = document.getElementById('botToken').value;
+            const chatId = document.getElementById('chatId').value;
+            const message = document.getElementById('message').value;
+            const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+            
+            document.getElementById('result').textContent = `Testing sendMessage with URL: ${url}\nChat ID: ${chatId}\nMessage: ${message}\n\nLoading...`;
+            
+            const formData = new FormData();
+            formData.append('chat_id', chatId);
+            formData.append('text', message);
+            
+            fetch(url, {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('result').textContent = `URL: ${url}\nChat ID: ${chatId}\nMessage: ${message}\n\nResponse:\n${JSON.stringify(data, null, 2)}`;
+                })
+                .catch(error => {
+                    document.getElementById('result').textContent = `URL: ${url}\nChat ID: ${chatId}\nMessage: ${message}\n\nError: ${error}`;
+                });
+        }
+    </script>
+</body>
+</html> 

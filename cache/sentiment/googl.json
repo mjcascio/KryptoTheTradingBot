@@ -1,0 +1,23 @@
+{
+  "symbol": "GOOGL",
+  "timestamp": "2025-03-10T09:01:27.263175",
+  "overall_score": 0.19121394360993393,
+  "sources": {
+    "news": {
+      "score": 0.3876450143377408,
+      "articles_analyzed": 7,
+      "most_recent": "2025-03-10T09:01:27.368339"
+    },
+    "twitter": {
+      "score": -0.38895645716134875,
+      "tweets_analyzed": 116,
+      "most_recent": "2025-03-10T09:01:27.473475"
+    },
+    "reddit": {
+      "score": 0.5749532736534098,
+      "posts_analyzed": 20,
+      "most_recent": "2025-03-10T09:01:27.577742"
+    }
+  },
+  "sentiment": "neutral"
+}

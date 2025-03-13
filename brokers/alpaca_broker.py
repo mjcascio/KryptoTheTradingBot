@@ -3,18 +3,38 @@ import time
 import logging
 import pandas as pd
 from datetime import datetime, timedelta
-from typing import Dict, List, Optional, Any
-import alpaca_trade_api as tradeapi
-import pytz
+from typing import Dict, List, Optional, Any, Tuple
+import certifi
 from dotenv import load_dotenv
 from functools import wraps
 from ratelimit import limits, sleep_and_retry
+
+# Import Alpaca SDK
+try:
+    import alpaca_trade_api as tradeapi
+    from alpaca_trade_api.rest import REST
+    from alpaca_trade_api.stream import Stream
+    ALPACA_SDK_AVAILABLE = True
+except ImportError:
+    ALPACA_SDK_AVAILABLE = False
+    logging.warning("Alpaca SDK not available. Install with: pip install alpaca-trade-api")
 
 from brokers.base_broker import BaseBroker
 from config import MARKET_OPEN, MARKET_CLOSE, TIMEZONE
 
 # Configure logging
 logger = logging.getLogger(__name__)
+
+# Load environment variables
+load_dotenv()
+
+# Set SSL certificate path
+ssl_cert_file = os.getenv('SSL_CERT_FILE', certifi.where())
+requests_ca_bundle = os.getenv('REQUESTS_CA_BUNDLE', certifi.where())
+os.environ['SSL_CERT_FILE'] = ssl_cert_file
+os.environ['REQUESTS_CA_BUNDLE'] = requests_ca_bundle
+logger.info(f"SSL_CERT_FILE set to: {os.environ.get('SSL_CERT_FILE', 'Not set')}")
+logger.info(f"REQUESTS_CA_BUNDLE set to: {os.environ.get('REQUESTS_CA_BUNDLE', 'Not set')}")
 
 # Configure rate limiting
 CALLS_PER_SECOND = 5  # Alpaca's rate limit is 200 per minute
@@ -47,35 +67,85 @@ def rate_limited_api_call(func, *args, **kwargs):
 
 class AlpacaBroker(BaseBroker):
     """
-    Alpaca broker implementation for stock trading.
+    Broker implementation for Alpaca Markets.
     """
     
     def __init__(self):
-        """Initialize the Alpaca broker"""
-        load_dotenv()
-        self.api_key = os.getenv('ALPACA_API_KEY')
-        self.api_secret = os.getenv('ALPACA_API_SECRET')
-        self.base_url = os.getenv('ALPACA_BASE_URL', 'https://paper-api.alpaca.markets')
+        """Initialize the Alpaca broker."""
+        super().__init__()
+        self.name = "Alpaca"
         self.api = None
+        self.stream = None
         self.connected = False
+        self.account_info = {}
         self.timezone = pytz.timezone(TIMEZONE)
+        
+        # Set SSL certificate path
+        ssl_cert_file = os.getenv('SSL_CERT_FILE', certifi.where())
+        requests_ca_bundle = os.getenv('REQUESTS_CA_BUNDLE', certifi.where())
+        os.environ['SSL_CERT_FILE'] = ssl_cert_file
+        os.environ['REQUESTS_CA_BUNDLE'] = requests_ca_bundle
+        
+        # Load environment variables
+        load_dotenv()
     
     def connect(self) -> bool:
-        """Connect to Alpaca API"""
+        """
+        Connect to Alpaca API.
+        
+        Returns:
+            bool: True if connection is successful, False otherwise
+        """
+        if not ALPACA_SDK_AVAILABLE:
+            logger.error("Cannot connect to Alpaca: SDK not available")
+            return False
+        
         try:
-            self.api = tradeapi.REST(
-                self.api_key,
-                self.api_secret,
-                self.base_url,
+            # Get API credentials from environment variables
+            api_key = os.getenv('ALPACA_API_KEY')
+            base_url = os.getenv('ALPACA_BASE_URL', 'https://paper-api.alpaca.markets')
+            endpoint_key = os.getenv('ALPACA_ENDPOINT_KEY', base_url + '/v2')
+            
+            # Check if API key is available
+            if not api_key:
+                logger.error("Alpaca API key not found in environment variables")
+                return False
+            
+            logger.info(f"Connecting to Alpaca with API key: {api_key[:4]}...{api_key[-4:]}")
+            logger.info(f"Using base URL: {base_url}")
+            logger.info(f"Using endpoint key: {endpoint_key}")
+            
+            # Initialize REST API client
+            self.api = REST(
+                key_id=api_key,
+                base_url=base_url,
                 api_version='v2'
             )
-            # Test connection
-            account = self.api.get_account()
+            
+            # Test connection by getting account info
+            self.account_info = self.api.get_account()
+            logger.info(f"Connected to Alpaca: Account ID {self.account_info.id}")
+            logger.info(f"Account status: {self.account_info.status}")
+            logger.info(f"Account equity: ${self.account_info.equity}")
+            logger.info(f"Account cash: ${self.account_info.cash}")
+            
+            # Initialize stream for real-time data
+            try:
+                stream_url = base_url.replace('https://', 'wss://').replace('api', 'stream')
+                self.stream = Stream(
+                    key_id=api_key,
+                    base_url=stream_url
+                )
+                logger.info(f"Initialized streaming connection to: {stream_url}")
+            except Exception as e:
+                logger.warning(f"Could not initialize streaming connection: {e}")
+                logger.warning("Continuing without streaming data")
+            
             self.connected = True
-            logger.info(f"Connected to Alpaca API. Account ID: {account.id}")
             return True
+            
         except Exception as e:
-            logger.error(f"Failed to connect to Alpaca API: {e}")
+            logger.error(f"Error connecting to Alpaca: {e}")
             self.connected = False
             return False
     
