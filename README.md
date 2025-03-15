@@ -143,3 +143,6 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 ## Disclaimer
 
 This trading bot is for educational purposes only. Always do your own research and never risk more than you can afford to lose.
+
+## Last Backup
+Last backup triggered: 2024-03-13 19:55:00 UTC
