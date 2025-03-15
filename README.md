@@ -4,7 +4,16 @@ A sophisticated trading bot that implements both stock and options trading strat
 
 ![CI Status](https://github.com/mjcascio/KryptoTheTradingBot/workflows/KryptoBot%20CI/badge.svg)
 ![Security Status](https://github.com/mjcascio/KryptoTheTradingBot/workflows/Security%20Tests/badge.svg)
-![Backup Status](https://github.com/mjcascio/KryptoTheTradingBot/workflows/Automated%20Backup/badge.svg)
+[![Code Coverage](https://codecov.io/gh/mjcascio/KryptoTheTradingBot/branch/main/graph/badge.svg)](https://codecov.io/gh/mjcascio/KryptoTheTradingBot)
+
+## CI/CD Integration
+
+This project uses GitHub Actions for continuous integration and deployment:
+- Automated testing on Python 3.9, 3.10, and 3.11
+- Code quality checks (flake8, mypy)
+- Security scanning (bandit, safety)
+- Automated backups every 6 hours
+- Code coverage reporting via Codecov
 
 ## Features
 
