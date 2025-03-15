@@ -2,6 +2,10 @@
 
 A sophisticated trading bot that implements both stock and options trading strategies with advanced risk management.
 
+![CI Status](https://github.com/mjcascio/KryptoTheTradingBot/workflows/KryptoBot%20CI/badge.svg)
+![Security Status](https://github.com/mjcascio/KryptoTheTradingBot/workflows/Security%20Tests/badge.svg)
+![Backup Status](https://github.com/mjcascio/KryptoTheTradingBot/workflows/Automated%20Backup/badge.svg)
+
 ## Features
 
 - **Multi-Strategy Support**
