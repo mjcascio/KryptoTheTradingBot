@@ -36,54 +36,66 @@ jobs:
       run: |
         mypy .
     
-    - name: Run tests
+    - name: Check required secrets
+      id: check_secrets
+      run: |
+        if [ -n "${{ secrets.ALPACA_API_KEY }}" ] && [ -n "${{ secrets.ALPACA_SECRET_KEY }}" ]; then
+          echo "alpaca_configured=true" >> $GITHUB_OUTPUT
+        else
+          echo "alpaca_configured=false" >> $GITHUB_OUTPUT
+          echo "Warning: Alpaca API credentials not configured. Some tests will be skipped."
+        fi
+        
+        if [ -n "${{ secrets.EMAIL_USERNAME }}" ] && [ -n "${{ secrets.EMAIL_PASSWORD }}" ]; then
+          echo "email_configured=true" >> $GITHUB_OUTPUT
+        else
+          echo "email_configured=false" >> $GITHUB_OUTPUT
+          echo "Warning: Email credentials not configured. Email notification tests will be skipped."
+        fi
+        
+        if [ -n "${{ secrets.MT_SERVER }}" ] && [ -n "${{ secrets.MT_PORT }}" ] && \
+           [ -n "${{ secrets.MT_USERNAME }}" ] && [ -n "${{ secrets.MT_PASSWORD }}" ]; then
+          echo "mt_configured=true" >> $GITHUB_OUTPUT
+        else
+          echo "mt_configured=false" >> $GITHUB_OUTPUT
+          echo "Info: MetaTrader configuration not found. MetaTrader tests will be skipped."
+        fi
+    
+    - name: Run core tests
+      run: |
+        pytest --cov=. --cov-report=xml -m "not integration and not email and not metatrader"
+    
+    - name: Run Alpaca integration tests
+      if: steps.check_secrets.outputs.alpaca_configured == 'true'
       env:
         ALPACA_API_KEY: ${{ secrets.ALPACA_API_KEY }}
         ALPACA_SECRET_KEY: ${{ secrets.ALPACA_SECRET_KEY }}
+      run: |
+        pytest -v -m "integration and not email and not metatrader"
+    
+    - name: Run email notification tests
+      if: steps.check_secrets.outputs.email_configured == 'true'
+      env:
+        EMAIL_USERNAME: ${{ secrets.EMAIL_USERNAME }}
+        EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+      run: |
+        pytest -v -m "email"
+    
+    - name: Run MetaTrader tests
+      if: steps.check_secrets.outputs.mt_configured == 'true'
+      env:
         MT_SERVER: ${{ secrets.MT_SERVER }}
         MT_PORT: ${{ secrets.MT_PORT }}
         MT_USERNAME: ${{ secrets.MT_USERNAME }}
         MT_PASSWORD: ${{ secrets.MT_PASSWORD }}
-        EMAIL_USERNAME: ${{ secrets.EMAIL_USERNAME }}
-        EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
       run: |
-        pytest --cov=. --cov-report=xml
+        pytest -v -m "metatrader"
     
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v3
       with:
         file: ./coverage.xml
         fail_ci_if_error: true
-
-  integration:
-    needs: test
-    runs-on: ubuntu-latest
-    
-    steps:
-    - uses: actions/checkout@v3
-    
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: "3.11"
-    
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-    
-    - name: Run integration tests
-      env:
-        ALPACA_API_KEY: ${{ secrets.ALPACA_API_KEY }}
-        ALPACA_SECRET_KEY: ${{ secrets.ALPACA_SECRET_KEY }}
-        MT_SERVER: ${{ secrets.MT_SERVER }}
-        MT_PORT: ${{ secrets.MT_PORT }}
-        MT_USERNAME: ${{ secrets.MT_USERNAME }}
-        MT_PASSWORD: ${{ secrets.MT_PASSWORD }}
-        EMAIL_USERNAME: ${{ secrets.EMAIL_USERNAME }}
-        EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
-      run: |
-        pytest -v -m integration
 
   lint:
     runs-on: ubuntu-latest

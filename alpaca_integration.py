@@ -35,8 +35,32 @@ class AlpacaIntegration:
         if not self.api_key or not self.api_secret:
             raise ValueError("Alpaca API credentials not found in environment variables")
             
-        self.api = TradingClient(self.api_key, self.api_secret, paper=True)
-        logger.info("Alpaca integration initialized")
+        self.paper_trading = True  # Always using paper trading for safety
+        self.api = TradingClient(self.api_key, self.api_secret, paper=self.paper_trading)
+        logger.info("Alpaca integration initialized in paper trading mode")
+
+    def get_account_info(self):
+        """Get account information
+        
+        Returns:
+            dict: Account information including equity and buying power
+        """
+        try:
+            account = self.api.get_account()
+            return {
+                'equity': float(account.equity),
+                'buying_power': float(account.buying_power),
+                'cash': float(account.cash),
+                'portfolio_value': float(account.portfolio_value)
+            }
+        except Exception as e:
+            logger.error(f"Error getting account info: {e}")
+            return {
+                'equity': 0.0,
+                'buying_power': 0.0,
+                'cash': 0.0,
+                'portfolio_value': 0.0
+            }
 
 @staticmethod
 def update_positions():

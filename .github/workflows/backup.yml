@@ -53,4 +53,5 @@ jobs:
         for branch in $backup_branches; do
           branch_name=$(echo $branch | sed 's|origin/||')
           git push origin --delete $branch_name || true
-        done 
+        done
+        

@@ -5,7 +5,7 @@ Main entry point for the KryptoBot trading bot.
 
 import os
 import sys
-import time
+import asyncio
 import logging
 from dotenv import load_dotenv
 
@@ -24,8 +24,32 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 
-def main():
-    """Main function to run the trading bot"""
+async def run_bot(bot, telegram_notifier):
+    """Run the trading bot and handle updates"""
+    try:
+        while True:
+            try:
+                # Update bot status
+                bot.update()
+                
+                # Sleep briefly
+                await asyncio.sleep(1)
+                
+            except Exception as e:
+                logger.error(f"Error in bot update loop: {e}")
+                await telegram_notifier.send_message(
+                    f"❌ Error in bot update loop: {str(e)}"
+                )
+                break
+    
+    finally:
+        # Ensure cleanup on exit
+        bot.stop()
+        telegram_notifier.stop()
+
+
+async def main_async():
+    """Async main function to run the trading bot"""
     try:
         # Load environment variables
         load_dotenv()
@@ -87,32 +111,39 @@ def main():
             sys.exit(1)
         
         # Start Telegram notifications
-        telegram_notifier.start()
+        if not telegram_notifier.start():
+            logger.error("Failed to start Telegram notifier")
+            sys.exit(1)
         
-        # Main loop
-        while True:
-            try:
-                # Update bot status
-                bot.update()
-                
-                # Sleep for a bit
-                time.sleep(1)
-                
-            except KeyboardInterrupt:
-                logger.info("Received keyboard interrupt, stopping bot...")
-                bot.stop()
-                telegram_notifier.stop()
-                break
-                
-            except Exception as e:
-                logger.error(f"Error in main loop: {e}")
-                bot.stop()
-                telegram_notifier.stop()
-                break
+        # Run the bot
+        await run_bot(bot, telegram_notifier)
     
     except Exception as e:
         logger.error(f"Fatal error: {e}")
         sys.exit(1)
+
+
+def main():
+    """Main entry point"""
+    try:
+        # Get or create event loop
+        try:
+            loop = asyncio.get_event_loop()
+        except RuntimeError:
+            loop = asyncio.new_event_loop()
+            asyncio.set_event_loop(loop)
+        
+        # Run the async main function
+        loop.run_until_complete(main_async())
+    
+    except KeyboardInterrupt:
+        logger.info("Received keyboard interrupt, stopping bot...")
+    except Exception as e:
+        logger.error(f"Fatal error in main: {e}")
+        sys.exit(1)
+    finally:
+        # Clean up the event loop
+        loop.close()
 
 
 if __name__ == "__main__":

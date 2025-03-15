@@ -34,9 +34,12 @@ ENV/
 *.swo
 
 # Logs
-*.log
 logs/
-log/
+*.log
+trading_bot.out
+
+# Local development
+.DS_Store
 
 # Sensitive Data
 .kryptobot/
@@ -67,7 +70,6 @@ site/
 # Temporary files
 *.bak
 *.tmp
-.DS_Store
 Thumbs.db
 
 # Logs and data

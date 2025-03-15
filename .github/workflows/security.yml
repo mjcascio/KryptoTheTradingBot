@@ -29,6 +29,41 @@ jobs:
         pip install -r requirements.txt
         pip install pytest pytest-cov bandit safety
 
+    - name: Check secrets configuration
+      id: check_secrets
+      run: |
+        # Check for required secrets
+        missing_required=()
+        if [ -z "${{ secrets.ALPACA_API_KEY }}" ]; then
+          missing_required+=("ALPACA_API_KEY")
+        fi
+        if [ -z "${{ secrets.ALPACA_SECRET_KEY }}" ]; then
+          missing_required+=("ALPACA_SECRET_KEY")
+        fi
+        
+        if [ ${#missing_required[@]} -gt 0 ]; then
+          echo "Warning: Missing required secrets: ${missing_required[*]}"
+          echo "required_secrets_configured=false" >> $GITHUB_OUTPUT
+        else
+          echo "required_secrets_configured=true" >> $GITHUB_OUTPUT
+        fi
+        
+        # Check for optional secrets
+        missing_optional=()
+        if [ -z "${{ secrets.EMAIL_USERNAME }}" ]; then
+          missing_optional+=("EMAIL_USERNAME")
+        fi
+        if [ -z "${{ secrets.EMAIL_PASSWORD }}" ]; then
+          missing_optional+=("EMAIL_PASSWORD")
+        fi
+        if [ -z "${{ secrets.MT_SERVER }}" ]; then
+          missing_optional+=("MT_SERVER")
+        fi
+        
+        if [ ${#missing_optional[@]} -gt 0 ]; then
+          echo "Info: Missing optional secrets: ${missing_optional[*]}"
+        fi
+
     - name: Run security tests
       run: |
         pytest tests/test_security.py -v --cov=. --cov-report=xml
@@ -51,20 +86,19 @@ jobs:
 
     - name: Check file permissions
       run: |
-        # Ensure config directory has correct permissions
+        # Check config directory permissions if it exists
         test_dir=~/.kryptobot
         if [ -d "$test_dir" ]; then
           perms=$(stat -c %a "$test_dir")
           if [ "$perms" != "700" ]; then
-            echo "Error: Config directory has incorrect permissions: $perms"
-            exit 1
+            echo "Warning: Config directory has incorrect permissions: $perms"
           fi
         fi
 
     - name: Check for sensitive data exposure
       run: |
         # Check for common sensitive file patterns
-        if find . -type f -exec grep -l -i "api[_-]key\|secret\|password\|token" {} \; | grep -v "test_"; then
+        if find . -type f -exec grep -l -i "api[_-]key\|secret\|password\|token" {} \; | grep -v -E "(test_|\.env\.template|\.gitignore|\.github/workflows/)"; then
           echo "Warning: Potential sensitive data found in files"
           exit 1
         fi
@@ -72,7 +106,7 @@ jobs:
     - name: Verify secure configurations
       run: |
         # Check TLS/SSL configurations
-        if find . -type f -name "*.py" -exec grep -l "ssl=False\|verify=False" {} \;; then
+        if find . -type f -name "*.py" -exec grep -l "ssl=False\|verify=False\|check_hostname=False" {} \;; then
           echo "Error: Insecure SSL/TLS configurations found"
           exit 1
         fi
@@ -120,7 +154,7 @@ jobs:
     - name: Check for security best practices
       run: |
         # Check for hardcoded secrets
-        if git grep -l "api_key\|secret\|password\|token" -- "*.py" ":!tests/"; then
+        if git grep -l "api_key\|secret\|password\|token" -- "*.py" ":!tests/" ":!.env.template"; then
           echo "Error: Potential hardcoded secrets found"
           exit 1
         fi

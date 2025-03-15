@@ -15,7 +15,18 @@ from dataclasses import dataclass
 
 
 # Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler('logs/system_monitor.out'),
+        logging.StreamHandler()
+    ]
+)
 logger = logging.getLogger(__name__)
+
+# Ensure logs directory exists
+os.makedirs('logs', exist_ok=True)
 
 
 @dataclass

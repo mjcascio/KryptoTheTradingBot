@@ -5,6 +5,7 @@ Core Trading Bot Module
 This module coordinates all components of the trading bot.
 """
 
+import os
 import logging
 from typing import Dict, List, Optional
 from datetime import datetime
@@ -16,16 +17,26 @@ from src.strategies.options import OptionsStrategy
 from src.core.market_data import MarketData
 from src.core.risk_management import RiskManager
 from src.integrations.telegram_notifications import TelegramNotifier
+from src.utils.monitoring import SystemMonitor, MetricsConfig
+
 
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler('logs/trading_bot.out'),
+        logging.StreamHandler()
+    ]
 )
 logger = logging.getLogger(__name__)
 
+# Ensure logs directory exists
+os.makedirs('logs', exist_ok=True)
+
 # Load environment variables
 load_dotenv()
+
 
 class TradingBot:
     """Main trading bot class"""
@@ -51,6 +62,18 @@ class TradingBot:
             telegram_notifier (TelegramNotifier): Telegram notifications
             paper_trading (bool): Whether to use paper trading
         """
+        # Initialize system monitor
+        metrics_config = MetricsConfig(
+            collection_interval=60,  # 1 minute interval
+            retention_days=7,
+            alert_thresholds={
+                "cpu_usage": 80.0,
+                "memory_usage": 80.0,
+                "disk_usage": 80.0
+            }
+        )
+        self.system_monitor = SystemMonitor(metrics_config)
+        
         # Initialize components
         self.market_data = MarketData(
             api_key=api_key,
@@ -93,16 +116,40 @@ class TradingBot:
         """Get current bot status
         
         Returns:
-            Dict: Bot status information
+            Dict: Bot status information including running state, metrics,
+            and positions
         """
+        last_update_str = None
+        if self.last_update:
+            last_update_str = self.last_update.strftime("%Y-%m-%d %H:%M:%S")
+            
         status = {
             "running": self.is_running,
             "uptime": str(datetime.now() - self.start_time) if self.start_time else "Not started",
             "active_strategies": self.active_strategies,
-            "open_positions": self.alpaca.get_positions() or [],
-            "last_update": self.last_update.strftime("%Y-%m-%d %H:%M:%S") if self.last_update else None,
-            "paper_trading": self.alpaca.paper_trading
+            "open_positions": self.alpaca.get_positions(suppress_notifications=True) or [],
+            "last_update": last_update_str,
+            "paper_trading": True,  # Always true for safety
+            "watchlist": self.watchlist,
+            "risk_metrics": self.risk_manager.get_risk_metrics() if self.risk_manager else {}
         }
+        
+        # Add system metrics from monitor
+        try:
+            metrics = self.system_monitor.get_current_metrics()
+            status.update({
+                "cpu_percent": metrics.get("cpu_usage", 0.0),
+                "memory_percent": metrics.get("memory_usage", 0.0),
+                "disk_percent": metrics.get("disk_usage", 0.0)
+            })
+        except Exception as e:
+            logger.error(f"Error getting system metrics: {e}")
+            status.update({
+                "cpu_percent": 0.0,
+                "memory_percent": 0.0,
+                "disk_percent": 0.0
+            })
+            
         return status
     
     def get_positions(self) -> List[Dict]:
@@ -251,7 +298,13 @@ class TradingBot:
             bool: True if stopped successfully
         """
         try:
+            # Stop all trading activities
             self.is_running = False
+            
+            # Record stop time
+            self.last_update = datetime.now()
+            
+            # Log the stop
             logger.info("Trading bot stopped")
             return True
             
@@ -439,18 +492,4 @@ class TradingBot:
             
         except Exception as e:
             logger.error(f"Error removing symbol from watchlist: {e}")
-            return False
-
-    def get_status(self) -> Dict:
-        """Get trading bot status
-        
-        Returns:
-            Dictionary with status information
-        """
-        return {
-            'is_running': self.is_running,
-            'last_update': self.last_update.isoformat() if self.last_update else None,
-            'watchlist': self.watchlist,
-            'risk_metrics': self.risk_manager.get_risk_metrics(),
-            'positions': self.alpaca.get_positions(suppress_notifications=True)
-        } 
+            return False 
