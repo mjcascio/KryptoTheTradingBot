@@ -1,23 +1,26 @@
 #!/usr/bin/env python3
 """
-Core Trading Bot Module
-
-This module coordinates all components of the trading bot.
+Core trading bot implementation with support for stocks and options trading.
+Implements a modular design with proper error handling and logging.
 """
 
 import os
 import logging
-from typing import Dict, List, Optional
+from typing import Dict, List, Optional, Any
 from datetime import datetime
+import threading
+import pytz
 from dotenv import load_dotenv
 
-from src.integrations.alpaca import AlpacaIntegration
-from src.strategies.stock import StockStrategy
-from src.strategies.options import OptionsStrategy
-from src.core.market_data import MarketData
-from src.core.risk_management import RiskManager
-from src.integrations.telegram_notifications import TelegramNotifier
-from src.utils.monitoring import SystemMonitor, MetricsConfig
+from ..monitoring.logging.logger import get_logger
+from ..utils.decorators import retry_on_exception
+from ..integrations.brokers import BrokerFactory
+from ..strategies.manager import StrategyManager
+from ..monitoring.system import SystemMonitor, MetricsConfig
+from ..data.market_data import MarketDataService
+from ..utils.config import Config
+from ..integrations.telegram import TelegramNotifier
+from .position_manager import PositionManager
 
 
 # Configure logging
@@ -29,7 +32,7 @@ logging.basicConfig(
         logging.StreamHandler()
     ]
 )
-logger = logging.getLogger(__name__)
+logger = get_logger(__name__)
 
 # Ensure logs directory exists
 os.makedirs('logs', exist_ok=True)
@@ -39,165 +42,356 @@ load_dotenv()
 
 
 class TradingBot:
-    """Main trading bot class"""
+    """
+    Trading bot that implements various trading strategies for both stocks and options.
+    Provides a unified interface for trading operations with proper error handling
+    and monitoring.
+    """
     
     def __init__(
         self,
-        api_key: str,
-        api_secret: str,
-        stock_strategy: Optional[StockStrategy] = None,
-        options_strategy: Optional[OptionsStrategy] = None,
-        risk_manager: Optional[RiskManager] = None,
+        config: Config,
         telegram_notifier: Optional[TelegramNotifier] = None,
-        paper_trading: bool = True
-    ):
-        """Initialize trading bot
+        strategies: Optional[Dict[str, Any]] = None
+    ) -> None:
+        """
+        Initialize the trading bot with the specified configuration.
         
         Args:
-            api_key (str): Alpaca API key
-            api_secret (str): Alpaca API secret
-            stock_strategy (StockStrategy): Stock trading strategy
-            options_strategy (OptionsStrategy): Options trading strategy
-            risk_manager (RiskManager): Risk management system
-            telegram_notifier (TelegramNotifier): Telegram notifications
-            paper_trading (bool): Whether to use paper trading
+            config: Configuration object containing trading parameters
+            telegram_notifier: Optional Telegram notification handler
+            strategies: Optional dictionary of trading strategies
         """
-        # Initialize system monitor
-        metrics_config = MetricsConfig(
-            collection_interval=60,  # 1 minute interval
-            retention_days=7,
-            alert_thresholds={
-                "cpu_usage": 80.0,
-                "memory_usage": 80.0,
-                "disk_usage": 80.0
-            }
-        )
-        self.system_monitor = SystemMonitor(metrics_config)
-        
-        # Initialize components
-        self.market_data = MarketData(
-            api_key=api_key,
-            api_secret=api_secret,
-            paper_trading=paper_trading
-        )
-        self.alpaca = AlpacaIntegration(
-            api_key=api_key,
-            api_secret=api_secret,
-            paper_trading=paper_trading
-        )
-        self.risk_manager = risk_manager or RiskManager()
-        self.telegram = telegram_notifier
-        
-        # Initialize strategies
-        self.stock_strategy = stock_strategy or StockStrategy(
-            name="Default Stock Strategy",
-            description="Basic stock trading strategy"
-        )
-        self.options_strategy = options_strategy or OptionsStrategy(
-            name="Default Options Strategy",
-            description="Basic options trading strategy"
-        )
-        
-        # Trading state
-        self.is_running = False
-        self.start_time = None
-        self.last_update = None
-        self.watchlist: List[str] = []
-        self.active_strategies = []
-        
-        if self.stock_strategy:
-            self.active_strategies.append("stocks")
-        if self.options_strategy:
-            self.active_strategies.append("options")
-        
-        logger.info("Trading bot initialized")
-
-    def get_status(self) -> Dict:
-        """Get current bot status
-        
-        Returns:
-            Dict: Bot status information including running state, metrics,
-            and positions
-        """
-        last_update_str = None
-        if self.last_update:
-            last_update_str = self.last_update.strftime("%Y-%m-%d %H:%M:%S")
-            
-        status = {
-            "running": self.is_running,
-            "uptime": str(datetime.now() - self.start_time) if self.start_time else "Not started",
-            "active_strategies": self.active_strategies,
-            "open_positions": self.alpaca.get_positions(suppress_notifications=True) or [],
-            "last_update": last_update_str,
-            "paper_trading": True,  # Always true for safety
-            "watchlist": self.watchlist,
-            "risk_metrics": self.risk_manager.get_risk_metrics() if self.risk_manager else {}
-        }
-        
-        # Add system metrics from monitor
         try:
-            metrics = self.system_monitor.get_current_metrics()
-            status.update({
-                "cpu_percent": metrics.get("cpu_usage", 0.0),
-                "memory_percent": metrics.get("memory_usage", 0.0),
-                "disk_percent": metrics.get("disk_usage", 0.0)
-            })
-        except Exception as e:
-            logger.error(f"Error getting system metrics: {e}")
-            status.update({
-                "cpu_percent": 0.0,
-                "memory_percent": 0.0,
-                "disk_percent": 0.0
-            })
+            self.config = config
+            self.telegram_notifier = telegram_notifier
             
-        return status
+            # Initialize core components
+            self._init_core_components()
+            
+            # Initialize trading state
+            self._init_trading_state()
+            
+            # Initialize strategies
+            self.strategies = strategies or {}
+            self.strategy_manager = StrategyManager(self.config)
+            
+            # Set up monitoring
+            self._init_monitoring()
+            
+            logger.info("Trading bot initialized successfully")
+            
+        except Exception as e:
+            logger.error(f"Failed to initialize trading bot: {str(e)}", exc_info=True)
+            raise
     
-    def get_positions(self) -> List[Dict]:
-        """Get current positions
+    def _init_core_components(self) -> None:
+        """Initialize core trading components."""
+        try:
+            # Initialize broker factory and connect to default broker
+            self.broker_factory = BrokerFactory()
+            self._initialize_brokers()
+            
+            # Initialize market data service
+            active_broker = self.broker_factory.get_active_broker()
+            if active_broker:
+                self.market_data = MarketDataService(active_broker)
+            else:
+                raise RuntimeError("No active broker available")
+            
+            # Initialize position manager
+            self.position_manager = PositionManager(self.config, self.broker_factory)
+            
+            # Load watchlist
+            self.watchlist = self._get_platform_watchlist()
+            
+        except Exception as e:
+            logger.error(f"Failed to initialize core components: {str(e)}", exc_info=True)
+            raise
+    
+    def _init_trading_state(self) -> None:
+        """Initialize trading state variables."""
+        self.is_running = False
+        self.stop_event = threading.Event()
+        self.trading_thread = None
+        
+        # Initialize trading metrics
+        self.positions = {'stocks': {}, 'options': {}}
+        self.daily_trades = {'stocks': 0, 'options': 0}
+        self.daily_pl = {'stocks': 0.0, 'options': 0.0}
+        self.orders = {'stocks': {}, 'options': {}}
+    
+    def _init_monitoring(self) -> None:
+        """Initialize system monitoring."""
+        try:
+            metrics_config = MetricsConfig(
+                collection_interval=self.config.get('monitoring.interval', 60),
+                retention_days=self.config.get('monitoring.retention_days', 7),
+                alert_thresholds=self.config.get('monitoring.thresholds', {
+                    "cpu_usage": 80.0,
+                    "memory_usage": 80.0,
+                    "disk_usage": 80.0
+                })
+            )
+            self.system_monitor = SystemMonitor(metrics_config)
+        except Exception as e:
+            logger.error(f"Failed to initialize monitoring: {str(e)}", exc_info=True)
+            raise
+    
+    def _initialize_brokers(self) -> None:
+        """Initialize brokers based on configuration."""
+        try:
+            platforms = self.config.get('platforms', {})
+            default_broker = None
+            
+            # Create broker instances for enabled platforms
+            for platform_id, platform_config in platforms.items():
+                if platform_config.get('enabled', False) or platform_id == 'alpaca':
+                    broker = self.broker_factory.create_broker(platform_id)
+                    if broker:
+                        if platform_id == 'alpaca' or platform_config.get('default', False):
+                            default_broker = platform_id
+                            logger.info(f"Created {platform_id} broker instance (default)")
+                        else:
+                            logger.info(f"Created {platform_id} broker instance")
+            
+            # Set and connect to the default broker
+            active_broker_id = default_broker or 'alpaca'
+            self.broker_factory.set_active_broker(active_broker_id)
+            
+            active_broker = self.broker_factory.get_active_broker()
+            if active_broker and active_broker.connect():
+                logger.info(f"Successfully connected to {active_broker.get_platform_name()}")
+            else:
+                raise RuntimeError(f"Failed to connect to {active_broker_id}")
+                
+        except Exception as e:
+            logger.error(f"Failed to initialize brokers: {str(e)}", exc_info=True)
+            raise
+    
+    def _get_platform_watchlist(self) -> List[str]:
+        """Get the watchlist for the active platform."""
+        try:
+            active_broker = self.broker_factory.get_active_broker()
+            if not active_broker:
+                logger.warning("No active broker. Using default stock watchlist.")
+                return self.config.get('watchlists.stocks', [])
+            
+            platform_type = active_broker.get_platform_type()
+            if platform_type == 'forex':
+                return self.config.get('watchlists.forex', [])
+            else:
+                return self.config.get('watchlists.stocks', [])
+                
+        except Exception as e:
+            logger.error(f"Failed to get platform watchlist: {str(e)}", exc_info=True)
+            return []
+    
+    @retry_on_exception(retries=3, delay=5)
+    def connect(self) -> bool:
+        """
+        Connect to all enabled brokers.
         
         Returns:
-            List[Dict]: List of open positions
+            bool: True if connection successful, False otherwise
         """
-        return self.alpaca.get_positions() or []
+        try:
+            # Connect all brokers and check results
+            broker_results = self.broker_factory.connect_all_brokers()
+            if not all(broker_results.values()):
+                logger.error("Some brokers failed to connect")
+                return False
+            
+            # Check if the active broker is connected
+            active_broker = self.broker_factory.get_active_broker()
+            if active_broker and active_broker.connected:
+                # Initialize market data service
+                self.market_data = MarketDataService(active_broker)
+                self.watchlist = self._get_platform_watchlist()
+                
+                # Notify successful connection
+                if self.telegram_notifier:
+                    self.telegram_notifier.send_message(
+                        f"Connected to {active_broker.get_platform_name()}"
+                    )
+                return True
+            
+            logger.error("Failed to connect to the active broker")
+            return False
+            
+        except Exception as e:
+            logger.error(f"Connection error: {str(e)}", exc_info=True)
+            return False
     
-    def get_recent_trades(self) -> List[Dict]:
-        """Get recent trades
+    def disconnect(self) -> bool:
+        """
+        Disconnect from all brokers.
         
         Returns:
-            List[Dict]: List of recent trades
+            bool: True if disconnection successful, False otherwise
         """
-        return self.alpaca.get_recent_trades() or []
+        try:
+            return all(self.broker_factory.disconnect_all_brokers().values())
+        except Exception as e:
+            logger.error(f"Disconnection error: {str(e)}", exc_info=True)
+            return False
     
-    def get_performance(self) -> Dict:
-        """Get performance metrics
+    def start(self) -> bool:
+        """
+        Start the trading bot.
         
         Returns:
-            Dict: Performance metrics
+            bool: True if started successfully, False otherwise
         """
-        account = self.alpaca.get_account_info()
-        if not account:
-            return {}
+        try:
+            if self.is_running:
+                logger.warning("Trading bot is already running")
+                return True
+            
+            # Reset the stop event
+            self.stop_event.clear()
+            
+            # Start system monitoring
+            self.system_monitor.start()
+            
+            # Initialize trading thread
+            self.trading_thread = threading.Thread(target=self._trading_loop)
+            self.trading_thread.daemon = True
+            self.trading_thread.start()
+            
+            self.is_running = True
+            
+            # Send notification
+            if self.telegram_notifier:
+                self.telegram_notifier.send_message("Trading bot started")
+            
+            logger.info("Trading bot started successfully")
+            return True
+            
+        except Exception as e:
+            logger.error(f"Failed to start trading bot: {str(e)}", exc_info=True)
+            return False
+    
+    def stop(self) -> bool:
+        """
+        Stop the trading bot.
         
-        # Calculate daily P&L
-        positions = self.get_positions()
-        daily_pl = sum(float(pos.get('unrealized_intraday_pl', 0)) for pos in positions)
+        Returns:
+            bool: True if stopped successfully, False otherwise
+        """
+        try:
+            if not self.is_running:
+                logger.warning("Trading bot is not running")
+                return True
+            
+            # Signal the trading loop to stop
+            self.stop_event.set()
+            
+            # Wait for the trading thread to finish
+            if self.trading_thread and self.trading_thread.is_alive():
+                self.trading_thread.join(timeout=30)
+            
+            # Stop system monitoring
+            self.system_monitor.stop()
+            
+            self.is_running = False
+            
+            # Send notification
+            if self.telegram_notifier:
+                self.telegram_notifier.send_message("Trading bot stopped")
+            
+            logger.info("Trading bot stopped successfully")
+            return True
+            
+        except Exception as e:
+            logger.error(f"Failed to stop trading bot: {str(e)}", exc_info=True)
+            return False
+    
+    def get_status(self) -> Dict[str, Any]:
+        """
+        Get the current status of the trading bot.
         
-        # Calculate total P&L
-        total_pl = float(account.get('equity', 0)) - float(account.get('initial_margin', 0))
-        
-        # Get trading history
-        trades = self.get_recent_trades()
-        win_rate = 0.0
-        if trades:
-            winning_trades = sum(1 for t in trades if float(t.get('profit_loss', 0)) > 0)
-            win_rate = (winning_trades / len(trades)) * 100
-        
-        return {
-            "daily_pl": daily_pl,
-            "total_pl": total_pl,
-            "win_rate": win_rate,
-            "sharpe_ratio": 0.0  # TODO: Implement Sharpe ratio calculation
-        }
+        Returns:
+            Dict containing the current status information
+        """
+        try:
+            active_broker = self.broker_factory.get_active_broker()
+            performance = self.position_manager.get_performance()
+            
+            return {
+                'status': 'running' if self.is_running else 'stopped',
+                'uptime': self.system_monitor.get_uptime(),
+                'active_platform': active_broker.get_platform_name() if active_broker else None,
+                'positions': self.position_manager.positions,
+                'daily_trades': self.position_manager.daily_trades,
+                'daily_pl': self.position_manager.daily_pl,
+                'system_metrics': self.system_monitor.get_current_metrics(),
+                'performance': performance,
+                'last_update': datetime.now(pytz.UTC).isoformat()
+            }
+        except Exception as e:
+            logger.error(f"Failed to get status: {str(e)}", exc_info=True)
+            return {
+                'status': 'error',
+                'error': str(e),
+                'last_update': datetime.now(pytz.UTC).isoformat()
+            }
+    
+    def _trading_loop(self) -> None:
+        """Main trading loop."""
+        try:
+            while not self.stop_event.is_set():
+                try:
+                    # Update system metrics
+                    self.system_monitor.update_metrics()
+                    
+                    # Process trading strategies
+                    self.strategy_manager.process_strategies(
+                        self.market_data,
+                        self.position_manager.positions
+                    )
+                    
+                    # Monitor positions
+                    self.position_manager.monitor_positions()
+                    
+                    # Reset daily metrics if needed
+                    self.position_manager.reset_daily_metrics()
+                    
+                    # Sleep for the configured interval
+                    self.stop_event.wait(
+                        self.config.get('trading.update_interval', 60)
+                    )
+                    
+                except Exception as e:
+                    logger.error(f"Error in trading loop: {str(e)}", exc_info=True)
+                    if self.telegram_notifier:
+                        self.telegram_notifier.send_message(
+                            f"Trading error: {str(e)}"
+                        )
+                    # Sleep before retrying
+                    self.stop_event.wait(
+                        self.config.get('trading.error_retry_interval', 300)
+                    )
+            
+        except Exception as e:
+            logger.critical(f"Fatal error in trading loop: {str(e)}", exc_info=True)
+            if self.telegram_notifier:
+                self.telegram_notifier.send_message(
+                    f"Fatal trading error: {str(e)}"
+                )
+            self.stop()
+    
+    def get_positions(self) -> List[Dict[str, Any]]:
+        """Get current positions."""
+        return self.position_manager.get_positions()
+    
+    def get_recent_trades(self) -> List[Dict[str, Any]]:
+        """Get recent trades."""
+        return self.position_manager.get_recent_trades()
+    
+    def get_performance(self) -> Dict[str, Any]:
+        """Get performance metrics."""
+        return self.position_manager.get_performance()
     
     def check_api_connection(self) -> bool:
         """Check if API connection is working
@@ -205,7 +399,7 @@ class TradingBot:
         Returns:
             bool: True if connection is working
         """
-        return self.alpaca.check_connection()
+        return self.broker_factory.check_connection()
     
     def check_market_data(self) -> bool:
         """Check if market data is available
@@ -221,8 +415,8 @@ class TradingBot:
         Returns:
             bool: True if started successfully
         """
-        if "stocks" not in self.active_strategies:
-            self.active_strategies.append("stocks")
+        if "stocks" not in self.strategies:
+            self.strategies.append("stocks")
             logger.info("Stock trading enabled")
             return True
         return False
@@ -233,8 +427,8 @@ class TradingBot:
         Returns:
             bool: True if stopped successfully
         """
-        if "stocks" in self.active_strategies:
-            self.active_strategies.remove("stocks")
+        if "stocks" in self.strategies:
+            self.strategies.remove("stocks")
             logger.info("Stock trading disabled")
             return True
         return False
@@ -245,8 +439,8 @@ class TradingBot:
         Returns:
             bool: True if started successfully
         """
-        if "options" not in self.active_strategies:
-            self.active_strategies.append("options")
+        if "options" not in self.strategies:
+            self.strategies.append("options")
             logger.info("Options trading enabled")
             return True
         return False
@@ -257,202 +451,11 @@ class TradingBot:
         Returns:
             bool: True if stopped successfully
         """
-        if "options" in self.active_strategies:
-            self.active_strategies.remove("options")
+        if "options" in self.strategies:
+            self.strategies.remove("options")
             logger.info("Options trading disabled")
             return True
         return False
-
-    def start(self) -> bool:
-        """Start the trading bot
-        
-        Returns:
-            bool: True if started successfully
-        """
-        try:
-            # Get initial account info
-            account_info = self.alpaca.get_account_info()
-            if account_info is None:
-                logger.error("Failed to get account information")
-                return False
-            
-            # Update risk manager
-            self.risk_manager.update_account_status(account_info)
-            
-            # Start trading loop
-            self.is_running = True
-            self.start_time = datetime.now()
-            self.last_update = datetime.now()
-            
-            logger.info("Trading bot started")
-            return True
-            
-        except Exception as e:
-            logger.error(f"Error starting trading bot: {e}")
-            return False
-
-    def stop(self) -> bool:
-        """Stop the trading bot
-        
-        Returns:
-            bool: True if stopped successfully
-        """
-        try:
-            # Stop all trading activities
-            self.is_running = False
-            
-            # Record stop time
-            self.last_update = datetime.now()
-            
-            # Log the stop
-            logger.info("Trading bot stopped")
-            return True
-            
-        except Exception as e:
-            logger.error(f"Error stopping trading bot: {e}")
-            return False
-
-    def update(self) -> None:
-        """Update trading bot state"""
-        if not self.is_running:
-            return
-        
-        try:
-            # Get current market data
-            market_data = {}
-            for symbol in self.watchlist:
-                data = self.market_data.get_current_data(symbol)
-                if data is not None:
-                    market_data[symbol] = data
-            
-            # Get account info
-            account_info = self.alpaca.get_account_info()
-            if account_info is None:
-                logger.error("Failed to get account information")
-                return
-            
-            # Update risk manager
-            self.risk_manager.update_account_status(account_info)
-            
-            # Get current positions
-            positions = self.alpaca.get_positions(suppress_notifications=True)
-            self.risk_manager.update_position_count(len(positions))
-            
-            # Analyze market and generate signals
-            stock_signals = self.stock_strategy.analyze_market(market_data)
-            options_signals = self.options_strategy.analyze_market(market_data)
-            
-            # Process signals
-            self._process_signals(stock_signals, options_signals, account_info)
-            
-            # Update last update time
-            self.last_update = datetime.now()
-            
-        except Exception as e:
-            logger.error(f"Error updating trading bot: {e}")
-
-    def _process_signals(
-        self,
-        stock_signals: List[Dict],
-        options_signals: List[Dict],
-        account_info: Dict
-    ) -> None:
-        """Process trading signals
-        
-        Args:
-            stock_signals (List[Dict]): Stock trading signals
-            options_signals (List[Dict]): Options trading signals
-            account_info (Dict): Account information
-        """
-        # Process stock signals
-        for signal in stock_signals:
-            if self._validate_signal(signal, account_info):
-                self._execute_stock_trade(signal, account_info)
-        
-        # Process options signals
-        for signal in options_signals:
-            if self._validate_signal(signal, account_info):
-                self._execute_options_trade(signal, account_info)
-
-    def _validate_signal(self, signal: Dict, account_info: Dict) -> bool:
-        """Validate a trading signal
-        
-        Args:
-            signal (Dict): Trading signal
-            account_info (Dict): Account information
-            
-        Returns:
-            bool: True if signal is valid
-        """
-        # Calculate position size
-        position_size = self.risk_manager.calculate_position_size(
-            entry_price=signal['price'],
-            stop_loss=signal.get('stop_loss', signal['price'] * 0.98),
-            account_info=account_info,
-            volatility=signal.get('volatility', 0.0)
-        )
-        
-        if position_size is None:
-            return False
-        
-        # Check if position can be opened
-        return self.risk_manager.can_open_position(position_size, account_info)
-
-    def _execute_stock_trade(self, signal: Dict, account_info: Dict) -> None:
-        """Execute a stock trade
-        
-        Args:
-            signal (Dict): Trading signal
-            account_info (Dict): Account information
-        """
-        try:
-            # Calculate position size
-            position_size = self.risk_manager.calculate_position_size(
-                entry_price=signal['price'],
-                stop_loss=signal.get('stop_loss', signal['price'] * 0.98),
-                account_info=account_info
-            )
-            
-            if position_size is None:
-                return
-            
-            # Place order
-            order = self.alpaca.place_market_order(
-                symbol=signal['symbol'],
-                side=signal['action'],
-                quantity=position_size
-            )
-            
-            if order is not None:
-                logger.info(f"Stock order placed: {order}")
-                
-        except Exception as e:
-            logger.error(f"Error executing stock trade: {e}")
-
-    def _execute_options_trade(self, signal: Dict, account_info: Dict) -> None:
-        """Execute an options trade
-        
-        Args:
-            signal (Dict): Trading signal
-            account_info (Dict): Account information
-        """
-        try:
-            # Calculate position size
-            position_size = self.risk_manager.calculate_position_size(
-                entry_price=signal['price'],
-                stop_loss=signal.get('stop_loss', signal['price'] * 0.98),
-                account_info=account_info,
-                volatility=signal.get('volatility', 0.0)
-            )
-            
-            if position_size is None:
-                return
-            
-            # Place order (to be implemented with options broker)
-            logger.info(f"Options trade signal: {signal}")
-            
-        except Exception as e:
-            logger.error(f"Error executing options trade: {e}")
 
     def add_to_watchlist(self, symbol: str) -> bool:
         """Add a symbol to the watchlist
