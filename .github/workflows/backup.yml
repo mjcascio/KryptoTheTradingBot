@@ -4,6 +4,9 @@ on:
   schedule:
     - cron: '0 */6 * * *'  # Runs every 6 hours
   workflow_dispatch:  # Allows manual trigger
+  push:
+    branches:
+      - main  # Trigger on pushes to main branch
 
 permissions:
   contents: write
