@@ -8,6 +8,7 @@ websockets>=11.0.0
 ta>=0.10.0  # Technical analysis library
 python-telegram-bot>=20.0  # For Telegram notifications
 schedule>=1.2.0  # For scheduling tasks
+psutil>=5.9.0  # For process management
 
 # Database
 aiosqlite>=0.19.0

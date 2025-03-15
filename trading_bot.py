@@ -181,7 +181,7 @@ class TradingBot:
                 if broker:
                     # Always set Alpaca as the default broker
                     if platform_id == 'alpaca':
-                        default_broker = platform_id
+                    default_broker = platform_id
                         logger.info(f"Created Alpaca broker instance")
                     elif platform_config.get('default', False):
                         default_broker = platform_id
@@ -453,31 +453,31 @@ class TradingBot:
         
         logger.info("Starting trading bot")
         
-        while not self.stop_event.is_set():
-            try:
+            while not self.stop_event.is_set():
+                try:
                 # Check if market is open
                 if not self._is_market_open():
                     time.sleep(60)  # Sleep for 1 minute
-                    continue
+                            continue
                 
                 # Reset daily metrics at market open
                 self._reset_daily_metrics_if_needed()
-                
-                # Get active broker
-                active_broker = self.broker_factory.get_active_broker()
+                    
+                    # Get active broker
+                    active_broker = self.broker_factory.get_active_broker()
                 if not active_broker or not active_broker.connected:
                     logger.error("No active broker or broker not connected")
-                    time.sleep(60)
-                    continue
-                
+                        time.sleep(60)
+                        continue
+                    
                 # Update account information
                 self._update_account_info()
-                
+                    
                 # Check if we should be in sleep mode
                 if self.sleep_manager.should_sleep():
-                    time.sleep(60)
-                    continue
-                
+                        time.sleep(60)
+                        continue
+                    
                 # Run market scanner
                 scan_results = self.market_scanner.scan_market()
                 
@@ -495,8 +495,8 @@ class TradingBot:
                 
                 # Sleep for the configured interval
                 time.sleep(self.strategy_manager.get_scan_interval())
-                
-            except Exception as e:
+                    
+                except Exception as e:
                 logger.error(f"Error in main trading loop: {e}")
                 time.sleep(60)
     
@@ -636,7 +636,7 @@ class TradingBot:
                 
                 logger.info(f"Options trade executed successfully: {trade_result}")
                 return True
-            else:
+                        else:
                 logger.error(f"Failed to execute options trade: {trade_result.get('error', 'Unknown error')}")
                 return False
                 
@@ -742,8 +742,8 @@ class TradingBot:
                     "Cannot monitor positions: No active broker or not connected",
                     context="Position Monitoring"
                 )
-                return
-            
+            return
+        
             # Get all open stock positions
             positions = active_broker.get_positions()
             
@@ -755,8 +755,8 @@ class TradingBot:
                     side = position.get('side', 'long').lower()
                     
                     if current_price <= 0 or entry_price <= 0:
-                        continue
-                    
+                    continue
+                
                     # Calculate profit/loss percentage
                     pl_pct = (current_price - entry_price) / entry_price
                     if side == 'short':
@@ -765,8 +765,8 @@ class TradingBot:
                     # Get strategy for this position
                     strategy = self.strategy_manager.get_stock_strategy(symbol)
                     if not strategy:
-                        continue
-                    
+                    continue
+                
                     # Check exit conditions
                     should_exit = False
                     exit_reason = None
@@ -793,7 +793,7 @@ class TradingBot:
                         # Only log position status, don't send notification or trigger position updates
                         logger.debug(f"Monitoring position: {symbol} {side.upper()}, P/L: {pl_pct:.2%}")
                 
-                except Exception as e:
+            except Exception as e:
                     logger.error(f"Error monitoring position for {symbol}: {e}")
             
         except Exception as e:
@@ -806,8 +806,8 @@ class TradingBot:
     def _close_stock_position(self, symbol: str, position: Dict[str, Any], reason: str) -> bool:
         """Close a stock position"""
         try:
-            active_broker = self.broker_factory.get_active_broker()
-            if not active_broker or not active_broker.connected:
+        active_broker = self.broker_factory.get_active_broker()
+        if not active_broker or not active_broker.connected:
                 logger.error("Cannot close position: No active broker or not connected")
                 return False
             
@@ -847,7 +847,7 @@ class TradingBot:
                 
                 logger.info(f"Stock position closed successfully: {symbol} ({reason})")
                 return True
-            else:
+        else:
                 logger.error(f"Failed to close stock position: {result.get('error', 'Unknown error')}")
                 return False
                 
@@ -864,8 +864,8 @@ class TradingBot:
                 return False
             
             # Get current account information
-            active_broker = self.broker_factory.get_active_broker()
-            if not active_broker or not active_broker.connected:
+        active_broker = self.broker_factory.get_active_broker()
+        if not active_broker or not active_broker.connected:
                 logger.error("Cannot execute trade: No active broker or not connected")
                 return False
             
@@ -895,12 +895,12 @@ class TradingBot:
                 # Update trading metrics
                 self.daily_trades['stocks'] += 1
                 order_id = result['order_id']
-                
-                # Store order information
+            
+            # Store order information
                 self.orders['stocks'][order_id] = {
-                    'symbol': symbol,
-                    'side': side,
-                    'quantity': quantity,
+                'symbol': symbol,
+                'side': side,
+                'quantity': quantity,
                     'strategy': strategy_name,
                     'timestamp': datetime.now(pytz.timezone(TIMEZONE))
                 }
@@ -1027,14 +1027,14 @@ System Status:
             self.trading_thread.join(timeout=10)
         
         self.is_running = False
-        
-        # Add bot activity log
-        self.dashboard.add_bot_activity({
+            
+            # Add bot activity log
+            self.dashboard.add_bot_activity({
             'message': 'Stock trading stopped',
-            'level': 'info',
-            'timestamp': datetime.now().isoformat()
-        })
-    
+                'level': 'info',
+                'timestamp': datetime.now().isoformat()
+            })
+            
     def start_options_trading(self):
         """Start options trading only."""
         if not hasattr(self, 'options_trading') or not self.options_trading:
@@ -1053,13 +1053,13 @@ System Status:
         self.options_trading_thread.start()
         
         logger.info("Options trading started")
-        
-        # Add bot activity log
-        self.dashboard.add_bot_activity({
+            
+            # Add bot activity log
+            self.dashboard.add_bot_activity({
             'message': 'Options trading started',
             'level': 'info',
-            'timestamp': datetime.now().isoformat()
-        })
+                'timestamp': datetime.now().isoformat()
+            })
     
     def stop_options_trading(self):
         """Stop options trading only."""
@@ -1105,7 +1105,7 @@ System Status:
                 self._reset_daily_metrics_if_needed()
                 
                 # Get active broker
-                active_broker = self.broker_factory.get_active_broker()
+        active_broker = self.broker_factory.get_active_broker()
                 if not active_broker or not active_broker.connected:
                     logger.error("No active broker or broker not connected")
                     time.sleep(60)

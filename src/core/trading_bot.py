@@ -21,6 +21,7 @@ from ..data.market_data import MarketDataService
 from ..utils.config import Config
 from ..integrations.telegram import TelegramNotifier
 from .position_manager import PositionManager
+from ..utils.pid_manager import PIDManager
 
 
 # Configure logging
@@ -48,43 +49,24 @@ class TradingBot:
     and monitoring.
     """
     
-    def __init__(
-        self,
-        config: Config,
-        telegram_notifier: Optional[TelegramNotifier] = None,
-        strategies: Optional[Dict[str, Any]] = None
-    ) -> None:
-        """
-        Initialize the trading bot with the specified configuration.
+    def __init__(self, config_path: Optional[str] = None) -> None:
+        """Initialize the trading bot.
         
         Args:
-            config: Configuration object containing trading parameters
-            telegram_notifier: Optional Telegram notification handler
-            strategies: Optional dictionary of trading strategies
+            config_path: Path to configuration file
         """
-        try:
-            self.config = config
-            self.telegram_notifier = telegram_notifier
+        # Load configuration
+        self.config = Config(config_path)
+        if not self.config.validate():
+            raise ValueError("Invalid configuration")
             
-            # Initialize core components
-            self._init_core_components()
-            
-            # Initialize trading state
-            self._init_trading_state()
-            
-            # Initialize strategies
-            self.strategies = strategies or {}
-            self.strategy_manager = StrategyManager(self.config)
-            
-            # Set up monitoring
-            self._init_monitoring()
-            
-            logger.info("Trading bot initialized successfully")
-            
-        except Exception as e:
-            logger.error(f"Failed to initialize trading bot: {str(e)}", exc_info=True)
-            raise
-    
+        # Initialize components
+        self._init_core_components()
+        self._init_trading_state()
+        self._init_monitoring()
+        
+        logger.info("Trading bot initialized")
+        
     def _init_core_components(self) -> None:
         """Initialize core trading components."""
         try:
@@ -95,12 +77,12 @@ class TradingBot:
             # Initialize market data service
             active_broker = self.broker_factory.get_active_broker()
             if active_broker:
-                self.market_data = MarketDataService(active_broker)
+                self.market_data = MarketDataService(active_broker, self.config)
             else:
                 raise RuntimeError("No active broker available")
             
             # Initialize position manager
-            self.position_manager = PositionManager(self.config, self.broker_factory)
+            self.position_manager = PositionManager(self.config)
             
             # Load watchlist
             self.watchlist = self._get_platform_watchlist()
@@ -122,18 +104,23 @@ class TradingBot:
         self.orders = {'stocks': {}, 'options': {}}
     
     def _init_monitoring(self) -> None:
-        """Initialize system monitoring."""
+        """Initialize monitoring components."""
         try:
+            # Initialize system monitor
             metrics_config = MetricsConfig(
-                collection_interval=self.config.get('monitoring.interval', 60),
-                retention_days=self.config.get('monitoring.retention_days', 7),
-                alert_thresholds=self.config.get('monitoring.thresholds', {
-                    "cpu_usage": 80.0,
-                    "memory_usage": 80.0,
-                    "disk_usage": 80.0
-                })
+                collection_interval=self.config.get('monitoring.metrics_interval', 60),
+                retention_days=self.config.get('monitoring.metrics_retention_days', 30)
             )
             self.system_monitor = SystemMonitor(metrics_config)
+            
+            # Initialize Telegram notifier if enabled
+            if self.config.get('monitoring.telegram_enabled', False):
+                self.telegram_notifier = TelegramNotifier(self.config)
+            else:
+                self.telegram_notifier = None
+                
+            logger.info("Monitoring components initialized")
+            
         except Exception as e:
             logger.error(f"Failed to initialize monitoring: {str(e)}", exc_info=True)
             raise
@@ -147,7 +134,7 @@ class TradingBot:
             # Create broker instances for enabled platforms
             for platform_id, platform_config in platforms.items():
                 if platform_config.get('enabled', False) or platform_id == 'alpaca':
-                    broker = self.broker_factory.create_broker(platform_id)
+                    broker = self.broker_factory.create(platform_id, platform_config)
                     if broker:
                         if platform_id == 'alpaca' or platform_config.get('default', False):
                             default_broker = platform_id
@@ -187,7 +174,7 @@ class TradingBot:
             logger.error(f"Failed to get platform watchlist: {str(e)}", exc_info=True)
             return []
     
-    @retry_on_exception(retries=3, delay=5)
+    @retry_on_exception(max_retries=3, delay=5)
     def connect(self) -> bool:
         """
         Connect to all enabled brokers.
@@ -244,20 +231,28 @@ class TradingBot:
             bool: True if started successfully, False otherwise
         """
         try:
-            if self.is_running:
-                logger.warning("Trading bot is already running")
-                return True
+            # Check if bot is already running
+            is_running, pid = self.pid_manager.check_pid()
+            if is_running:
+                logger.warning(f"Trading bot is already running (PID: {pid})")
+                return False
             
-            # Reset the stop event
+            # Clean up any stale PID file
+            self.pid_manager.cleanup_stale()
+            
+            # Create new PID file
+            if not self.pid_manager.create_pid(os.getpid()):
+                logger.error("Failed to create PID file")
+                return False
+            
+            # Start trading thread
             self.stop_event.clear()
-            
-            # Start system monitoring
-            self.system_monitor.start()
-            
-            # Initialize trading thread
             self.trading_thread = threading.Thread(target=self._trading_loop)
             self.trading_thread.daemon = True
             self.trading_thread.start()
+            
+            # Start system monitoring
+            self.system_monitor.start()
             
             self.is_running = True
             
@@ -265,11 +260,12 @@ class TradingBot:
             if self.telegram_notifier:
                 self.telegram_notifier.send_message("Trading bot started")
             
-            logger.info("Trading bot started successfully")
+            logger.info(f"Trading bot started (PID: {os.getpid()})")
             return True
             
         except Exception as e:
-            logger.error(f"Failed to start trading bot: {str(e)}", exc_info=True)
+            logger.error(f"Failed to start trading bot: {str(e)}")
+            self.pid_manager.remove_pid()
             return False
     
     def stop(self) -> bool:
@@ -280,19 +276,19 @@ class TradingBot:
             bool: True if stopped successfully, False otherwise
         """
         try:
-            if not self.is_running:
-                logger.warning("Trading bot is not running")
-                return True
-            
-            # Signal the trading loop to stop
+            logger.info("Stopping trading bot...")
             self.stop_event.set()
             
-            # Wait for the trading thread to finish
-            if self.trading_thread and self.trading_thread.is_alive():
+            if hasattr(self, 'trading_thread'):
                 self.trading_thread.join(timeout=30)
             
             # Stop system monitoring
             self.system_monitor.stop()
+            
+            # Cleanup
+            self.position_manager.close_all_positions()
+            self.market_data.disconnect()
+            self.pid_manager.remove_pid()
             
             self.is_running = False
             
@@ -300,11 +296,11 @@ class TradingBot:
             if self.telegram_notifier:
                 self.telegram_notifier.send_message("Trading bot stopped")
             
-            logger.info("Trading bot stopped successfully")
+            logger.info("Trading bot stopped")
             return True
             
         except Exception as e:
-            logger.error(f"Failed to stop trading bot: {str(e)}", exc_info=True)
+            logger.error(f"Error stopping trading bot: {str(e)}")
             return False
     
     def get_status(self) -> Dict[str, Any]:

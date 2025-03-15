@@ -5,16 +5,16 @@ Alpaca Integration Module
 This module handles integration with the Alpaca trading platform.
 """
 
-import os
 import logging
-from datetime import datetime, date, timedelta
-from typing import List, Dict, Optional, Union
+from datetime import datetime, timedelta
+from typing import List, Dict, Optional, Any
 import requests
 import yfinance as yf
 from dotenv import load_dotenv
 from alpaca.trading.client import TradingClient
 from alpaca.trading.requests import MarketOrderRequest
 from alpaca.trading.enums import OrderSide, TimeInForce
+from .brokers.base import BaseBroker
 
 # Configure logging
 logging.basicConfig(
@@ -25,6 +25,7 @@ logger = logging.getLogger(__name__)
 
 # Load environment variables
 load_dotenv()
+
 
 class AlpacaIntegration:
     """Class for integrating with Alpaca trading platform"""
@@ -535,4 +536,152 @@ class AlpacaIntegration:
             
         except Exception as e:
             logger.error(f"Error getting bars for {symbol}: {str(e)}")
-            return [] 
+            return []
+
+class AlpacaBroker(BaseBroker):
+    """Alpaca broker implementation."""
+
+    def __init__(self, config: Dict[str, Any]) -> None:
+        """Initialize the Alpaca broker."""
+        super().__init__(config)
+        self.api_key = config.get('api_key')
+        self.api_secret = config.get('api_secret')
+        self.paper_trading = config.get('paper_trading', True)
+        self.integration = None
+
+    async def connect(self) -> bool:
+        """Establish connection to Alpaca."""
+        try:
+            self.integration = AlpacaIntegration(
+                self.api_key,
+                self.api_secret,
+                self.paper_trading
+            )
+            self.is_connected = True
+            return True
+        except Exception as e:
+            logger.error(f"Failed to connect to Alpaca: {e}")
+            return False
+
+    async def disconnect(self) -> None:
+        """Disconnect from Alpaca."""
+        self.is_connected = False
+        self.integration = None
+
+    async def get_account_info(self) -> Dict[str, Any]:
+        """Get account information."""
+        if not self.is_connected:
+            raise RuntimeError("Not connected to Alpaca")
+        return self.integration.get_account_info()
+
+    async def get_positions(self) -> List[Dict[str, Any]]:
+        """Get current positions."""
+        if not self.is_connected:
+            raise RuntimeError("Not connected to Alpaca")
+        return self.integration.get_positions()
+
+    async def get_orders(self) -> List[Dict[str, Any]]:
+        """Get open orders."""
+        if not self.is_connected:
+            raise RuntimeError("Not connected to Alpaca")
+        return self.integration.api.get_orders()
+
+    async def place_order(
+        self,
+        symbol: str,
+        side: str,
+        quantity: float,
+        order_type: str = "market",
+        limit_price: Optional[float] = None,
+        stop_price: Optional[float] = None,
+        time_in_force: str = "day"
+    ) -> Dict[str, Any]:
+        """Place an order."""
+        if not self.is_connected:
+            raise RuntimeError("Not connected to Alpaca")
+        return self.integration.place_market_order(symbol, side, quantity)
+
+    async def cancel_order(self, order_id: str) -> bool:
+        """Cancel an order by ID."""
+        if not self.is_connected:
+            raise RuntimeError("Not connected to Alpaca")
+        return self.integration.cancel_order(order_id)
+
+    async def get_position(self, symbol: str) -> Optional[Dict[str, Any]]:
+        """Get position for a specific symbol."""
+        if not self.is_connected:
+            raise RuntimeError("Not connected to Alpaca")
+        positions = self.integration.get_positions()
+        return next(
+            (pos for pos in positions if pos['symbol'] == symbol),
+            None
+        )
+
+    async def close_position(self, symbol: str) -> bool:
+        """Close position for a specific symbol."""
+        if not self.is_connected:
+            raise RuntimeError("Not connected to Alpaca")
+        position = await self.get_position(symbol)
+        if not position:
+            return False
+        
+        try:
+            await self.place_order(
+                symbol=symbol,
+                side='sell' if position['side'] == 'long' else 'buy',
+                quantity=position['qty']
+            )
+            return True
+        except Exception as e:
+            logger.error(f"Failed to close position {symbol}: {e}")
+            return False
+
+    async def get_bars(
+        self,
+        symbol: str,
+        timeframe: str,
+        start: Optional[datetime] = None,
+        end: Optional[datetime] = None,
+        limit: Optional[int] = None
+    ) -> List[Dict[str, Any]]:
+        """Get historical bars for a symbol."""
+        if not self.is_connected:
+            raise RuntimeError("Not connected to Alpaca")
+        return self.integration.get_bars(
+            symbol,
+            start or (datetime.now() - timedelta(days=30)),
+            end or datetime.now(),
+            timeframe
+        )
+
+    async def get_last_quote(self, symbol: str) -> Dict[str, Any]:
+        """Get last quote for a symbol."""
+        if not self.is_connected:
+            raise RuntimeError("Not connected to Alpaca")
+        # TODO: Implement get_last_quote in AlpacaIntegration
+        raise NotImplementedError("get_last_quote not implemented")
+
+    async def get_last_trade(self, symbol: str) -> Dict[str, Any]:
+        """Get last trade for a symbol."""
+        if not self.is_connected:
+            raise RuntimeError("Not connected to Alpaca")
+        # TODO: Implement get_last_trade in AlpacaIntegration
+        raise NotImplementedError("get_last_trade not implemented")
+
+    async def get_account_history(
+        self,
+        start: Optional[datetime] = None,
+        end: Optional[datetime] = None
+    ) -> List[Dict[str, Any]]:
+        """Get account history."""
+        if not self.is_connected:
+            raise RuntimeError("Not connected to Alpaca")
+        # TODO: Implement get_account_history in AlpacaIntegration
+        raise NotImplementedError("get_account_history not implemented")
+
+    async def get_market_hours(self) -> Dict[str, Any]:
+        """Get market hours."""
+        if not self.is_connected:
+            raise RuntimeError("Not connected to Alpaca")
+        # TODO: Implement get_market_hours in AlpacaIntegration
+        raise NotImplementedError("get_market_hours not implemented") 
