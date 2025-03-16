@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: KryptoBot Documentation
+    url: https://github.com/mjcascio/KryptoTheTradingBot/wiki
+    about: Check our documentation for answers to common questions
+  - name: Security Issue
+    url: https://github.com/mjcascio/KryptoTheTradingBot/security/policy
+    about: Please report security vulnerabilities directly to the maintainers 

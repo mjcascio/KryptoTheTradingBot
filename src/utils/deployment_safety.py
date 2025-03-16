@@ -217,20 +217,158 @@ class DeploymentSafety:
     
     def _check_trading_engine(self) -> bool:
         """Check if the trading engine is operational."""
-        # TODO: Implement trading engine health check
-        return True
+        try:
+            # Check if trading engine process is running
+            result = subprocess.run(
+                ['pgrep', '-f', 'trading_bot.py'],
+                capture_output=True,
+                text=True
+            )
+            
+            if result.returncode != 0:
+                logger.warning("Trading engine process not found")
+                return False
+                
+            # Check if trading engine is responsive by checking log file
+            log_file = self.project_root / 'logs' / 'trading_bot.out'
+            if not log_file.exists():
+                logger.warning("Trading engine log file not found")
+                return False
+                
+            # Check for recent activity in log file (last 5 minutes)
+            last_modified = datetime.datetime.fromtimestamp(log_file.stat().st_mtime)
+            if (datetime.datetime.now() - last_modified).total_seconds() > 300:
+                logger.warning("Trading engine log file not recently updated")
+                return False
+                
+            logger.info("Trading engine check passed")
+            return True
+            
+        except Exception as e:
+            logger.error(f"Error checking trading engine: {str(e)}")
+            return False
     
     def _check_monitoring_system(self) -> bool:
         """Check if the monitoring system is operational."""
-        # TODO: Implement monitoring system health check
-        return True
+        try:
+            # Check if monitoring process is running
+            result = subprocess.run(
+                ['pgrep', '-f', 'system_monitor.py'],
+                capture_output=True,
+                text=True
+            )
+            
+            if result.returncode != 0:
+                logger.warning("Monitoring system process not found")
+                return False
+                
+            # Check if monitoring system is logging data
+            monitor_log = self.project_root / 'logs' / 'system_monitor.out'
+            if not monitor_log.exists():
+                logger.warning("Monitoring system log file not found")
+                return False
+                
+            # Check for recent activity in log file (last 10 minutes)
+            last_modified = datetime.datetime.fromtimestamp(monitor_log.stat().st_mtime)
+            if (datetime.datetime.now() - last_modified).total_seconds() > 600:
+                logger.warning("Monitoring system log file not recently updated")
+                return False
+                
+            # Check if metrics database exists and is accessible
+            metrics_db = self.project_root / 'data' / 'metrics.db'
+            if not metrics_db.exists():
+                logger.warning("Metrics database not found")
+                return False
+                
+            logger.info("Monitoring system check passed")
+            return True
+            
+        except Exception as e:
+            logger.error(f"Error checking monitoring system: {str(e)}")
+            return False
     
     def _check_remote_control(self) -> bool:
         """Check if remote control functionality is operational."""
-        # TODO: Implement remote control health check
-        return True
+        try:
+            # Check if Telegram notification service is running
+            result = subprocess.run(
+                ['pgrep', '-f', 'telegram.py'],
+                capture_output=True,
+                text=True
+            )
+            
+            if result.returncode != 0:
+                logger.warning("Telegram notification service not found")
+                return False
+                
+            # Check Telegram log file
+            telegram_log = self.project_root / 'logs' / 'telegram.log'
+            if not telegram_log.exists():
+                logger.warning("Telegram log file not found")
+                return False
+                
+            # Check for recent activity (last hour)
+            last_modified = datetime.datetime.fromtimestamp(telegram_log.stat().st_mtime)
+            if (datetime.datetime.now() - last_modified).total_seconds() > 3600:
+                logger.warning("Telegram log file not recently updated")
+                return False
+                
+            logger.info("Remote control check passed")
+            return True
+            
+        except Exception as e:
+            logger.error(f"Error checking remote control: {str(e)}")
+            return False
     
     def _check_data_feeds(self) -> bool:
         """Check if all data feeds are operational."""
-        # TODO: Implement data feeds health check
-        return True 
+        try:
+            # Check if data feed processes are running
+            data_feed_processes = [
+                'alpaca_sync.py',
+                'market_data.py',
+                'options_service.py'
+            ]
+            
+            all_running = True
+            for process in data_feed_processes:
+                result = subprocess.run(
+                    ['pgrep', '-f', process],
+                    capture_output=True,
+                    text=True
+                )
+                
+                if result.returncode != 0:
+                    logger.warning(f"Data feed process {process} not found")
+                    all_running = False
+            
+            # Check data feed log files
+            data_feed_logs = [
+                'alpaca_sync.out',
+                'options_service.log',
+                'data_validator.log'
+            ]
+            
+            all_logs_exist = True
+            for log_file in data_feed_logs:
+                log_path = self.project_root / 'logs' / log_file
+                if not log_path.exists():
+                    logger.warning(f"Data feed log file {log_file} not found")
+                    all_logs_exist = False
+                    
+                # Check for recent activity (last 15 minutes)
+                if log_path.exists():
+                    last_modified = datetime.datetime.fromtimestamp(log_path.stat().st_mtime)
+                    if (datetime.datetime.now() - last_modified).total_seconds() > 900:
+                        logger.warning(f"Data feed log file {log_file} not recently updated")
+                        all_logs_exist = False
+            
+            result = all_running and all_logs_exist
+            if result:
+                logger.info("Data feeds check passed")
+            
+            return result
+            
+        except Exception as e:
+            logger.error(f"Error checking data feeds: {str(e)}")
+            return False 

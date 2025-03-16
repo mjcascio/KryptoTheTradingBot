@@ -1,159 +1,131 @@
-# KryptoTheTradingBot
+# Krypto Trading Bot
 
-A sophisticated trading bot that implements both stock and options trading strategies with advanced risk management.
+[![CI/CD](https://github.com/mjcascio/KryptoTheTradingBot/actions/workflows/ci.yml/badge.svg)](https://github.com/mjcascio/KryptoTheTradingBot/actions/workflows/ci.yml)
+[![Security Tests](https://github.com/mjcascio/KryptoTheTradingBot/actions/workflows/security.yml/badge.svg)](https://github.com/mjcascio/KryptoTheTradingBot/actions/workflows/security.yml)
+[![Automated Backup](https://github.com/mjcascio/KryptoTheTradingBot/actions/workflows/backup.yml/badge.svg)](https://github.com/mjcascio/KryptoTheTradingBot/actions/workflows/backup.yml)
 
-![CI Status](https://github.com/mjcascio/KryptoTheTradingBot/workflows/KryptoBot%20CI/badge.svg)
-![Security Status](https://github.com/mjcascio/KryptoTheTradingBot/workflows/Security%20Tests/badge.svg)
-[![Code Coverage](https://codecov.io/gh/mjcascio/KryptoTheTradingBot/branch/main/graph/badge.svg)](https://codecov.io/gh/mjcascio/KryptoTheTradingBot)
+A modular, extensible trading bot for stocks and options with machine learning capabilities, built with Python.
 
-## CI/CD Integration
+## Architecture
 
-This project uses GitHub Actions for continuous integration and deployment:
-- Automated testing on Python 3.9, 3.10, and 3.11
-- Code quality checks (flake8, mypy)
-- Security scanning (bandit, safety)
-- Automated backups every 6 hours
-- Code coverage reporting via Codecov
+The bot is organized into the following core modules:
+
+```
+src/
+├── core/           # Core trading engine and bot management
+├── data/           # Market data fetching and processing
+├── integrations/   # External service integrations (Alpaca, Telegram)
+├── ml/             # Machine learning models and predictions
+├── monitoring/     # System monitoring and performance tracking
+├── strategies/     # Trading strategies implementation
+├── utils/          # Utility functions and helpers
+├── web/           # Web dashboard and API
+└── diagnostics/    # System diagnostics and health checks
+```
 
 ## Features
 
-- **Multi-Strategy Support**
-  - Stock trading with technical analysis
-  - Options trading with volatility analysis
-  - Customizable strategy parameters
-
-- **Risk Management**
-  - Position sizing based on account equity
-  - Maximum drawdown limits
-  - Per-trade risk controls
-  - Volatility-based adjustments
-  - Maximum position limits
-
-- **Market Data**
+- **Trading**
+  - Stocks and options trading via Alpaca
+  - Risk management and position sizing
+  - Multiple trading strategies support
   - Real-time market data processing
-  - Technical indicators calculation
-  - Historical data caching
-  - Options chain data support (via Alpaca API or Yahoo Finance)
 
-- **Integration**
-  - Alpaca trading platform integration
-  - Telegram notifications
-  - Comprehensive logging
+- **Machine Learning**
+  - Predictive analytics for trade signals
+  - Automated model training and optimization
+  - Feature extraction and engineering
+  - Performance monitoring and retraining triggers
 
-## Installation
+- **Monitoring & Control**
+  - Real-time system monitoring
+  - Performance metrics tracking
+  - Telegram integration for alerts and control
+  - Automated compliance checks
 
-1. Clone the repository:
-```bash
-git clone https://github.com/yourusername/KryptoTheTradingBot.git
-cd KryptoTheTradingBot
-```
+- **Security**
+  - Secure credential management
+  - Role-based access control
+  - Audit logging
+  - Automated backups
 
-2. Create and activate a virtual environment:
-```bash
-python -m venv .venv
-source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-```
+## Setup
 
+1. Clone the repository
+2. Create a virtual environment:
+   ```bash
+   python3 -m venv .venv
+   source .venv/bin/activate
+   ```
 3. Install dependencies:
-```bash
-pip install -r requirements.txt
-```
+   ```bash
+   pip install -r requirements.txt
+   ```
+4. Configure environment variables in `.env`:
+   ```
+   ALPACA_API_KEY=your_api_key
+   ALPACA_SECRET_KEY=your_secret_key
+   TELEGRAM_BOT_TOKEN=your_bot_token
+   TELEGRAM_CHAT_ID=your_chat_id
+   ```
 
-4. Set up environment variables:
-Create a `.env` file in the project root with:
-```
-ALPACA_API_KEY=your_api_key
-ALPACA_SECRET_KEY=your_secret_key
-TELEGRAM_BOT_TOKEN=your_telegram_bot_token
-TELEGRAM_CHAT_ID=your_chat_id
-```
+## Configuration
+
+The bot uses YAML configuration files in the `config/` directory:
+- `config.yaml`: Main configuration file
+- `trading.yaml`: Trading parameters
+- `monitoring.yaml`: Monitoring settings
+- `strategies.yaml`: Strategy configurations
 
 ## Usage
 
-1. Run the preflight check:
-```bash
-python test_options.py
-```
-This will verify that all systems are operational and ready for trading.
+### Starting the Bot
 
-2. Start the trading bot:
 ```bash
 python3 src/main.py
 ```
 
-3. Monitor the logs:
+### Telegram Commands
+
+- `/start` - Start trading
+- `/stop` - Stop trading
+- `/status` - Get system status
+- `/positions` - View current positions
+- `/performance` - Get performance metrics
+- `/diagnostics` - Run system diagnostics
+
+### Dashboard
+
+Access the web dashboard at `http://localhost:8080`
+
+## Development
+
+### Running Tests
+
 ```bash
-tail -f logs/trading_bot.log
+pytest tests/
 ```
 
-4. Check Telegram for notifications about:
-   - Trade executions
-   - Position updates
-   - Risk alerts
-   - Daily summaries
+### Adding New Strategies
 
-## Market Data Sources
+1. Create a new strategy class in `src/strategies/`
+2. Implement the required interface methods
+3. Add configuration in `config/strategies.yaml`
+4. Register the strategy in `src/strategies/__init__.py`
 
-### Stock Data
-- Primary: Alpaca API (real-time market data)
-- Technical indicators calculated in real-time
-
-### Options Data
-- Primary: Alpaca API (requires subscription)
-- Fallback: Yahoo Finance (free, reliable data)
-  - Real-time options chains
-  - Greeks and implied volatility
-  - Volume and open interest
-
-## Configuration
-
-### Risk Management Parameters
-- `max_position_size`: Maximum position size in dollars
-- `max_drawdown`: Maximum allowed drawdown percentage
-- `risk_per_trade`: Maximum risk per trade percentage
-- `max_open_positions`: Maximum number of open positions
-- `max_daily_loss`: Maximum daily loss percentage
-- `volatility_threshold`: Volatility threshold for position sizing
-
-### Trading Parameters
-- `update_interval`: How often to update market data (default: 60 seconds)
-- `watchlist`: List of symbols to monitor
-
-## Project Structure
-
-```
-KryptoTheTradingBot/
-├── src/
-│   ├── core/
-│   │   ├── trading_bot.py
-│   │   ├── market_data.py
-│   │   └── risk_management.py
-│   ├── strategies/
-│   │   ├── base.py
-│   │   ├── stock.py
-│   │   └── options.py
-│   ├── integrations/
-│   │   └── alpaca.py
-│   └── main.py
-├── logs/
-├── data/
-├── requirements.txt
-└── README.md
-```
-
-## Contributing
+### Contributing
 
 1. Fork the repository
 2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
+3. Make your changes
+4. Run tests and linting
+5. Submit a pull request
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+MIT License
 
-## Disclaimer
+## Support
 
-This trading bot is for educational purposes only. Always do your own research and never risk more than you can afford to lose.
+For support, please open an issue on GitHub or contact the maintainers.
 # Last backup triggered: Sat Mar 15 12:35:27 EDT 2025

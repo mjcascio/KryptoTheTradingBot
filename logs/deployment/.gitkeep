@@ -1,0 +1,2 @@
+# This file ensures that the logs/deployment directory is tracked by git
+# The directory is used to store deployment logs from GitHub Actions 

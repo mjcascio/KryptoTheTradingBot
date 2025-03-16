@@ -1,0 +1,24 @@
+# KryptoBot CODEOWNERS file
+# This file defines who is responsible for code in the repository
+# See: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Default owners for everything
+* @mjcascio
+
+# Core trading engine
+/src/core/ @mjcascio
+
+# Options trading
+/options_trading.py @mjcascio
+/test_options_trading.py @mjcascio
+
+# CI/CD and GitHub workflows
+/.github/workflows/ @mjcascio
+
+# Security-related code
+/src/utils/secure_config.py @mjcascio
+/tests/test_security.py @mjcascio
+
+# Deployment safety
+/src/utils/deployment_safety.py @mjcascio
+/tests/test_deployment_safety.py @mjcascio 

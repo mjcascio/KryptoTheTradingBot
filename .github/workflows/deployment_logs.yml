@@ -1,0 +1,53 @@
+name: Deployment Logs
+
+on:
+  workflow_run:
+    workflows: ["CI/CD"]
+    types:
+      - completed
+
+jobs:
+  log-deployment:
+    runs-on: ubuntu-latest
+    if: github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main'
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+      
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+        
+    - name: Create deployment log
+      run: |
+        mkdir -p logs/deployment
+        TIMESTAMP=$(date +"%Y-%m-%d_%H-%M-%S")
+        LOG_FILE="logs/deployment/deployment_${TIMESTAMP}.log"
+        
+        echo "Deployment Log - ${TIMESTAMP}" > $LOG_FILE
+        echo "===========================" >> $LOG_FILE
+        echo "" >> $LOG_FILE
+        echo "Workflow: ${{ github.event.workflow_run.name }}" >> $LOG_FILE
+        echo "Workflow ID: ${{ github.event.workflow_run.id }}" >> $LOG_FILE
+        echo "Commit: ${{ github.event.workflow_run.head_sha }}" >> $LOG_FILE
+        echo "Branch: ${{ github.event.workflow_run.head_branch }}" >> $LOG_FILE
+        echo "Triggered by: ${{ github.event.workflow_run.actor.login }}" >> $LOG_FILE
+        echo "Status: ${{ github.event.workflow_run.conclusion }}" >> $LOG_FILE
+        echo "" >> $LOG_FILE
+        echo "Changes:" >> $LOG_FILE
+        git log -1 --pretty=format:"%s%n%n%b" ${{ github.event.workflow_run.head_sha }} >> $LOG_FILE
+        
+    - name: Commit deployment log
+      run: |
+        git config --local user.email "actions@github.com"
+        git config --local user.name "GitHub Actions"
+        git add logs/deployment/
+        git commit -m "docs: Add deployment log for workflow run ${{ github.event.workflow_run.id }}"
+        
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: ${{ github.ref }} 
